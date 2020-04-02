@@ -9,7 +9,7 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/home/phi.richter/TCWret/OUTFOLDER'
+PATH = '/home/phi.richter/TCWret_temp/OUTFOLDER'
 #PATH = '/home/philipp/TCWret/OUTFOLDER'
 
 
@@ -116,13 +116,13 @@ STDDEV = 0.0
 '''
 Possible values: %, ppmv, g/m3, g/kg
 '''
-HUMIDITY = 'g/kg'
+HUMIDITY = 'g/m3'
 
 
 '''
 Disturb the temperature, absolute value (K)
 '''
-DISTURB_TEMPERATURE = 0.0
+DISTURB_TEMPERATURE = 5.0
 
 '''
 Disturb the humidity relative to the value from the radiosonde
