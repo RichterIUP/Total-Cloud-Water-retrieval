@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH --job-name=TWCret
+#SBATCH -n 9
+#SBATCH -N 1
+#SBATCH -t 4320
+#SBATCH -p all
+#SBATCH --mem=9000
+#SBATCH --open-mode=append
+#SBATCH --mail-type=END
+#SBATCH --mail-user=phi.richter@iup.physik.uni-bremen.de
+module unuse /home/eb/modules/all
+module unuse /home/eb/modules/LAMOS
+module use /home/eb/modules/_legacy/all
+module load Python
+module load matplotlib
+module load netcdf4-python
+
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012090722_cld2_0006_ch2_singleLayer.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012090722_cld2_0007_ch2_singleLayer.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012090722_cld2_0008_ch2_singleLayer.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012091721_cld1_0001_ch2_singleLayer.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012091721_cld1_0002_ch2_singleLayer.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012091721_cld1_0003_ch2_singleLayer.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012091721_cld1_0004_ch2_singleLayer.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012091721_cld1_0005_ch2_singleLayer.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012091721_cld1_0006_ch2_singleLayer.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012091817_cld1_0001_ch2_singleLayer.nc TIR

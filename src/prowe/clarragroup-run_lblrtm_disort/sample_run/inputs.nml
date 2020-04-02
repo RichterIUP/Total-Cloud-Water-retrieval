@@ -1,0 +1,111 @@
+
+# Inputs:
+#   out_dir: Directory where output will be saved, string
+#   lblrtm_dir: Directory where LBLRTM is, string
+#   runlblrtm: Command for running LBLRTM, string
+#   prof_dir: Directory of profile file, string
+#   prof_file: File with profile, string
+#   od_file: Optical depth file, including directory (optional, to use existing or save), string     
+#   solar_source_fun_file: file name for solar source function, string
+#   surf_emiss_data_file: file name for surface emissivity data, string
+#   pmomfiles_liq0: file name of ssp parameters for liquid for first temp, string
+#   pmomfiles_liq1: file name of ssp parameters for liquid for second temp, string
+#   pmomfiles_liq2: etc (up to the number of temps provided in ssp_liq_temps), string
+#   pmomfiles_ice0: As above, for ice, string
+#   date_year_month_day: year, month, day, list of int
+#   time_hour_min_sec: hour, minute, second, list of int
+#   lat: latitude, float
+#   lon: longittude, float
+#   alt: altitude of observer in m, float
+#   view_angle: Instrument viewing angle (0=>zenith) in degrees, float
+#   cld_od_vis_liq: Optical depth (referenced to visible wavelenths) of liquid cloud, float
+#   cld_od_vis_ice: Optical depth (referenced to visible wavelenths) of ice cloud, float
+#   reff_wat: Effective radius of liquid droplets in micron, float
+#   reff_ice: Effective radius of ice droplets in micron, float
+#   cloudbase_liq: Base of liquid cloud in km, float
+#   cloudbase_ice: Base of ice cloud in km, float
+#   cloudtop_liq: Top of liquid cloud in km, float
+#   cloudtop_ice: Top of ice cloud in km, float
+#   bwn: Beginning wavenumber, float
+#   ewn: Ending wavenumber, float
+#   dnu: Spacing of wavenumbers, float
+#   npts_lores_ifgram: Number of points in measured interferogram, for resolution-matching
+#   npts_padded_ifgram: Number of points in measured interferogram after zero-padding, for resolution-matching
+#   liq_tdependence:  Handling of ssp temperature dependence for liquid, e.g. 'nearest' or 'interpolate'
+#   ice_tdependence: Handling of ssp temperature dependence for ice, e.g. 'nearest' or 'interpolate'
+#   ssp_liq_temps: temperatures corresponding to liquid ssp files (1 per file), list
+#   ssp_ice_temps: temperatures corresponding to ice ssp files (1 per file), list
+#   microwins: Beginning and ending wavenumbers for microwindows, list
+#              e.g. first microwindow low, first microwindow high,
+#                   second microwindow low, second microwindow high, etc
+#   sim_toa: Maximum altitude of simulation, int
+#   od_match: Option for resolution matching, string, e.g. 'lowResMicrowin'
+#   disort_nstr: Number of streams to use in DISORT, int
+#   disort_lamber: Boolean for lambertian for DISORT, 0 or 1
+#   save_od: Boolean for whether to save clear-sky optical depths to disk, 0 or 1
+#            If save_od = 1, the code will also look for and use the optical depth file if it already exists.
+#
+# Notes:
+#  1) Altitudes will be rounded to 3 decimal places due to LBLRTM precision.
+#  2) Include the observer altitude in the atmospheric profile for best 
+#     computational speed and accuracy. Otherwise the atmospheric profile
+#     will be interpolated to the observer altitude. 
+
+
+&inputs_nml
+   out_dir = '/home/philipp/TCWret/OUTFOLDER/'
+   prof_dir = '/home/philipp/TCWret/atmospheric_profiles/'
+   prof_file = 'prof20170611_1651.nc'
+   od_file = '/home/philipp/TCWret/OUTFOLDER/od.mat'       
+   lblrtm_dir = '/home/philipp/Seafile/PhD/L-IWP_bin/lblrtm/bin/bin/'
+   runlblrtm = 'lblrtm'
+   solar_source_fun_file = '/home/philipp/TCWret/src/prowe/clarragroup-run_lblrtm_disort/input_files/kurucz.dat'
+   surf_emiss_data_file = '/home/philipp/TCWret/src/prowe/clarragroup-run_lblrtm_disort/input_files/EmisIceSnow1.txt'
+   pmomfiles_liq0 = '/home/philipp/pmom/wat/pmom_water_T240_RFN_S331.nc'
+   pmomfiles_liq1 = '/home/philipp/pmom/wat/pmom_water_T253_RFN_S331.nc'
+   pmomfiles_liq2 = '/home/philipp/pmom/wat/pmom_water_T263_RFN_S331.nc'
+   pmomfiles_liq3 = '/home/philipp/pmom/wat/pmom_water_T273_RFN_S331.nc'
+   pmomfiles_liq4 = '/home/philipp/pmom/wat/pmom_water_T300_DW_S331.nc'
+   pmomfiles_ice0 = '/home/philipp/pmom/ice/pmom_ice_sphere_T266_Warren_S331.nc'
+   date_year_month_day = 2017, 6, 11
+   time_hour_min_sec = 14, 13, 0
+   lat = 81.83
+   lon = -11.19
+   alt = 20.
+   view_angle = 0.0
+   cld_od_vis_liq = 3.
+   cld_od_vis_ice = 1.
+   reff_wat = 10.
+   reff_ice = 30.
+   cloudbase_liq = 0.2
+   cloudbase_ice = 0.2
+   cloudtop_liq = 1.0
+   cloudtop_ice = 1.0
+   bwn = 500.046104877
+   ewn = 1399.98446716
+   dnu = 0.1205291748046875
+   npts_lores_ifgram = 23697
+   dnu_lores = 0.3333333333333333
+   npts_padded_ifgram = 65536
+   liq_tdependence = 'interpolate'
+   ice_tdependence = 'nearest'   
+   ssp_liq_temps = 240, 253, 263, 273, 300
+   ssp_ice_temps = 273
+   microwins =     558.0, 562.0, 
+   571.0, 574.0,
+   770.9,  774.8,  785.9, 790.7,
+   809.5,  813.5,  817.0, 823.5,
+   828.6,  834.6,  843.1, 848.1,
+   860.1,  864.0,  872.5, 877.5,
+   891.9,  895.8,  898.2, 904.8,
+   929.6,  939.7,  958.0, 964.3,
+   985.0,  991.5,  1076.6, 1084.8,
+   1092.2, 1098.1, 1113.6, 1116.6,
+   1124.4, 1132.6, 1142.2, 1148.0,
+   1155.2, 1163.4
+   od_match = 'lowResMicrowin'
+   disort_nstr = 16
+   disort_lamber = 1
+   save_od = 1
+   z_trop = 2
+/

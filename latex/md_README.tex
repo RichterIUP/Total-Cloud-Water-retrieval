@@ -1,0 +1,124 @@
+\subsection*{1. Download source codes\+:}
+
+
+\begin{DoxyItemize}
+\item \href{http://rtweb.aer.com/lblrtm.html}{\tt L\+B\+L\+R\+TM}
+\item \href{https://www.nssl.noaa.gov/users/dturner/public_html/lbldis/index.html}{\tt D\+I\+S\+O\+RT (L\+B\+L\+D\+IS)}
+\item L-\/\+I\+WP\+: git clone \href{https://github.com/RichterIUP/L-IWP.git}{\tt https\+://github.\+com/\+Richter\+I\+U\+P/\+L-\/\+I\+W\+P.\+git}
+\end{DoxyItemize}
+
+\subsection*{2. L\+B\+L\+R\+TM\+:}
+
+
+\begin{DoxyItemize}
+\item Extract the source code\+: 
+\begin{DoxyCode}
+> tar -xzvf aer\_lblrtm\_v12.8.tar.gz
+\end{DoxyCode}
+
+\end{DoxyItemize}
+
+L\+B\+L\+R\+TM requires a spectroscopic database. There are two ways to deal with this\+:
+
+2.\+1 Set up the database on your own. To do so, one needs to extract L\+N\+FL and the H\+I\+T\+R\+AN database. Next, lnfl needs to be compiled and then the database can be created 
+\begin{DoxyCode}
+> tar -xzvf lnfl\_v3.1.tar.gz
+> tar -xzvf aer\_v\_3.6.tar.gz 
+> make -f make\_lnfl linuxGNUsgl
+> cd ../../aer\_v\_3.6/line\_file
+> ../../lnfl/lnfl\_v3.1\_linux\_gnu\_sgl
+\end{DoxyCode}
+
+
+2.\+2 Use the file T\+A\+P\+E3.\+10-\/3500cm-\/1.\+first\+\_\+7\+\_\+molecules
+
+
+\begin{DoxyItemize}
+\item Create lblrtm/hitran and place the following files\+: 
+\begin{DoxyCode}
+> ln -s path/to/TAPE3/file/TAPE3.10-3500.cm-1.first\_7\_molecules ./tape3.data
+> ln -s ../run\_examples/xs\_files/xs ./xs
+> ln -s ../run\_examples/xs\_files/xs ./x
+> ln -s ../run\_examples/xs\_files/FSCDXS ./FSCDXS
+\end{DoxyCode}
+
+\item Compile L\+B\+L\+R\+TM 
+\begin{DoxyCode}
+> cd lblrtm/build
+> make -f make\_lblrtm linuxGNUsgl
+\end{DoxyCode}
+ Maybe there could be some errors. Then you should fix the bugs. First bug seems to be in lblatm.\+f90, line 7967. Insert a whitespace between S\+T\+OP and the string.
+\item Create the folder lblrtm/bin and link the binary 
+\begin{DoxyCode}
+> mkdir lblrtm/bin
+> ln -s ../lblrtm\_v12.8\_linux\_gnu\_sgl ./lblrtm
+\end{DoxyCode}
+
+\end{DoxyItemize}
+
+\subsection*{3. L\+B\+L\+D\+IS\+:}
+
+
+\begin{DoxyItemize}
+\item Create folder lbldis and copy the archive into it. Extract the archive\+: 
+\begin{DoxyCode}
+> mkdir lbldis
+> cd lbldis
+> tar -xvf lbldis.Release\_3\_0.tar 
+> chmod +w *
+\end{DoxyCode}
+
+\item By default, L\+B\+L\+D\+IS wants to be compiled using I\+F\+O\+RT. If you want to use G\+F\+O\+R\+T\+R\+AN, then change following lines in Makefile\+: 
+\begin{DoxyCode}
+- Line 20: Change ifort to gfortran
+- Line 26: Remove -nofor\_main
+- Line 120 and 129: Change -r8 to -fdefault-real-8 -fdefault-double-8
+\end{DoxyCode}
+
+\item Compile the source 
+\begin{DoxyCode}
+> make
+\end{DoxyCode}
+
+\end{DoxyItemize}
+
+\subsection*{4. L-\/\+I\+WP\+:}
+
+
+\begin{DoxyItemize}
+\item Set the paths in inp.\+py\+: 
+\begin{DoxyCode}
+path = path/to/retrieval/output
+outfolder = path/to/results/output
+exec\_lbldis = '(path/to/lbldis/binary \{\}/.lbldis\_\{\}.parm 0 \{\}) >& \{\}\(\backslash\)n'
+path\_to\_lblrtm = 'path/to/lblrtm/main/folder' (not to the bin-folder!)
+\end{DoxyCode}
+
+\end{DoxyItemize}
+
+\subsection*{5. Create virtual environment for Python 3}
+
+If you don\textquotesingle{}t want to \textquotesingle{}contaminate\textquotesingle{} your local Python, you can create a virtual environment
+
+
+\begin{DoxyCode}
+> sudo apt-get install python3-venv
+> python3 -m venv path/to/python/virtenv
+> source path/to/python/virtenv/bin/activate
+> path/to/python/virtenv/bin/pip3 install numpy
+> path/to/python/virtenv/bin/pip3 install scipy
+> path/to/python/virtenv/bin/pip3 install matplotlib
+> path/to/python/virtenv/bin/pip3 install netcdf4
+\end{DoxyCode}
+
+
+\subsection*{6. Test installation\+:}
+
+
+\begin{DoxyItemize}
+\item Go to L-\/\+I\+WP and run liwp\+\_\+main.\+py 
+\begin{DoxyCode}
+path/to/python/virtenv/bin/python3 liwp\_main.py 
+\end{DoxyCode}
+ 
+\end{DoxyItemize}

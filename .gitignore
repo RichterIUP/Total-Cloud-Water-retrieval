@@ -1,0 +1,4 @@
+*.pyc
+*~
+OUTFOLDER
+slurm*

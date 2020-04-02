@@ -1,0 +1,168 @@
+#!/usr/bin/python3
+'''@package docstring
+Write the results to a netCDF file
+'''
+
+import os
+import sys
+sys.path.append("./src")
+
+import scipy.io as sio
+import numpy as np
+import inp
+import aux2 as aux
+
+
+def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1):
+    '''
+    Create the netCDF file
+    
+    @param chi2 Cost function
+    @param avk_matrix Averaging kernel matrix
+    @param errors Standard deviations of MCP
+    '''
+    if not os.path.exists("RESULTS"):
+        os.mkdir("RESULTS")
+        
+    nc_fname = "RESULTS/results_{}.nc".format(aux.FTIR.split("/")[-1])
+    with sio.netcdf_file(nc_fname, "w") as outfile:
+        outfile.createDimension("const", 1)
+        outfile.createDimension("num_of_clouds", len(aux.CLOUD_BASE))
+        outfile.createDimension("mcp", 4)
+        outfile.createDimension("mcp_err", 2)
+        outfile.createDimension("level", len(aux.ATMOSPHERIC_GRID[0]))
+        outfile.createDimension("wavenumber", len(aux.WAVENUMBER_FTIR))
+        
+        conv = outfile.createVariable("conv", "i", ("const", ))
+        conv.units = "1"
+        lat = outfile.createVariable("lat", "f8", ("const", ))
+        lat.units = "deg"
+        lon = outfile.createVariable("lon", "f8", ("const", ))
+        lon.units = "deg"
+        #time = outfile.createVariable("time", "f8", ("const", ))
+        #time.units = "dec"
+        ctemp = outfile.createVariable("av_ctemp", "f8", ("const", ))
+        ctemp.unit = "K"
+        
+        specname = outfile.createVariable("specname", "S1", ("const", ))
+        specname.units = "Name"
+        num = outfile.createVariable("numclouds", "f8", ("const", ))
+        num.units = "1"
+        cbh = outfile.createVariable("cloud_base", "f8", ("num_of_clouds", ))
+        cbh.units = "m"
+        cth = outfile.createVariable("cloud_top", "f8", ("num_of_clouds", ))
+        cth.units = "m"
+        clevel = outfile.createVariable("clevel", "f8", ("const", ))
+        clevel.units = "1"
+        sza = outfile.createVariable("sza", "f8", ("const", ))
+        sza.units = "deg"
+    
+        pres = outfile.createVariable("P", "f8", ("level", ))
+        pres.units = "hPa"
+        temp = outfile.createVariable("T", "f8", ("level", ))
+        temp.units = "K"
+        humd = outfile.createVariable("humidity", "f8", ("level", ))
+        humd.units = inp.HUMIDITY
+        alt = outfile.createVariable("z", "f8", ("level", ))
+        alt.units = "km"
+        pwv = outfile.createVariable("pwv", "f8", ("level", ))
+        pwv.units = "cm"
+    
+        wavenumber = outfile.createVariable("wavenumber", "f8", ("wavenumber",))
+        wavenumber.units = "cm-1"
+        ftir_radiance = outfile.createVariable("ftir radiance", "f8", ("wavenumber", ))
+        ftir_radiance.units = "mW * (sr*cm-1*m2)**(-1)"
+        lbldis_radiance = outfile.createVariable("lbldis radiance", "f8", ("wavenumber", ))
+        lbldis_radiance.units = "mW * (sr*cm-1*m2)**(-1)"
+        residuum = outfile.createVariable("residuum", "f8", ("wavenumber", ))
+        residuum.units = "mW * (sr*cm-1*m2)**(-1)"
+        rms = outfile.createVariable("Root-Mean-Square", "f8", ("const", ))
+        rms.units = "mW * (sr*cm-1*m2)**(-1)"
+        
+        chi2 = outfile.createVariable("cost function", "f8", ("const", ))
+        chi2.units = "1"
+        
+        avk = outfile.createVariable("averaging kernel matrix", "f8", ("mcp", "mcp"))
+        avk.units = "1"
+    
+        tt = outfile.createVariable("tt", "f8", ("const", ))
+        tt.units = "1"
+        fi = outfile.createVariable("fi", "f8", ("const", ))
+        fi.units = "1"
+        rl = outfile.createVariable("rl", "f8", ("const", ))
+        rl.units = "um"
+        ri = outfile.createVariable("ri", "f8", ("const", ))
+        ri.units = "um"
+        iwp = outfile.createVariable("iwp", "f8", ("const", ))
+        iwp.units = "g/m2"
+        lwp = outfile.createVariable("lwp", "f8", ("const", ))
+        lwp.units = "g/m2"
+        twp = outfile.createVariable("twp", "f8", ("const", ))
+        twp.units = "g/m2"
+        
+        dtt = outfile.createVariable("dtt", "f8", ("const", ))
+        dtt.units = "1"
+        dfi = outfile.createVariable("dfi", "f8", ("const", ))
+        dfi.units = "1"
+        drl = outfile.createVariable("drl", "f8", ("const", ))
+        drl.units = "um"
+        dri = outfile.createVariable("dri", "f8", ("const", ))
+        dri.units = "um"
+        diwp = outfile.createVariable("diwp", "f8", ("const", ))
+        diwp.units = "g/m2"
+        dlwp = outfile.createVariable("dlwp", "f8", ("const", ))
+        dlwp.units = "g/m2"
+        dtwp = outfile.createVariable("dtwp", "f8", ("const", ))
+        dtwp.units = "g/m2"
+    
+        '''
+        Write data
+        '''
+
+        conv[:] = nc
+        specname[:] = aux.FTIR.split("/")[-1]
+        wavenumber[:] = aux.WAVENUMBER_FTIR[:]
+        ftir_radiance[:] = aux.RADIANCE_FTIR[:]
+        lbldis_radiance[:] = aux.RADIANCE_LBLDIS[0][-1][:]
+        residuum[:] = list(aux.RESIDUUM[-1]) 
+        rms[:] = np.sqrt(np.mean(np.array(aux.RESIDUUM[-1])**2))
+        cbh[:] = aux.CLOUD_BASE[:]
+        cth[:] = aux.CLOUD_TOP[:]
+        num[:] = len(aux.CLOUD_BASE[:])
+        clevel[:] = len(aux.CLOUD_LAYERS)
+        lat[:] = aux.LAT
+        lon[:] = aux.LON
+        sza[:] = aux.SOLAR_ZENITH_ANGLE
+        ctemp[:] = aux.CLOUD_TEMP
+        pwv[:] = aux.PRECIPITABLE_WATER_VAPOUR
+        pres[:] = aux.ATMOSPHERIC_GRID[0][:]
+        alt[:] = aux.ATMOSPHERIC_GRID[1][:]
+        temp[:] = aux.ATMOSPHERIC_GRID[2][:]
+        humd[:] = aux.ATMOSPHERIC_GRID[3][:]
+        
+        chi2[:] = chi_2
+        if type(avk_matrix) != type(None):
+            avk[:] = avk_matrix[:]
+        
+        tt[:] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1])
+        fi[:] = np.float_(aux.ICE_FRACTION[-1])
+        rl[:] = np.float_(aux.RADIUS_LIQUID[-1])
+        ri[:] = np.float_(aux.RADIUS_ICE[-1])
+        
+        if type(errors) != type(None):
+            dtt[:] = np.float_(errors[0])
+
+            dfi[:] = np.float_(errors[1])
+
+            drl[:] = np.float_(errors[2])
+
+            dri[:] = np.float_(errors[3])
+
+            lwp[:] = np.float_(errors[4])
+            dlwp[:] = np.float_(errors[5])
+            iwp[:] = np.float_(errors[6])
+            diwp[:] = np.float_(errors[7])
+            twp[:] = np.float_(errors[4])+np.float_(errors[6])
+            dtwp[:] = np.float_(errors[5])+np.float_(errors[7])    
+        
+    return

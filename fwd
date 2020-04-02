@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --job-name=TWCret
+#SBATCH -n 9
+#SBATCH -N 1
+#SBATCH -t 4320
+#SBATCH -p all
+#SBATCH --mem=9000
+#SBATCH --open-mode=append
+#SBATCH --mail-type=END
+#SBATCH --mail-user=phi.richter@iup.physik.uni-bremen.de
+module unuse /home/eb/modules/all
+module unuse /home/eb/modules/LAMOS
+module use /home/eb/modules/_legacy/all
+module load Python
+module load matplotlib
+module load netcdf4-python
+
+python3 TCWret.py /home/phi.richter/Emission_Data/PS.20170611_101300.nc TIR 6.58 0.38 8.92 32.48
+python3 TCWret.py /home/phi.richter/Emission_Data/PS.20170611_230800.nc TIR 0.44 0.71 8.00 23.54

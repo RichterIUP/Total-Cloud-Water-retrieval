@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH --job-name=TWCret
+#SBATCH -n 9
+#SBATCH -N 1
+#SBATCH -t 4320
+#SBATCH -p all
+#SBATCH --mem=9000
+#SBATCH --open-mode=append
+#SBATCH --mail-type=END
+#SBATCH --mail-user=phi.richter@iup.physik.uni-bremen.de
+module unuse /home/eb/modules/all
+module unuse /home/eb/modules/LAMOS
+module use /home/eb/modules/_legacy/all
+module load Python
+module load matplotlib
+module load netcdf4-python
+
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012012006_cld1_0002_ch2_R000HBR.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012012006_cld1_0002_ch2_R000P.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012012006_cld1_0002_ch2_R000SC.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012012006_cld1_0002_ch2_R050P.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012012006_cld1_0002_ch2_R050SC.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0002_ch2_R000HBR.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0002_ch2_R000P.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0002_ch2_R000SC.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0002_ch2_R050P.nc TIR
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0002_ch2_R050SC.nc TIR
