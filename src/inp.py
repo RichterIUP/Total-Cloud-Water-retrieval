@@ -122,7 +122,7 @@ HUMIDITY = 'g/m3'
 '''
 Disturb the temperature, absolute value (K)
 '''
-DISTURB_TEMPERATURE = 5.0
+DISTURB_TEMPERATURE = 0.0
 
 '''
 Disturb the humidity relative to the value from the radiosonde
@@ -132,7 +132,7 @@ DISTURB_HUMIDITY = 0.0
 '''
 Add a bias to the spectrum (mW/[sr * m2 * cm-1])
 '''
-BIAS = 0.0
+BIAS = 2.0
 
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
