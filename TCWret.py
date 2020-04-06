@@ -184,6 +184,6 @@ if len(sys.argv) < 4:
 '''
 Start the retrieval with high resolution
 '''    
-subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_retrieval), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
+subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "0", str(resolution_retrieval), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
 #os.system("mv {}/{} /home/phi.richter/OUTFOLDER_slayer/{}".format(path, spectrum.split("/")[-1], spectrum.split("/")[-1]))
-#shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
+shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
