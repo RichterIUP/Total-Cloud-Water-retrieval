@@ -132,12 +132,14 @@ def read_testcase(fname):
         if inp.TESTCASE and "multiLayer" not in fname:
             aux.CLOUD_BASE = aux.CLOUD_TOP 
             
+        inp.HUMIDITY = 'g/kg'
+
         altitude = np.array(dataset.variables['prof_hts'][:])#m
         pressure = np.array(dataset.variables['prof_pres'][:])#hPa
         temperature = np.array(dataset.variables['prof_temp'][:])+inp.DISTURB_TEMPERATURE#K
-        humidity = np.array(dataset.variables['prof_rh'][:])+inp.DISTURB_HUMIDITY*np.array(dataset.variables['prof_rh'][:])
+        humidity = np.array(dataset.variables['prof_rh'][:])
         humidity = convert_humidity.convert(["-r", humidity], ["-tk", temperature], ["-p", pressure])[1]*1000.0
-        aux.ATMOSPHERIC_GRID = [pressure, altitude, temperature, humidity]
+        aux.ATMOSPHERIC_GRID = [pressure, altitude, temperature, humidity+inp.DISTURB_HUMIDITY*humidity]
         aux.CO2_PROFILE = np.interp(altitude, ALT_GRID, CO2_PROFILE)
         aux.O3_PROFILE = np.interp(altitude, ALT_GRID, O3_PROFILE)
     return
@@ -236,10 +238,10 @@ def read_input(fname):
     if len(altitude) > 70:
         pressure = np.interp(RED_ALT, altitude, pressure_pre_int)
         temperature = np.interp(RED_ALT, altitude, temperature_pre_int+inp.DISTURB_TEMPERATURE)
-        humidity = np.interp(RED_ALT, altitude, humidity_pre_int+inp.DISTURB_HUMIDITY*humidity_pre_int)
+        humidity = np.interp(RED_ALT, altitude, humidity_pre_int)
         altitude = RED_ALT
 
-    aux.ATMOSPHERIC_GRID = [pressure, altitude, temperature, humidity]
+    aux.ATMOSPHERIC_GRID = [pressure, altitude, temperature, humidity+inp.DISTURB_HUMIDITY*humidity]
     aux.CO2_PROFILE = np.array(dataset.variables['co2'][:])
     aux.O3_PROFILE = np.array(dataset.variables['o3'][:])
     dataset.close()

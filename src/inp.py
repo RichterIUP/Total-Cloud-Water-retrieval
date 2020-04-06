@@ -116,7 +116,7 @@ STDDEV = 0.0
 '''
 Possible values: %, ppmv, g/m3, g/kg
 '''
-HUMIDITY = 'g/m3'
+HUMIDITY = 'g/kg'
 
 
 '''
@@ -127,12 +127,12 @@ DISTURB_TEMPERATURE = 0.0
 '''
 Disturb the humidity relative to the value from the radiosonde
 '''
-DISTURB_HUMIDITY = 0.0
+DISTURB_HUMIDITY = -0.2
 
 '''
 Add an offset to the spectrum (mW/[sr * m2 * cm-1])
 '''
-OFFSET = -2.0
+OFFSET = 0.0
 
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
