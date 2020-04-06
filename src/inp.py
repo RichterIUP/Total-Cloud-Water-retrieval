@@ -9,7 +9,7 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/home/phi.richter/TCWret_temp/OUTFOLDER'
+PATH = '/home/phi.richter/TCWret/OUTFOLDER'
 #PATH = '/home/philipp/TCWret/OUTFOLDER'
 
 
@@ -94,7 +94,7 @@ NUM_OF_CPU = 9
 If the present spectrum is a testcase of Cox et al. (2016), then this should
 be true. This modifies the cloud boundaries and allows to add noise manually
 '''
-TESTCASE = False
+TESTCASE = True
 
 '''
 Convergence criterion due to Rodgers (2000):
@@ -130,9 +130,9 @@ Disturb the humidity relative to the value from the radiosonde
 DISTURB_HUMIDITY = 0.0
 
 '''
-Add a bias to the spectrum (mW/[sr * m2 * cm-1])
+Add an offset to the spectrum (mW/[sr * m2 * cm-1])
 '''
-BIAS = 2.0
+OFFSET = -2.0
 
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice

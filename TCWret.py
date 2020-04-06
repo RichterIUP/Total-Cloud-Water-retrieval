@@ -33,7 +33,7 @@ chi_prev=1e30
 NOW = dt.datetime.now()
 directory = "{}_{}_{}_{}_{}_{}".format(NOW.month, NOW.day, \
       NOW.hour, NOW.minute, NOW.second, NOW.microsecond)
-path = "/home/phi.richter/TCWret_temp/OUTFOLDER"
+path = "/home/phi.richter/TCWret/OUTFOLDER"
 
 resolution_only_od   = 2.0
 resolution_retrieval = -0.5

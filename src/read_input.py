@@ -100,9 +100,9 @@ def read_testcase(fname):
         aux.LON = dataset.variables['lon'][0]
         aux.SOLAR_ZENITH_ANGLE = dataset.variables['sza'][0]
         if aux.SOLAR_ZENITH_ANGLE > 90.0:
-            aux.SOLAR_ZENITH_ANGLE = -1.0
+            aux.SOLAR_ZENITH_ANGLE = -1.0In Sachen Werder verwies Innensenator Ulrich Mäurer (SPD) am Freitag auf die Konferenz der Länder-Ministerpräsidenten und der Kanzlerin, "die mit dem klaren Votum endete: "Wir halten den Ball flach". Er kritisierte die Deutsche Fußball Liga (DFL) für die implizite Empfehlung, das Training am 6. April wieder aufzunehmen - falls die Behörden mitspielen. "Das ist kein wirklich gutes Signal an die Republik", sagte Mäurer.
         aux.WAVENUMBER_FTIR = np.array(dataset.variables['nu_cld'][:])
-        aux.RADIANCE_FTIR = np.array(dataset.variables['rad_cld_down'][:])
+        aux.RADIANCE_FTIR = np.array(dataset.variables['rad_cld_down'][:])+inp.OFFSET
         #plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR)
         #plt.show()
         aux.NOISE_FTIR = np.array([0.0 for ii in range(len(aux.RADIANCE_FTIR))])
@@ -166,7 +166,7 @@ def read_input(fname):
     #aux.SOLAR_ZENITH_ANGLE = float(90) - float(cont[4].split(":")[-1])
     aux.SOLAR_ZENITH_ANGLE = 61.01#dataset.variables['sza'][0]
     aux.WAVENUMBER_FTIR = np.array(dataset.variables['wavenumber'][:])
-    aux.RADIANCE_FTIR = np.array(dataset.variables['radiance'][:])
+    aux.RADIANCE_FTIR = np.array(dataset.variables['radiance'][:])+inp.OFFSET
     aux.NOISE_FTIR = np.array(dataset.variables['stdDev'][:])
 
     '''
