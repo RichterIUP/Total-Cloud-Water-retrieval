@@ -175,18 +175,18 @@ def __set_up_retrieval():
     '''
     If the current spectrum is a testcase, convolve is with a boxcar
     ''' 
-    #if inp.TESTCASE and inp.CONVOLVE and inp.RESOLUTION < 1.0 and not inp.SEARCH_INIT:
-    #    ft_boxcar = lambda xx: 2 * (inp.OPD) * np.sinc(2 * (inp.OPD) * xx)
-    #    radiance = np.array(aux.RADIANCE_FTIR)
-    #    wavenumber = np.array(aux.WAVENUMBER_FTIR)
-    #    x_axis = np.array([loop_count for \
-    #                       loop_count in range(len(wavenumber))])
-    #    convolution = sig.convolve(radiance, \
-    #                               ft_boxcar(x_axis), mode='full')
-    #    convolution = np.array(convolution[:len(radiance)])
-    #    normalisation = max(radiance)/max(convolution)
-    #    radiance = normalisation * convolution
-    #    aux.RADIANCE_FTIR = radiance
+    if inp.TESTCASE and inp.CONVOLVE:
+        ft_boxcar = lambda xx: 2 * (inp.OPD) * np.sinc(2 * (inp.OPD) * xx)
+        radiance = np.array(aux.RADIANCE_FTIR)
+        wavenumber = np.array(aux.WAVENUMBER_FTIR)
+        x_axis = np.array([loop_count for \
+                           loop_count in range(len(wavenumber))])
+        convolution = sig.convolve(radiance, \
+                                   ft_boxcar(x_axis), mode='full')
+        convolution = np.array(convolution[:len(radiance)])
+        normalisation = max(radiance)/max(convolution)
+        radiance = normalisation * convolution
+        aux.RADIANCE_FTIR = radiance
 
     '''
     Calculate the clear sky spectrum

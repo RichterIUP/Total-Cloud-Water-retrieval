@@ -283,7 +283,7 @@ class LBLDIS:
         '''
         Convolve the radiances with a boxcar function
         '''
-        if inp.CONVOLVE and inp.RESOLUTION < 2.0:
+        if inp.CONVOLVE:
             ft_boxcar = lambda xx: 2 * (inp.OPD) * np.sinc(2 * (inp.OPD) * xx)
             radiance = np.array(radiance)
             wavenumber = np.array(wavenumber)
