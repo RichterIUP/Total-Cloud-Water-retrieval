@@ -127,7 +127,7 @@ DISTURB_TEMPERATURE = 0.0
 '''
 Disturb the humidity relative to the value from the radiosonde
 '''
-DISTURB_HUMIDITY = -0.2
+DISTURB_HUMIDITY = 0.0
 
 '''
 Add an offset to the spectrum (mW/[sr * m2 * cm-1])
