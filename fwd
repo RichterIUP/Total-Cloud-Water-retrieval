@@ -15,5 +15,7 @@ module load Python
 module load matplotlib
 module load netcdf4-python
 
-python3 TCWret.py /home/phi.richter/Emission_Data/PS.20170611_101300.nc TIR 6.58 0.38 8.92 32.48
-python3 TCWret.py /home/phi.richter/Emission_Data/PS.20170611_230800.nc TIR 0.44 0.71 8.00 23.54
+#python3 TCWret.py /home/phi.richter/Emission_Data/PS.20170611_101300.nc TIR 6.58 0.38 8.92 32.48
+python3 TCWret.py /home/phi.richter/Emission_Data/PS.20170611_230800.nc TIR 0.5 1.0 7.0 20.0
+python3 TCWret.py /home/phi.richter/Emission_Data/PS.20170611_230800.nc TIR 0.5 1.0 7.0 40.0
+python3 TCWret.py /home/phi.richter/Emission_Data/PS.20170611_230800.nc TIR 0.5 1.0 7.0 60.0
