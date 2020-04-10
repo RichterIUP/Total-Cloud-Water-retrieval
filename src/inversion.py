@@ -113,7 +113,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
             #s_n = delta[0]
             #t_matrix_new = delta[1]
             #cov_matrix = delta[2]
-            alpha /= 2.0
+            ALPHA /= 2.0
             this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + ALPHA*s_n[0])
             this_fi = np.float_(aux.ICE_FRACTION[-1] + ALPHA*s_n[1])
             this_rl = np.float_(aux.RADIUS_LIQUID[-1] + ALPHA*s_n[2])
