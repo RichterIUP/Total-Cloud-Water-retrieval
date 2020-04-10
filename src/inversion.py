@@ -145,6 +145,9 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     aux.RADIUS_LIQUID.append(this_rl)
     aux.RADIUS_ICE.append(this_ri)
     aux.T_MATRIX.append(t_matrix_new)
+    
+    rms = np.sqrt(np.mean(np.array(aux.RESIDUUM[-1])**2))
+    log.write("# Root-Mean-Squared Error = {}".format(rms))
 
     return [lm_param, cov_matrix, s_n, t_matrix_new]
     '''
@@ -236,8 +239,10 @@ def __convergence(lm_param, loop_count, conv_test):
     @returns True if converged, the final MCP and the final cost function
     '''
         
-    if loop_count != 0 or aux.MAX_ITER == 1:                            
+    if loop_count != 0 or aux.MAX_ITER == 1:     
         condition = conv_test < inp.CONVERGENCE# and conv_test > 0.0 and loop_count > 15
+        log.write("{} < {}? {}\n".format(conv_test, inp.CONVERGENCE, condition))                       
+
         if loop_count != 0 and condition or loop_count == aux.MAX_ITER-1:
 
             mcp = [np.float_(aux.TOTAL_OPTICAL_DEPTH[-1]), np.float_(aux.ICE_FRACTION[-1]), \
@@ -275,8 +280,8 @@ def __convergence(lm_param, loop_count, conv_test):
                     create_nc.create_nc(chi_2=aux.CHI2[-1], avk_matrix=averaging_kernel, errors=errors)
 
             
-            return [True, errors]
-    return [False, False]
+            return True
+    return False
 
 ################################################################################
 
@@ -529,12 +534,9 @@ def retrieve():
     @return True if converged and the final cost function
     '''
 
-    log.write("# In retrieve()")
     __set_up_retrieval()
-    log.write("# After __set_up_retrieval()")
     conv_test = 1000.0
     [lm_param, lm_param_prev] = __initialise_variables()
-    log.write("# After __initialise_variables()")
     cov_matrix = None
     s_n = [0.0, 0.0, 0.0, 0.0]
     #alpha = 1.0
@@ -557,6 +559,8 @@ def retrieve():
 
         conv_test = __conv_diagnostics(cov_matrix)
         converged = __convergence(lm_param*10, retr_loop, conv_test)
+        if converged:
+            return
         
         log.write("# Convergence criterion (must be < {} at lm < {}): {}\n".format(inp.CONVERGENCE, 0.001, conv_test))
         
