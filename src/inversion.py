@@ -123,6 +123,9 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     '''
     Fuege die neuen Parameter in die Listen ein
     '''
+    
+    log.write("# x_prev = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
+    log.write("# s_n = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(np.float_(s_n[0]), np.float_(s_n[1]), np.float_(s_n[2]), np.float_(s_n[3])))
     aux.TOTAL_OPTICAL_DEPTH.append(this_tt)
     aux.ICE_FRACTION.append(this_fi)
     aux.RADIUS_LIQUID.append(this_rl)
@@ -229,8 +232,8 @@ def __convergence(lm_param, loop_count, conv_test):
         
     global ALPHA
     if loop_count != 0 or aux.MAX_ITER == 1:     
-        condition = conv_test < inp.CONVERGENCE and ALPHA == 1.0# and conv_test > 0.0 and loop_count > 15
-        log.write("{} < {}? {}\n".format(conv_test, inp.CONVERGENCE, conv_test < inp.CONVERGENCE))                       
+        condition = conv_test < inp.CONVERGENCE and ALPHA == 1.0
+        log.write("{} < {}? {} {}\n".format(conv_test, inp.CONVERGENCE, conv_test < inp.CONVERGENCE, condition))                       
 
         if loop_count != 0 and condition or loop_count == aux.MAX_ITER-1:
 
