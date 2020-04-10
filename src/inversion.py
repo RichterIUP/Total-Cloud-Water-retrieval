@@ -67,7 +67,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         aux.RESIDUUM.append(residuum)
         if lm_param > inp.LM_MIN or conv_test < 1.0:
             lm_param = lm_param / 10.0
-    elif chi2 > aux.CHI[-1]:
+    elif chi2 > aux.CHI2[-1]:
         aux.CHI2.append(aux.CHI2[-1])
         aux.RESIDUUM.append(aux.RESIDUUM[-1])
         for num_iter in range(9):
@@ -105,19 +105,22 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     '''
     while this_tt < 0.0 or this_fi < 0.0 or this_fi > 1.0 or this_rl < 0.0 or \
         this_ri < 0.0:
-            #lm_param = lm_param * 20.0
-            #delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
-            #s_n = delta[0]
-            #t_matrix_new = delta[1]
-            #cov_matrix = delta[2]
-            alpha /= 2.0
+            lm_param = lm_param * 20.0
+            delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
+            s_n = delta[0]
+            t_matrix_new = delta[1]
+            cov_matrix = delta[2]
+            alpha=1.0#alpha /= 2.0
             this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + alpha*s_n[0])
             this_fi = np.float_(aux.ICE_FRACTION[-1] + alpha*s_n[1])
             this_rl = np.float_(aux.RADIUS_LIQUID[-1] + alpha*s_n[2])
             this_ri = np.float_(aux.RADIUS_ICE[-1] + alpha*s_n[3])
             log.write("# x_n = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(this_tt, this_fi, this_rl, this_ri))
 
-            
+    '''
+    Falls einer der Effektivradien kleiner als 0 ist oder die Ice Fraction nicht zwischen 0 und 1 ist,
+    berechne r_total = f_i * r_i * (1-f_i)*rl, setze die Ice Fraction und setze r_l=r_total bzw
+    r_i=r_total 
     '''
     Fuege die neuen Parameter in die Listen ein
     '''
