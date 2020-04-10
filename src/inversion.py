@@ -203,8 +203,15 @@ def __set_up_retrieval():
     '''
     Calculate the noise and the S_y matrix
     '''
+    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR)
+    [aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR] = aux.average()
+    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR, ".")
+    plt.grid(True)
+    plt.savefig("averaged.png")
+    exit(-1)
     [variance_ra, aux.S_Y_INV_MATRIX] = aux.calc_noise()
 
+    
     log.log_pre_iter(variance_ra)
     return
 

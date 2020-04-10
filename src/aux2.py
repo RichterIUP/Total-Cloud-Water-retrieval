@@ -287,7 +287,38 @@ def __redefine_microwindows():
             inp.WINDOWS.append(diff[loop][-2])
 
     return
+    
 ####################################################################################
+
+def average(wavenumber, radiance):
+    windows = inp.WINDOWS
+    
+    num_of_lines = len(wavenumber)
+    '''
+    Remove microwindows with no datapoints
+    '''
+    
+    new_radiance = []
+    new_wavenumber = []
+    '''
+    Remove all datapoints outside the microwindows
+    '''
+    for loop in range(num_of_lines):
+        dummy_wn = []
+        dummy_ra = []
+        for win in inp.WINDOWS:
+            if in_windows(wavenumber[loop], [win]):
+                dummy_wn.append(wavenumber[loop])
+                dummy_ra.append(radiance[loop])
+        new_radiance.append(np.mean(dummy_ra))
+        new_wavenumber.append(np.mean(dummy_wn))
+        
+    return [np.array(new_wavenumber), np.array(new_radiance)]
+        
+    
+
+####################################################################################
+
 
 def calc_noise():
     '''
