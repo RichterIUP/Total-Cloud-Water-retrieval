@@ -150,7 +150,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     log.write("# Root-Mean-Squared Error = {}".format(rms))
     plt.plot(aux.RESIDUUM[-1])
     plt.grid(True)
-    plt.savefig("{}/residuum_{}.png".format(loop_count))
+    plt.savefig("{}/residuum_{}.png".format(inp.PATH, loop_count))
     plt.close()
     plt.clf()
 
