@@ -106,35 +106,35 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     als 1 ist, verwerfe diese Parameter und erhoehe den Levenberg-Marquardt-
     Parameter und bestimme erneut das delta
     '''
-    #while this_tt < 0.0 or this_fi < 0.0 or this_fi > 1.0 or this_rl < 0.0 or \
-    #    this_ri < 0.0:
-    #        #lm_param = lm_param * 20.0
-    #        #delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
-    #        #s_n = delta[0]
-    #        #t_matrix_new = delta[1]
-    #        #cov_matrix = delta[2]
-    #        alpha /= 2.0
-    #        this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + alpha*s_n[0])
-    #        this_fi = np.float_(aux.ICE_FRACTION[-1] + alpha*s_n[1])
-    #        this_rl = np.float_(aux.RADIUS_LIQUID[-1] + alpha*s_n[2])
-    #        this_ri = np.float_(aux.RADIUS_ICE[-1] + alpha*s_n[3])
-    #        log.write("# x_n = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(this_tt, this_fi, this_rl, this_ri))
+    while this_tt < 0.0 or this_fi < 0.0 or this_fi > 1.0 or this_rl < 0.0 or \
+        this_ri < 0.0:
+            #lm_param = lm_param * 20.0
+            #delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
+            #s_n = delta[0]
+            #t_matrix_new = delta[1]
+            #cov_matrix = delta[2]
+            alpha /= 2.0
+            this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + alpha*s_n[0])
+            this_fi = np.float_(aux.ICE_FRACTION[-1] + alpha*s_n[1])
+            this_rl = np.float_(aux.RADIUS_LIQUID[-1] + alpha*s_n[2])
+            this_ri = np.float_(aux.RADIUS_ICE[-1] + alpha*s_n[3])
+            log.write("# x_n = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(this_tt, this_fi, this_rl, this_ri))
 
     '''
     Falls einer der Effektivradien kleiner als 0 ist oder die Ice Fraction nicht zwischen 0 und 1 ist,
     berechne r_total = f_i * r_i * (1-f_i)*rl, setze die Ice Fraction und setze r_l=r_total bzw
     r_i=r_total 
     '''
-    if this_fi < 0.0 or this_ri < 0.0:
-        r_total = this_fi*this_ri + (1-this_fi)*this_ri
-        this_ri = aux.RADIUS_ICE[-1]
-        this_rl = r_total
-        this_fi = 0.0
-    if this_fi > 1.0 or this_rl < 0.0:
-        r_total = this_fi*this_ri + (1-this_fi)*this_ri
-        this_rl = aux.RADIUS_LIQUID[-1]
-        this_ri = r_total
-        this_fi = 1.0
+    #if this_fi < 0.0 or this_ri < 0.0:
+    #    r_total = this_fi*this_ri + (1-this_fi)*this_ri
+    #    this_ri = aux.RADIUS_ICE[-1]
+    #    this_rl = r_total
+    #    this_fi = 0.0
+    #if this_fi > 1.0 or this_rl < 0.0:
+    #    r_total = this_fi*this_ri + (1-this_fi)*this_ri
+    #    this_rl = aux.RADIUS_LIQUID[-1]
+    #    this_ri = r_total
+    #    this_fi = 1.0
 
         
     '''
