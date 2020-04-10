@@ -115,6 +115,8 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
             this_fi = np.float_(aux.ICE_FRACTION[-1] + s_n[1])
             this_rl = np.float_(aux.RADIUS_LIQUID[-1] + s_n[2])
             this_ri = np.float_(aux.RADIUS_ICE[-1] + s_n[3])
+            log.write("# x_n = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(this_tt, this_fi, this_rl, this_ri))
+
             
     '''
     Fuege die neuen Parameter in die Listen ein
