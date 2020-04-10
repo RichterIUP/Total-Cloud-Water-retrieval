@@ -59,13 +59,14 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     und einem hoeheren Levenberg-Marquardt-Parameter den neuen Vektor s_n. Ansonsten berechne die Anpassung
     von den aktuellen Werten ausgehend und verringere den Levenberg-Marquardt-Parameter
     '''
+    ALPHA = 1.0
     log.write("# Current X^2: {} + {} = {}".format(_res, _apr, chi2))
     if loop_count > 0:
         log.write("# Prev X^2: {}".format(aux.CHI2[-1])) 
     if loop_count == 0 or chi2 <= aux.CHI2[-1]:
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
-        ALPHA = 1.0
+        #ALPHA = 1.0
         if lm_param > inp.LM_MIN:# or conv_test < 1.0:
             lm_param = lm_param / 10.0
     elif chi2 > aux.CHI2[-1]:
