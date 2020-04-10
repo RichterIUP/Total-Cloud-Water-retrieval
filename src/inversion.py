@@ -79,7 +79,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-2])
         aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-2])
         aux.T_MATRIX[-1] = aux.T_MATRIX[-2]
-        alpha /= 2.0
+        alpha = alpha / 2.0
 
         
     '''
