@@ -486,7 +486,7 @@ def __calc_chi_2_and_residuum(idx=0):
     '''
     Calculate chi^2 = (y - F(x))^T S_y_1 (y - F(x)) + Calculate (x_a - x_i)^T S_a_1 (x_a - x_i)
     '''
-    chi2 = np.float_(_res + _apr)
+    chi2 = np.float_(_res)# + _apr)
     if inp.SEARCH_INIT:
         chi2 = np.float(_res)
     
