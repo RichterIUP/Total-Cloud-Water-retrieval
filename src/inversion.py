@@ -410,14 +410,29 @@ def retrieve():
             aux.TOTAL_OPTICAL_DEPTH[-1] > 100.0 or aux.TOTAL_OPTICAL_DEPTH[-1] < 0.0:
                 #skipped = True
                 alpha = alpha / 2.0
-                aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] - alpha*np.float_(s_n[0]))
-                aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-1] - alpha*np.float_(s_n[1]))
-                aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-1] - alpha*np.float_(s_n[2]))
-                aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-1] - alpha*np.float_(s_n[3]))
+                if aux.TOTAL_OPTICAL_DEPTH[-1] < 0.0:
+                    aux.TOTAL_OPTICAL_DEPTH[-1] = aux.TOTAL_OPTICAL_DEPTH[-1] - np.float_(s_n[0])
+                else:
+                    aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] - alpha*np.float_(s_n[0]))
+                    
+                if aux.ICE_FRACTION[-1] < 0.0:
+                    aux.ICE_FRACTION[-1] = aux.ICE_FRACTION[-1] - np.float_(s_n[1])
+                else:
+                    aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-1] - alpha*np.float_(s_n[1]))
+                    
+                if aux.RADIUS_LIQUID[-1] < 1.0:
+                    aux.RADIUS_LIQUID[-1] = aux.RADIUS_LIQUID[-1] - np.float_(s_n[2])
+                else:
+                    aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-1] - alpha*np.float_(s_n[2]))
+                    
+                if aux.RADIUS_ICE[-1] < 1.0:
+                    aux.RADIUS_ICE[-1] = aux.RADIUS_ICE[-1] - np.float_(s_n[3])
+                else:
+                    aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-1] - alpha*np.float_(s_n[3]))
                 log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
-                continue
-        else:
-            __run_lbldis_and_derivatives()
+                #continue
+        #else:
+        __run_lbldis_and_derivatives()
         
         [chi2, residuum, _res, _apr] = __calc_chi_2_and_residuum()
 
@@ -428,6 +443,7 @@ def retrieve():
             log.write("# Current X^2: {} + {} = {}".format(_res, _apr, chi2))
             log.write("# Prev X^2: {}".format(aux.CHI2[-1])) 
             if chi2 <= aux.CHI2[-1] and not skipped:
+                alpha = 1.0
                 aux.CHI2.append(chi2)
                 aux.RESIDUUM.append(residuum)
                 if lm_param > inp.LM_MIN or conv_test < 1.0:
@@ -450,7 +466,7 @@ def retrieve():
                 log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
 
 
-                nums = 9
+                #nums = 9
                 #if inp.ONLY_OD:
                 #    nums = 2
                 
