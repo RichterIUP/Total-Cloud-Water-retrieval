@@ -139,7 +139,7 @@ def __convergence(lm_param, loop_count, conv_test):
 def __set_up_retrieval():
     '''Initialise the retrieval and the matrizes
     '''
-    aux.RADIANCE_LBLDIS = [[], [],[],[],[],[],[],[],[]]
+    aux.RADIANCE_LBLDIS = [[],[],[],[],[],[],[],[],[]]
     aux.TOTAL_OPTICAL_DEPTH = []
     aux.ICE_FRACTION = []
     aux.RADIUS_LIQUID = []
@@ -217,6 +217,8 @@ def __set_up_retrieval():
     plt.savefig("averaged.png")
     #exit(-1)
     [variance_ra, aux.S_Y_INV_MATRIX] = aux.calc_noise()
+
+    aux.RADIANCE_LBLDIS = [[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR]]
 
     
     log.log_pre_iter(variance_ra)
@@ -428,8 +430,8 @@ def retrieve():
                 log.write("# Increase Levenberg-Marquardt parameter")
                 log.write("# Discard s_n!")
                 lm_param = lm_param * 20.0
-                if lm_param == 0.0 and aux.ENABLE_LM_DURING_ITER:
-                    lm_param = 100.0
+                #if lm_param == 0.0 and aux.ENABLE_LM_DURING_ITER:
+                #    lm_param = 100.0
                 aux.CHI2.append(aux.CHI2[-1])
                 aux.RESIDUUM.append(aux.RESIDUUM[-1])
                 alpha = alpha / 2.0
@@ -444,8 +446,9 @@ def retrieve():
                 nums = 9
                 #if inp.ONLY_OD:
                 #    nums = 2
-                #for num_iter in range(nums):
-                #    aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
+                
+                for num_iter in range(nums):
+                    aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
                 continue
             conv_test = __conv_diagnostics(cov_matrix)
             converged = __convergence(lm_param*10, retr_loop, conv_test)
