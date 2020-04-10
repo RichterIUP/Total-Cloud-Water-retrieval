@@ -208,7 +208,7 @@ def __set_up_retrieval():
     plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR, ".")
     plt.grid(True)
     plt.savefig("averaged.png")
-    exit(-1)
+    #exit(-1)
     [variance_ra, aux.S_Y_INV_MATRIX] = aux.calc_noise()
 
     
