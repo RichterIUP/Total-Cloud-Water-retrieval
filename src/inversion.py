@@ -69,6 +69,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         if lm_param > inp.LM_MIN:# or conv_test < 1.0:
             lm_param = lm_param / 10.0
     elif chi2 > aux.CHI2[-1]:
+        lm_param = lm_param*20.0
         aux.CHI2.append(aux.CHI2[-1])
         aux.RESIDUUM.append(aux.RESIDUUM[-1])
         for num_iter in range(9):
@@ -90,7 +91,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     t_matrix_new = delta[1]
     cov_matrix = delta[2]
     
-    skipped = False
+    #skipped = False
     
     '''
     Berechne die neuen Parameter
