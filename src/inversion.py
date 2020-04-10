@@ -65,7 +65,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     if loop_count == 0 or chi2 <= aux.CHI2[-1]:
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
-        alpha = 1.0
+        ALPHA = 1.0
         if lm_param > inp.LM_MIN:# or conv_test < 1.0:
             lm_param = lm_param / 10.0
     elif chi2 > aux.CHI2[-1]:
@@ -79,7 +79,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-2])
         aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-2])
         aux.T_MATRIX[-1] = aux.T_MATRIX[-2]
-        alpha = alpha / 2.0
+        ALPHA = ALPHA / 2.0
 
         
     '''
@@ -96,10 +96,10 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     '''
     Berechne die neuen Parameter
     '''
-    this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + alpha*s_n[0])
-    this_fi = np.float_(aux.ICE_FRACTION[-1] + alpha*s_n[1])
-    this_rl = np.float_(aux.RADIUS_LIQUID[-1] + alpha*s_n[2])
-    this_ri = np.float_(aux.RADIUS_ICE[-1] + alpha*s_n[3])
+    this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + ALPHA*s_n[0])
+    this_fi = np.float_(aux.ICE_FRACTION[-1] + ALPHA*s_n[1])
+    this_rl = np.float_(aux.RADIUS_LIQUID[-1] + ALPHA*s_n[2])
+    this_ri = np.float_(aux.RADIUS_ICE[-1] + ALPHA*s_n[3])
     
     '''
     Falls einer der Parameter kleiner als 0 ist, oder ice fraction groesser
@@ -114,10 +114,10 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
             #t_matrix_new = delta[1]
             #cov_matrix = delta[2]
             alpha /= 2.0
-            this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + alpha*s_n[0])
-            this_fi = np.float_(aux.ICE_FRACTION[-1] + alpha*s_n[1])
-            this_rl = np.float_(aux.RADIUS_LIQUID[-1] + alpha*s_n[2])
-            this_ri = np.float_(aux.RADIUS_ICE[-1] + alpha*s_n[3])
+            this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + ALPHA*s_n[0])
+            this_fi = np.float_(aux.ICE_FRACTION[-1] + ALPHA*s_n[1])
+            this_rl = np.float_(aux.RADIUS_LIQUID[-1] + ALPHA*s_n[2])
+            this_ri = np.float_(aux.RADIUS_ICE[-1] + ALPHA*s_n[3])
             log.write("# x_n = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(this_tt, this_fi, this_rl, this_ri))
 
     '''
