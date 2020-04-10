@@ -229,7 +229,7 @@ def __convergence(lm_param, loop_count, conv_test):
         
     if loop_count != 0 or aux.MAX_ITER == 1:     
         condition = conv_test < inp.CONVERGENCE# and conv_test > 0.0 and loop_count > 15
-        log.write("{} < {}? {}\n".format(conv_test, inp.CONVERGENCE, condition))                       
+        log.write("{} < {}? {}\n".format(conv_test, inp.CONVERGENCE, conv_test < inp.CONVERGENCE))                       
 
         if loop_count != 0 and condition or loop_count == aux.MAX_ITER-1:
 
