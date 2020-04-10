@@ -1,0 +1,33 @@
+LBLDIS parameter file
+16		Number of streams
+-1.0 30. 1.0	Solar zenith angle (deg), relative azimuth (deg), solar distance (a.u.)
+ 180           Zenith angle (degrees): 0 -> upwelling, 180 -> downwelling
+ 479.9 1213.4 0.3 v_start, v_end, and v_delta [cm-1]
+1               Cloud parameter option flag: 0: reff and numdens, >=1:  reff and tau
+2               Number of cloud layers
+14 1.400 2.78929326 -1 0.14593336
+1 1.400 33.08630833 -1 1.35555902
+/home/phi.richter/TCWret/OUTFOLDER/simulation_2012110621_cld1_0001_ch2_singleLayer.nc/4_10_10_43_57_334849/lblout_simulation_2012110621_cld1_0001_ch2_singleLayer.nc
+solar/solar.kurucz.rad.1cm-1binned.full_disk.asc
+15       Number of scattering property databases
+ssp/ssp_db.mie_wat.gamma_sigma_0p100
+ssp/ssp_db.mie_ice.gamma_sigma_0p100
+ssp/ssp_db.Aggregate.gamma.0p100
+ssp/ssp_db.BulletRosette.gamma.0p100
+ssp/ssp_db.Droxtal.gamma.0p100
+ssp/ssp_db.HollowCol.gamma.0p100
+ssp/ssp_db.Plate.gamma.0p100
+ssp/ssp_db.SolidCol.gamma.0p100
+ssp/ssp_db.Spheroid.gamma.0p100
+ssp/ssp_db.mie_gypsum.lognormal_sigma_0p699
+ssp/ssp_db.mie_kaolinite.lognormal_sigma_0p699
+ssp/ssp_db.mie_quartz.lognormal_sigma_0p699
+ssp/ssp_db.mie_wat_zasetsky240.gamma_sigma_0p100
+ssp/ssp_db.mie_wat_zasetsky253.gamma_sigma_0p100
+ssp/ssp_db.mie_wat_zasetsky263.gamma_sigma_0p100
+-1.	Surface temperature (specifying a negativevalue takes the value from profile)
+4	Number of surface spectral emissivity lines (wnum, emis)
+100 1.0
+700 1.0
+800 1.0
+3000 1.0

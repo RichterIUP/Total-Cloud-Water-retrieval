@@ -52,9 +52,9 @@ is available
 
 #spectrum = "/home/phi.richter/Emission_Data/{}".format(spectrum)
 spec = spectrum.split("/")[-1]
-if os.path.exists("/home/phi.richter/TCWret/RESULTS/results_{}.nc".format(spec)):
-    exit(-1)
-if len(sys.argv) < 4 and False:
+#if os.path.exists("/home/phi.richter/TCWret/RESULTS/results_{}.nc".format(spec)):
+#    exit(-1)
+if len(sys.argv) < 4:
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "0", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "1", "0", "0", directory])
     with open("{}/{}/{}/results.dat".format(path, spectrum.split("/")[-1], directory), "r") as f:
         cont = f.readlines()
@@ -184,6 +184,6 @@ if len(sys.argv) < 4 and False:
 '''
 Start the retrieval with high resolution
 '''    
-subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_retrieval), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
+subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "0", str(resolution_retrieval), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
 #os.system("mv {}/{} /home/phi.richter/OUTFOLDER_slayer/{}".format(path, spectrum.split("/")[-1], spectrum.split("/")[-1]))
 #shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
