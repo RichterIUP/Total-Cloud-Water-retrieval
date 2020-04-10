@@ -62,7 +62,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     log.write("# Current X^2: {} + {} = {}".format(_res, _apr, chi2))
     if loop_count > 0:
         log.write("# Prev X^2: {}".format(aux.CHI2[-1])) 
-    if loop == 0 or chi2 <= aux.CHI2[-1]:
+    if loop_count == 0 or chi2 <= aux.CHI2[-1]:
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
         if lm_param > inp.LM_MIN or conv_test < 1.0:
