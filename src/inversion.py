@@ -30,7 +30,7 @@ RI = 3
 
 ALPHA = 1.0
 
-def __retrieve_step(lm_param, loop_count, chi2, residuum):
+def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     '''
     Calculate the next parameters using Least Squares with Gauss-Newton/Levenberg-Marquardt.
     If the prior cost function is better than the current one, the current elements of the
@@ -528,7 +528,7 @@ def retrieve():
         
         __run_lbldis_and_derivatives()
     
-        [lm_param, cov_matrix, s_n, t_matrix_new] = __retrieve_step(lm_param, retr_loop, aux.CHI2[-1], aux.RESIDUUM[-1])
+        [lm_param, cov_matrix, s_n, t_matrix_new] = __retrieve_step(lm_param, retr_loop)#, aux.CHI2[-1], aux.RESIDUUM[-1])
 
         conv_test = __conv_diagnostics(cov_matrix)
         converged = __convergence(lm_param*10, retr_loop, conv_test)
