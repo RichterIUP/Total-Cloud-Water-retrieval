@@ -5,6 +5,7 @@ Some numerical functions
 
 #Standard-lib
 import sys
+import os
 
 #Third-party modules
 import numpy          as np
@@ -48,10 +49,14 @@ def jacobian():
         deriv_f_ice = (np.array(aux.RADIANCE_LBLDIS[7][-1]) \
                        - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE)
                        
-        f = open("deriv_r_liq", "w")
-        g = open("deriv_r_ice", "w")
-        h = open("deriv_t_tot", "w")
-        i = open("deriv_f_ice", "w")
+        counter = 0
+        while not os.path.exists("deriv_r_liq_{}".format(counter)):
+            counter += 1
+        
+        f = open("deriv_r_liq_{}".format(counter), "w")
+        g = open("deriv_r_ice_{}".format(counter), "w")
+        h = open("deriv_t_tot_{}".format(counter), "w")
+        i = open("deriv_f_ice_{}".format(counter), "w")
         for ii in range(len(deriv_r_liq)):
             f.write("{},{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[1][-1][ii], aux.RADIANCE_LBLDIS[0][-1][ii]))
             g.write("{},{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[3][-1][ii], aux.RADIANCE_LBLDIS[0][-1][ii]))
@@ -61,7 +66,6 @@ def jacobian():
         g.close()
         h.close()
         i.close()
-        exit(-1)
 
     return [deriv_tau_total, deriv_f_ice, deriv_r_liq, deriv_r_ice]
 
