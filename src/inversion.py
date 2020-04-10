@@ -66,7 +66,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
         alpha = 1.0
-        if lm_param > inp.LM_MIN or conv_test < 1.0:
+        if lm_param > inp.LM_MIN:# or conv_test < 1.0:
             lm_param = lm_param / 10.0
     elif chi2 > aux.CHI2[-1]:
         aux.CHI2.append(aux.CHI2[-1])
