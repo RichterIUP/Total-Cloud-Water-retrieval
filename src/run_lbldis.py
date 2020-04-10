@@ -30,7 +30,7 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
     Calculate the disturbance for each MCP
     '''
     drl = thread_fact[1] * np.array([0.0, aux.STEPSIZE, 0.0, 0.0, 0.0])
-    dri = thread_fact[1] * np.array([0.0, 0.0, aux.STEPSIZE*10, 0.0, 0.0])
+    dri = thread_fact[1] * np.array([0.0, 0.0, aux.STEPSIZE, 0.0, 0.0])
     dtl = thread_fact[1] * np.array([0.0, 0.0, 0.0, aux.STEPSIZE, 0.0])
     dti = thread_fact[1] * np.array([0.0, 0.0, 0.0, 0.0, aux.STEPSIZE])
 
