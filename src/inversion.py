@@ -59,9 +59,12 @@ def __retrieve_step(lm_param, loop_count, chi2, residuum):
     if s_n[1] + aux.ICE_FRACTION[-1] < 0.0 or s_n[3] + aux.RADIUS_ICE[-1] < 1.0:
         s_n[3] = aux.RADIUS_LIQUID[-1]-aux.RADIUS_ICE[-1]
         s_n[1] = -aux.ICE_FRACTION[-1]
-    elif s_n[1] + aux.ICE_FRACTION[-1] > 1.0 or s_n[2] + aux.RADIUS_LIQUID[-1] < 1.0:
+    if s_n[0] + aux.TAU_TOTAL_OPTICAL_DEPTH[-1] < 0.0:
+        s_n[0] = -aux.TAU_TOTAL_OPTICAL_DEPTH
         s_n[2] = aux.RADIUS_ICE[-1]-aux.RADIUS_LIQUID[-1]
-        s_n[1] = 1-aux.ICE_FRACTION[-1]
+    #elif s_n[1] + aux.ICE_FRACTION[-1] > 1.0 or s_n[2] + aux.RADIUS_LIQUID[-1] < 1.0:
+    #    s_n[2] = aux.RADIUS_ICE[-1]-aux.RADIUS_LIQUID[-1]
+    #    s_n[1] = 1-aux.ICE_FRACTION[-1]
     '''
     Check if the new cost function is smaller then the previous one
     '''
