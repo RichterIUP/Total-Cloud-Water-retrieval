@@ -218,7 +218,7 @@ def __set_up_retrieval():
     #exit(-1)
     [variance_ra, aux.S_Y_INV_MATRIX] = aux.calc_noise()
 
-    aux.RADIANCE_LBLDIS = [[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR]]
+    #aux.RADIANCE_LBLDIS = [[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR]]
 
     
     log.log_pre_iter(variance_ra)
@@ -447,8 +447,8 @@ def retrieve():
                 #if inp.ONLY_OD:
                 #    nums = 2
                 
-                for num_iter in range(nums):
-                    aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
+                #for num_iter in range(nums):
+                #    aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
                 continue
             conv_test = __conv_diagnostics(cov_matrix)
             converged = __convergence(lm_param*10, retr_loop, conv_test)
