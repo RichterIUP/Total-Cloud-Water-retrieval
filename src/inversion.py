@@ -174,7 +174,7 @@ def __set_up_retrieval():
     Change the resolution of the spectrum
     '''
     #aux.change_resolution()
-    inp.RESOLUTION = np.mean(np.ediff1d(aux.WAVENUMBER_FTIR))
+    #inp.RESOLUTION = np.mean(np.ediff1d(aux.WAVENUMBER_FTIR))
 
 
     '''
