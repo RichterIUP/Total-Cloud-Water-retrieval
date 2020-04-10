@@ -237,7 +237,7 @@ def __convergence(lm_param, loop_count, conv_test):
     '''
         
     if loop_count != 0 or aux.MAX_ITER == 1:                            
-        condition = conv_test < inp.CONVERGENCE and conv_test > 0.0 and loop_count > 15
+        condition = conv_test < inp.CONVERGENCE# and conv_test > 0.0 and loop_count > 15
         if loop_count != 0 and condition or loop_count == aux.MAX_ITER-1:
 
             mcp = [np.float_(aux.TOTAL_OPTICAL_DEPTH[-1]), np.float_(aux.ICE_FRACTION[-1]), \
