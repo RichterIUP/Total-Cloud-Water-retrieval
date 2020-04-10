@@ -49,7 +49,6 @@ def jacobian():
         deriv_f_ice = (np.array(aux.RADIANCE_LBLDIS[7][-1]) \
                        - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE)
             
-        '''
         counter = 0
         while os.path.exists("deriv_r_liq_{}".format(counter)):
             counter += 1
@@ -72,7 +71,7 @@ def jacobian():
         g.close()
         h.close()
         i.close()
-        '''
+
     return [deriv_tau_total, deriv_f_ice, deriv_r_liq, deriv_r_ice]
 
 def calc_avk(t_matrix):
