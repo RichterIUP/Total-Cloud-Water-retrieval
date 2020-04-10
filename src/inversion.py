@@ -71,7 +71,7 @@ def __retrieve_step(lm_param, loop_count, chi2, residuum):
         aux.RESIDUUM.append(aux.RESIDUUM[-1])
         for num_iter in range(9):
             aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
-        aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-2})
+        aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-2])
         aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-2])
         aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-2])
         aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-2])
