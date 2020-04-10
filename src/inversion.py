@@ -129,10 +129,12 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         r_total = this_fi*this_ri + (1-this_fi)*this_ri
         this_ri = aux.RADIUS_ICE[-1]
         this_rl = r_total
+        this_fi = 0.0
     if this_fi > 1.0 or this_rl < 0.0:
         r_total = this_fi*this_ri + (1-this_fi)*this_ri
         this_rl = aux.RADIUS_LIQUID[-1]
         this_ri = r_total
+        this_fi = 1.0
 
         
     '''
