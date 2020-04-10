@@ -60,7 +60,8 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     von den aktuellen Werten ausgehend und verringere den Levenberg-Marquardt-Parameter
     '''
     log.write("# Current X^2: {} + {} = {}".format(_res, _apr, chi2))
-    log.write("# Prev X^2: {}".format(aux.CHI2[-1])) 
+    if loop_count > 0:
+        log.write("# Prev X^2: {}".format(aux.CHI2[-1])) 
     if chi2 <= aux.CHI2[-1] or loop_count == 0:
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
