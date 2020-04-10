@@ -148,6 +148,11 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     
     rms = np.sqrt(np.mean(np.array(aux.RESIDUUM[-1])**2))
     log.write("# Root-Mean-Squared Error = {}".format(rms))
+    plt.plot(aux.RESIDUUM[-1])
+    plt.grid(True)
+    plt.savefig("{}/residuum_{}.png".format(loop_count))
+    plt.close()
+    plt.clf()
 
     return [lm_param, cov_matrix, s_n, t_matrix_new]
     '''
