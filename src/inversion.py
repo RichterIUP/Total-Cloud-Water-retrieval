@@ -529,12 +529,15 @@ def retrieve():
     @return True if converged and the final cost function
     '''
 
+    log.write("# In retrieve()")
     __set_up_retrieval()
+    log.write("# After __set_up_retrieval()")
     conv_test = 1000.0
     [lm_param, lm_param_prev] = __initialise_variables()
+    log.write("# After __initialise_variables()")
     cov_matrix = None
     s_n = [0.0, 0.0, 0.0, 0.0]
-    alpha = 1.0
+    #alpha = 1.0
     for retr_loop in range(aux.MAX_ITER):
 
         if inp.FORWARD:
