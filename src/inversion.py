@@ -408,31 +408,31 @@ def retrieve():
             aux.RADIUS_LIQUID[-1] > 100.0 or aux.RADIUS_LIQUID[-1] < 0.0 or \
             aux.ICE_FRACTION[-1] > 100.0 or aux.ICE_FRACTION[-1] < 0.0 or \
             aux.TOTAL_OPTICAL_DEPTH[-1] > 100.0 or aux.TOTAL_OPTICAL_DEPTH[-1] < 0.0:
-                #skipped = True
-                alpha = alpha / 2.0
-                if aux.TOTAL_OPTICAL_DEPTH[-1] < 0.0 and False:
-                    aux.TOTAL_OPTICAL_DEPTH[-1] = aux.TOTAL_OPTICAL_DEPTH[-1] - np.float_(s_n[0])
-                else:
-                    aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] - alpha*np.float_(s_n[0]))
-                    
-                if aux.ICE_FRACTION[-1] < 0.0 and False:
-                    aux.ICE_FRACTION[-1] = aux.ICE_FRACTION[-1] - np.float_(s_n[1])
-                else:
-                    aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-1] - alpha*np.float_(s_n[1]))
-                    
-                if aux.RADIUS_LIQUID[-1] < 1.0 and False:
-                    aux.RADIUS_LIQUID[-1] = aux.RADIUS_LIQUID[-1] - np.float_(s_n[2])
-                else:
-                    aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-1] - alpha*np.float_(s_n[2]))
-                    
-                if aux.RADIUS_ICE[-1] < 1.0 and False:
-                    aux.RADIUS_ICE[-1] = aux.RADIUS_ICE[-1] - np.float_(s_n[3])
-                else:
-                    aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-1] - alpha*np.float_(s_n[3]))
-                log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
+                skipped = True
+                #alpha = alpha / 2.0
+                #if aux.TOTAL_OPTICAL_DEPTH[-1] < 0.0 and False:
+                #    aux.TOTAL_OPTICAL_DEPTH[-1] = aux.TOTAL_OPTICAL_DEPTH[-1] - np.float_(s_n[0])
+                #else:
+                #    aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] - alpha*np.float_(s_n[0]))
+                #    
+                #if aux.ICE_FRACTION[-1] < 0.0 and False:
+                #    aux.ICE_FRACTION[-1] = aux.ICE_FRACTION[-1] - np.float_(s_n[1])
+                #else:
+                #    aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-1] - alpha*np.float_(s_n[1]))
+                #    
+                #if aux.RADIUS_LIQUID[-1] < 1.0 and False:
+                #    aux.RADIUS_LIQUID[-1] = aux.RADIUS_LIQUID[-1] - np.float_(s_n[2])
+                #else:
+                #    aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-1] - alpha*np.float_(s_n[2]))
+                #    
+                #if aux.RADIUS_ICE[-1] < 1.0 and False:
+                #    aux.RADIUS_ICE[-1] = aux.RADIUS_ICE[-1] - np.float_(s_n[3])
+                #else:
+                #    aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-1] - alpha*np.float_(s_n[3]))
+                #log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
                 #continue
-        #else:
-        __run_lbldis_and_derivatives()
+        else:
+            __run_lbldis_and_derivatives()
         
         [chi2, residuum, _res, _apr] = __calc_chi_2_and_residuum()
 
@@ -455,8 +455,8 @@ def retrieve():
                 lm_param = lm_param * 20.0
                 #if lm_param == 0.0 and aux.ENABLE_LM_DURING_ITER:
                 #    lm_param = 100.0
-                #aux.CHI2.append(aux.CHI2[-1])
-                #aux.RESIDUUM.append(aux.RESIDUUM[-1])
+                aux.CHI2.append(aux.CHI2[-1])
+                aux.RESIDUUM.append(aux.RESIDUUM[-1])
                 alpha = alpha / 2.0
                 aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] - alpha*np.float_(s_n[0]))
                 aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-1] - alpha*np.float_(s_n[1]))
@@ -466,13 +466,13 @@ def retrieve():
                 log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
 
 
-                #nums = 9
+                nums = 9
                 #if inp.ONLY_OD:
                 #    nums = 2
                 
-                #for num_iter in range(nums):
-                #    aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
-                continue
+                for num_iter in range(nums):
+                    aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
+                #continue
             conv_test = __conv_diagnostics(cov_matrix)
             converged = __convergence(lm_param*10, retr_loop, conv_test)
                           
