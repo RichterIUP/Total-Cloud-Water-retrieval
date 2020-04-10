@@ -174,6 +174,8 @@ def __set_up_retrieval():
     Change the resolution of the spectrum
     '''
     #aux.change_resolution()
+    inp.RESOLUTION = np.mean(np.ediff1d(aux.WAVENUMBER_FTIR))
+
 
     '''
     If the current spectrum is a testcase, convolve is with a boxcar

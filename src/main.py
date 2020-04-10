@@ -35,7 +35,7 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         inp.WINDOWS = inp.NIR
     aux.MAX_ITER = cl_param[2]
     inp.FORWARD = cl_param[3]
-    inp.RESOLUTION = cl_param[4]
+    #inp.RESOLUTION = cl_param[4]
     if inp.FI_FROM_CLOUDS:
         fi = inp.MCP[1]
         inp.MCP = cl_param[5][:]
