@@ -41,6 +41,9 @@ subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "0", str(res
 with open("{}/{}/{}/results.dat".format(path, spectrum.split("/")[-1], directory), "r") as f:
     cont = f.readlines()
     tt = float(cont[0])
+    fi = float(cont[1])
+    rl = float(cont[2])
+    ri = float(cont[3])
 shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory))
 if tt > 8.0:
     exit(-1)
