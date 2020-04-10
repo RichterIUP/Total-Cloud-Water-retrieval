@@ -400,7 +400,7 @@ def retrieve():
         skipped = False
         if aux.RADIUS_ICE[-1] > 100.0 or aux.RADIUS_ICE[-1] < 0.0 or \
             aux.RADIUS_LIQUID[-1] > 100.0 or aux.RADIUS_LIQUID[-1] < 0.0 or \
-            aux.ICE_FRACTION[-1] > 1.0 or aux.ICE_FRACTION[-1] < 0.0:
+            aux.ICE_FRACTION[-1] > 10.0 or aux.ICE_FRACTION[-1] < 0.0:
                 skipped = True
         else:
             __run_lbldis_and_derivatives()
