@@ -336,7 +336,7 @@ def __calc_chi_2_and_residuum(idx=0):
     '''
     Calculate chi^2 = (y - F(x))^T S_y_1 (y - F(x)) + Calculate (x_a - x_i)^T S_a_1 (x_a - x_i)
     '''
-    chi2 = np.float_(_res)# + _apr)
+    chi2 = np.float_(_res + _apr)
     if inp.SEARCH_INIT:
         chi2 = np.float(_res)
     
@@ -400,7 +400,8 @@ def retrieve():
         skipped = False
         if aux.RADIUS_ICE[-1] > 100.0 or aux.RADIUS_ICE[-1] < 0.0 or \
             aux.RADIUS_LIQUID[-1] > 100.0 or aux.RADIUS_LIQUID[-1] < 0.0 or \
-            aux.ICE_FRACTION[-1] > 1.0 or aux.ICE_FRACTION[-1] < 0.0:
+            aux.ICE_FRACTION[-1] > 100.0 or aux.ICE_FRACTION[-1] < 0.0 or \
+            aux.TOTAL_OPTICAL_DEPTH[-1] > 100.0 or aux.TOTAL_OPTICAL_DEPTH[-1] < 0.0:
                 skipped = True
         else:
             __run_lbldis_and_derivatives()

@@ -137,7 +137,7 @@ OFFSET = 0.0
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
 '''
-MCP = [0.5, 0.5, 5.0, 30.0]
+MCP = [0.1, 0.1, 5.0, 30.0]
 
 '''
 If this is set to true, then L-IWP searches for a file containing cloud height
@@ -162,8 +162,8 @@ MCP_APRIORI = np.array(MCP[:])
 The variance of the a priori and its weighting. This will be converted
 to the S_A matrix (watch comment of LM_INIT)
 '''
-VARIANCE_APRIORI = [6.0**(-2), 1.0**(-2), 40.0**(-2), 80.0**(-2)]
-WEIGHT_APRIORI = 1.0
+VARIANCE_APRIORI = [1.0**(-2), 1.0**(-2), 40.0**(-2), 80.0**(-2)]
+WEIGHT_APRIORI = 1e-3#1.0
 
 '''
 Only retrieve the total optical depth
