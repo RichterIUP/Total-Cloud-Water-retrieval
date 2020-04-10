@@ -303,10 +303,10 @@ def average(wavenumber, radiance):
     '''
     Remove all datapoints outside the microwindows
     '''
-    for loop in range(num_of_lines):
+    for win in inp.WINDOWS:
         dummy_wn = []
         dummy_ra = []
-        for win in inp.WINDOWS:
+        for loop in range(num_of_lines):
             if in_windows(wavenumber[loop], [win]):
                 dummy_wn.append(wavenumber[loop])
                 dummy_ra.append(radiance[loop])
