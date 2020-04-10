@@ -40,6 +40,9 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
     atm[2] = atmospheric_param[2]+drl[thread_fact[0]]
     atm[3] = atmospheric_param[3]+dri[thread_fact[0]]
 
+    if thread_fact[1] < 0.0:
+        aux.RADIANCE_LBLDIS[file_num].append(np.array([0.0 for ii in range(len(aux.WAVENUMBER))]))
+        return 
     '''
     Set up LBLDIS and run LBLRTM/DISORT
     '''
