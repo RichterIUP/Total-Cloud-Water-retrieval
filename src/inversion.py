@@ -408,7 +408,14 @@ def retrieve():
             aux.RADIUS_LIQUID[-1] > 100.0 or aux.RADIUS_LIQUID[-1] < 0.0 or \
             aux.ICE_FRACTION[-1] > 100.0 or aux.ICE_FRACTION[-1] < 0.0 or \
             aux.TOTAL_OPTICAL_DEPTH[-1] > 100.0 or aux.TOTAL_OPTICAL_DEPTH[-1] < 0.0:
-                skipped = True
+                #skipped = True
+                alpha = alpha / 2.0
+                aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] - alpha*np.float_(s_n[0]))
+                aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-1] - alpha*np.float_(s_n[1]))
+                aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-1] - alpha*np.float_(s_n[2]))
+                aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-1] - alpha*np.float_(s_n[3]))
+                log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
+                continue
         else:
             __run_lbldis_and_derivatives()
         
@@ -432,8 +439,8 @@ def retrieve():
                 lm_param = lm_param * 20.0
                 #if lm_param == 0.0 and aux.ENABLE_LM_DURING_ITER:
                 #    lm_param = 100.0
-                aux.CHI2.append(aux.CHI2[-1])
-                aux.RESIDUUM.append(aux.RESIDUUM[-1])
+                #aux.CHI2.append(aux.CHI2[-1])
+                #aux.RESIDUUM.append(aux.RESIDUUM[-1])
                 alpha = alpha / 2.0
                 aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] - alpha*np.float_(s_n[0]))
                 aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-1] - alpha*np.float_(s_n[1]))
