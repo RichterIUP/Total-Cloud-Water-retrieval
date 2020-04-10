@@ -399,7 +399,6 @@ def retrieve():
         log.write("# [{}]".format(dt.datetime.now()))
         log.write("# MCP of the current iteration: ")
         log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
-        log.write("# f_i * r_i + (1 - f_i) * r_l = {}".format(aux.ICE_FRACTION[-1] * aux.RADIUS_ICE[-1] + ( 1 - aux.ICE_FRACTION[-1] ) * aux.RADIUS_LIQUID[-1]))
         log.write("# Levenberg-Marquardt parameter: {}".format(lm_param))
         
         skipped = False
@@ -443,10 +442,10 @@ def retrieve():
 
 
                 nums = 9
-                if inp.ONLY_OD:
-                    nums = 2
-                for num_iter in range(nums):
-                    aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
+                #if inp.ONLY_OD:
+                #    nums = 2
+                #for num_iter in range(nums):
+                #    aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
                 continue
             conv_test = __conv_diagnostics(cov_matrix)
             converged = __convergence(lm_param*10, retr_loop, conv_test)
