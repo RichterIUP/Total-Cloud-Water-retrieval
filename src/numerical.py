@@ -62,6 +62,11 @@ def jacobian():
             g.write("{},{},{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[3][-1][ii], aux.RADIANCE_LBLDIS[0][-1][ii], aux.RADIANCE_LBLDIS[3][-1][ii]-aux.RADIANCE_LBLDIS[0][-1][ii]))
             h.write("{},{},{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[5][-1][ii], aux.RADIANCE_LBLDIS[0][-1][ii], aux.RADIANCE_LBLDIS[5][-1][ii]-aux.RADIANCE_LBLDIS[0][-1][ii]))
             i.write("{},{},{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[7][-1][ii], aux.RADIANCE_LBLDIS[0][-1][ii], aux.RADIANCE_LBLDIS[7][-1][ii]-aux.RADIANCE_LBLDIS[0][-1][ii]))
+        f.write("{}\n".format(np.sqrt(np.mean((aux.RADIANCE_LBLDIS[1][-1]-aux.RADIANCE_LBLDIS[0][-1])**2))))
+        g.write("{}\n".format(np.sqrt(np.mean((aux.RADIANCE_LBLDIS[1][-1]-aux.RADIANCE_LBLDIS[0][-1])**2))))
+        h.write("{}\n".format(np.sqrt(np.mean((aux.RADIANCE_LBLDIS[1][-1]-aux.RADIANCE_LBLDIS[0][-1])**2))))
+        i.write("{}\n".format(np.sqrt(np.mean((aux.RADIANCE_LBLDIS[1][-1]-aux.RADIANCE_LBLDIS[0][-1])**2))))
+
         f.close()
         g.close()
         h.close()
