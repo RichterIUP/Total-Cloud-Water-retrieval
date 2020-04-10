@@ -55,11 +55,11 @@ O3_PROFILE = None
 '''
 Stepsize for the calculation of the derivative
 '''
-STEPSIZE = 1e-3#5e-4
-STEPSIZE_TT = 1e-3
-STEPSIZE_FI = 1e-3
-STEPSIZE_RL = 1e-3
-STEPSIZE_RI = 1e-3
+STEPSIZE = 0.1#1e-3#5e-4
+#STEPSIZE_TT = 1e-3
+#STEPSIZE_FI = 1e-3
+#STEPSIZE_RL = 1e-3
+#STEPSIZE_RI = 1e-3
 
 '''
 Maximum number of iteration
