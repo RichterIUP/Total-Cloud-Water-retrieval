@@ -28,6 +28,7 @@ FI = 1
 RL = 2
 RI = 3
 
+ALPHA = 1.0
 
 def __retrieve_step(lm_param, loop_count, chi2, residuum):
     '''
@@ -45,6 +46,7 @@ def __retrieve_step(lm_param, loop_count, chi2, residuum):
     '''
 
     global INCREASE
+    global ALPHA
     
     '''
     Calculate the adjustment vector
@@ -386,6 +388,7 @@ def retrieve():
     [lm_param, lm_param_prev] = __initialise_variables()
     cov_matrix = None
     s_n = [0.0, 0.0, 0.0, 0.0]
+    alpha = 1.0
     for retr_loop in range(aux.MAX_ITER):
 
         if inp.FORWARD:
@@ -430,10 +433,11 @@ def retrieve():
                     lm_param = 100.0
                 aux.CHI2.append(aux.CHI2[-1])
                 aux.RESIDUUM.append(aux.RESIDUUM[-1])
-                aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] - np.float_(s_n[0]))
-                aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-1] - np.float_(s_n[1]))
-                aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-1] - np.float_(s_n[2]))
-                aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-1] - np.float_(s_n[3]))
+                alpha = alpha / 2.0
+                aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] - alpha*np.float_(s_n[0]))
+                aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-1] - alpha*np.float_(s_n[1]))
+                aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-1] - alpha*np.float_(s_n[2]))
+                aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-1] - alpha*np.float_(s_n[3]))
                 aux.T_MATRIX[-1] = aux.T_MATRIX[-2]
                 log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
 
@@ -443,7 +447,7 @@ def retrieve():
                     nums = 2
                 for num_iter in range(nums):
                     aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
-                    
+                continue
             conv_test = __conv_diagnostics(cov_matrix)
             converged = __convergence(lm_param*10, retr_loop, conv_test)
                           
@@ -467,10 +471,10 @@ def retrieve():
 
         [lm_param, cov_matrix, s_n, t_matrix_new] = __retrieve_step(lm_param, retr_loop, aux.CHI2[-1], aux.RESIDUUM[-1])
 
-        aux.TOTAL_OPTICAL_DEPTH.append(np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + s_n[0]))
-        aux.ICE_FRACTION.append(np.float_(aux.ICE_FRACTION[-1] + s_n[1]))
-        aux.RADIUS_LIQUID.append(np.float_(aux.RADIUS_LIQUID[-1] + s_n[2]))
-        aux.RADIUS_ICE.append(np.float_(aux.RADIUS_ICE[-1] + s_n[3]))
+        aux.TOTAL_OPTICAL_DEPTH.append(np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + alpha*s_n[0]))
+        aux.ICE_FRACTION.append(np.float_(aux.ICE_FRACTION[-1] + alpha*s_n[1]))
+        aux.RADIUS_LIQUID.append(np.float_(aux.RADIUS_LIQUID[-1] + alpha*s_n[2]))
+        aux.RADIUS_ICE.append(np.float_(aux.RADIUS_ICE[-1] + alpha*s_n[3]))
         aux.T_MATRIX.append(t_matrix_new)
         log.write("# Convergence criterion (must be < {} at lm < {}): {}\n".format(inp.CONVERGENCE, 0.001, conv_test))
         
