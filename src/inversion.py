@@ -88,7 +88,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     '''
     delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
     
-    s_n = delta[0]
+    s_n = -delta[0]
     t_matrix_new = delta[1]
     cov_matrix = delta[2]
     
@@ -118,7 +118,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         #while this_rl < 1.0 or this_ri < 1.0:
         lm_param = lm_param * 20.0
         delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
-        s_n = delta[0]
+        s_n = -delta[0]
         t_matrix_new = delta[1]
         cov_matrix = delta[2]
         #ALPHA /= 2.0
