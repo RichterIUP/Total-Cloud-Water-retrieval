@@ -43,7 +43,7 @@ uses the far-infrared windows. FIR_MCP incorporates the thermal-infrared and the
 nearest far-infrared window
 '''
 FIR_TIR = range(21)
-TIR = range(4, 21)
+TIR = range(4, 20)
 
 '''
 Microwindows which are used by L-IWP. This can be either one of the predefined
@@ -60,7 +60,7 @@ MAX_ALT = 30.0
 Deceide wether L-IWP shall convolve the calculated radiances with a boxcar or
 not.
 '''
-CONVOLVE = False
+CONVOLVE = True
 
 '''
 Resolution of the spectrum in cm-1. FTIR spectral radiances will be interpolated
@@ -76,7 +76,7 @@ Initial parameter mu for the Levenberg-Marquardt-Algorithm. The inversion follow
 The matrix D is D = np.diag(JT_W_J) * np.identity(len(MCP)
 If LM_INIT equals 0.0, then the iteration changes over to Gauss-Newton
 '''
-LM_INIT = 0.0001#1e2
+LM_INIT = 0.0#1e2
 
 '''
 Minimum value for mu. The parameter won't go below this value.
@@ -137,7 +137,7 @@ OFFSET = 0.0
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
 '''
-MCP = [0.11,0.390,5.,40.]#[1., 1., 10., 30.]#[ 0.134,  0.373,  4.494, 32.262]#[ 0.093,  0.399,  4.493, 32.261]#[0.5, 0.5, 10., 30.]
+MCP = [0.191, 0.297, 10.012, 30.002]#[0.1,0.1,10.,30.]#[1., 1., 10., 30.]#[ 0.134,  0.373,  4.494, 32.262]#[ 0.093,  0.399,  4.493, 32.261]#[0.5, 0.5, 10., 30.]
 
 '''
 If this is set to true, then L-IWP searches for a file containing cloud height
@@ -162,8 +162,8 @@ MCP_APRIORI = np.array(MCP[:])
 The variance of the a priori and its weighting. This will be converted
 to the S_A matrix (watch comment of LM_INIT)
 '''
-VARIANCE_APRIORI = [4.0**(-2), 4.0**(-2), 40.0**(-2), 80.0**(-2)]
-WEIGHT_APRIORI = 1e-1#1.0
+VARIANCE_APRIORI = [4.0**(-2), 4.0**(-2), 10.0**(-2), 30.0**(-2)]
+WEIGHT_APRIORI = 1.0
 
 '''
 Only retrieve the total optical depth

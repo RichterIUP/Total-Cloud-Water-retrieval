@@ -134,11 +134,7 @@ def read_testcase(fname):
             
         inp.HUMIDITY = 'g/m3'
 
-        altitude = np.array(dataset.variables['prof_hts'][:])#m
-        pressure = np.array(dataset.variables['prof_pres'][:])#hPa
-        temperature = np.array(dataset.variables['prof_temp'][:])+inp.DISTURB_TEMPERATURE#K
-        humidity = np.array(dataset.variables['prof_rh'][:])
-        humidity = convert_humidity.convert(["-r", humidity], ["-tk", temperature], ["-p", pressure])[0]*1000.0
+        *1000.0
         aux.ATMOSPHERIC_GRID = [pressure, altitude, temperature, humidity+inp.DISTURB_HUMIDITY*humidity]
         aux.CO2_PROFILE = np.interp(altitude, ALT_GRID, CO2_PROFILE)
         aux.O3_PROFILE = np.interp(altitude, ALT_GRID, O3_PROFILE)

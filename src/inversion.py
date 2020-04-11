@@ -29,6 +29,8 @@ RL = 2
 RI = 3
 
 ALPHA = 1.0
+X_PREV = [0.0, 0.0, 0.0, 0.0]
+LOOP_PREV = 0
 
 def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     '''
@@ -117,7 +119,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     '''
     while this_tt < 0.0 or this_fi < 0.0 or this_fi > 100.0 or this_rl < 1.0 or this_ri < 1.0:
         #while this_rl < 1.0 or this_ri < 1.0:
-        lm_param = lm_param * 2
+        lm_param = lm_param * 2.0
         delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
         s_n = delta[0]
         t_matrix_new = delta[1]
@@ -183,7 +185,7 @@ def __convergence(lm_param, loop_count, conv_test):
     global ALPHA
     if loop_count != 0 or aux.MAX_ITER == 1:     
         condition = conv_test < inp.CONVERGENCE and ALPHA == 1.0 and lm_param <= 0.001
-        log.write("{} < {}? {} {}\n".format(conv_test, inp.CONVERGENCE, conv_test < inp.CONVERGENCE, condition))                       
+        #log.write("{} < {}? {} {}\n".format(conv_test, inp.CONVERGENCE, conv_test < inp.CONVERGENCE, condition))                       
 
         if loop_count != 0 and condition or loop_count == aux.MAX_ITER-1:
 
@@ -301,7 +303,7 @@ def __set_up_retrieval():
     '''
     Calculate the noise and the S_y matrix
     '''
-    #[aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR] = aux.average(aux.WAVENUMBER_FTIR[:], aux.RADIANCE_FTIR[:])
+    [aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR] = aux.average(aux.WAVENUMBER_FTIR[:], aux.RADIANCE_FTIR[:])
     #exit(-1)
     [variance_ra, aux.S_Y_INV_MATRIX] = aux.calc_noise()
 
