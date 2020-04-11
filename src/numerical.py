@@ -179,7 +179,7 @@ def iteration(res, lm_param, t_matrix):
     except ValueError:
         T_new = t_matrix
     
-    return [s_n, T_new, right_side, jacobian]
+    return [s_n, T_new, right_side, jacobian_matrix]
 
 def calc_error(atmospheric_param, t_matrix):
     '''Perform error propagation
