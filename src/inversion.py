@@ -155,7 +155,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     plt.savefig("{}/radiance_{}.png".format(inp.PATH, loop_count))
     plt.close()
     plt.clf()
-    exit(-1)
+    #exit(-1)
     #if loop_count > 0:
     #    F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
     #    F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
@@ -336,6 +336,13 @@ def __only_fwd(lblrtm=False):
         rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
     #elif inp.MODELFRAMEWORK == "CLARRA":
     #    rD.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
+    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR)
+    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_LBLDIS[0][-1])
+    plt.grid(True)
+    plt.savefig("radiance_fwd.png")
+    plt.close()
+    plt.clf()
+    exit(-1)
     f = open("{}/lbldis.spec".format(inp.PATH), "w")
     for ii in range(len(aux.WAVENUMBER_FTIR)):
         f.write("{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[0][-1][ii]))
