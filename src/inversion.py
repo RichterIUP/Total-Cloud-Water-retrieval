@@ -150,11 +150,12 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     plt.close()
     plt.clf()
 
-    F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
-    F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
-    F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-1]) + np.array(jacobian))**2
-    eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
-    log.write("# epsilon = {}\n".format(eps)) 
+    if loop_counter > 1:
+        F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
+        F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
+        F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-1]) + np.array(jacobian))**2
+        eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
+        log.write("# epsilon = {}\n".format(eps)) 
     return [lm_param, cov_matrix, s_n, t_matrix_new]
 
 ################################################################################
