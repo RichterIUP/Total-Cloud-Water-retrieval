@@ -102,13 +102,21 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     this_rl = np.float_(aux.RADIUS_LIQUID[-1] + ALPHA*s_n[2])
     this_ri = np.float_(aux.RADIUS_ICE[-1] + ALPHA*s_n[3])
     
+    if this_tt < 0.0:
+        this_tt = 0.0
+        this_rl = aux.RADIUS_LIQUID[-1]
+    if this_fi < 0.0:
+        this_fi = 0.0
+        this_ri = aux.RADIUS_ICE[-1]
+    
     '''
     Falls einer der Parameter kleiner als 0 ist, oder ice fraction groesser
     als 1 ist, verwerfe diese Parameter und erhoehe den Levenberg-Marquardt-
     Parameter und bestimme erneut das delta
     '''
-    while this_tt < 0.0 or this_fi < 0.0 or this_fi > 100.0 or this_rl < 1.0 or \
-        this_ri < 1.0:
+    #while this_tt < 0.0 or this_fi < 0.0 or this_fi > 100.0 or this_rl < 1.0 or \
+    #    this_ri < 1.0:
+    while this_rl < 1.0 or this_ri < 1.0:
             #lm_param = lm_param * 20.0
             #delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
             #s_n = delta[0]
