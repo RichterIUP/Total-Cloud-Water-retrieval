@@ -144,12 +144,18 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     
     rms = np.sqrt(np.mean(np.array(aux.RESIDUUM[-1])**2))
     log.write("# Root-Mean-Squared Error = {}".format(rms))
-    plt.plot(aux.RESIDUUM[-1])
+    plt.plot(aux.WAVENUMBER_FTIR, aux.RESIDUUM[-1])
     plt.grid(True)
     plt.savefig("{}/residuum_{}.png".format(inp.PATH, loop_count))
     plt.close()
     plt.clf()
-
+    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR)
+    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_LBLDIS[0][-1])
+    plt.grid(True)
+    plt.savefig("{}/radiance_{}.png".format(inp.PATH, loop_count))
+    plt.close()
+    plt.clf()
+    exit(-1)
     #if loop_count > 0:
     #    F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
     #    F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
