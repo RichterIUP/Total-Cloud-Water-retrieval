@@ -314,7 +314,8 @@ def average(wavenumber, radiance):
             if in_windows(wavenumber[loop], [win]):
                 dummy_wn.append(wavenumber[loop])
                 dummy_ra.append(radiance[loop])
-        new_radiance.append(np.mean(dummy_ra))
+        #new_radiance.append(np.mean(dummy_ra))
+        new_radiance.append(np.min(np.array(dummy_ra)))
         new_wavenumber.append(np.mean(dummy_wn))
         
     return [np.array(new_wavenumber), np.array(new_radiance)]
