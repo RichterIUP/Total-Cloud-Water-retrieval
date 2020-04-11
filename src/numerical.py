@@ -153,6 +153,7 @@ def iteration(res, lm_param, t_matrix):
     Calculate J^T S_y_1 J + S_a_1 + mu**2 D
     '''
     left_side = np.add(np.add(JT_W_J, s_a_inv_matrix), lm_param**2*lm_matrix)
+    log.write("# Rank J^T S_y_1 J + S_a_1 + mu**2 D = {}\n".format(np.linalg.cond(left_side)))
 
     '''
     Calculate J^T S_y_1 (y-F(x)) + S_a_1 (x_a - x_i)
@@ -177,7 +178,7 @@ def iteration(res, lm_param, t_matrix):
     except ValueError:
         T_new = t_matrix
     
-    return [s_n, T_new, right_side]
+    return [s_n, T_new, right_side, jacobian]
 
 def calc_error(atmospheric_param, t_matrix):
     '''Perform error propagation

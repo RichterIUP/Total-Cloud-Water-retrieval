@@ -91,6 +91,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     s_n = delta[0]
     t_matrix_new = delta[1]
     cov_matrix = delta[2]
+    jacobian = delta[3]
     
     #skipped = False
     
@@ -121,6 +122,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         s_n = delta[0]
         t_matrix_new = delta[1]
         cov_matrix = delta[2]
+        jacobian = delta[3]
         #ALPHA /= 2.0
         this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + ALPHA*s_n[0])
         this_fi = np.float_(aux.ICE_FRACTION[-1] + ALPHA*s_n[1])
@@ -148,6 +150,11 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     plt.close()
     plt.clf()
 
+    F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
+    F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
+    F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-1]) + np.array(jacobian))**2
+    eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
+    log.write("# epsilon = {}\n".format(eps)) 
     return [lm_param, cov_matrix, s_n, t_matrix_new]
 
 ################################################################################
