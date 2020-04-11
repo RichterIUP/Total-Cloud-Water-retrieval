@@ -101,7 +101,7 @@ Convergence criterion due to Rodgers (2000):
 [x_(n)-x_(n+1)]^T * S^-1 * [x_(n)-x_(n+1)] << len(x)
 This is reached if CONVERGENCE is undershot.
 '''
-CONVERGENCE = 0.001
+CONVERGENCE = 1.0
 
 '''
 Standard deviation of the measured spectral radiances. If STDDEV is below 
