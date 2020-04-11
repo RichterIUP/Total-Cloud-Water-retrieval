@@ -43,7 +43,7 @@ uses the far-infrared windows. FIR_MCP incorporates the thermal-infrared and the
 nearest far-infrared window
 '''
 FIR_TIR = range(21)
-TIR = range(7, 29)#range(4, 21)
+TIR = range(7, 2)#range(4, 21)
 
 '''
 Microwindows which are used by L-IWP. This can be either one of the predefined
@@ -137,7 +137,7 @@ OFFSET = 0.0
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
 '''
-MCP = [ 0.134,  0.373,  4.494, 32.262]#[ 0.093,  0.399,  4.493, 32.261]#[0.5, 0.5, 10., 30.]
+MCP = [1., 1., 10., 30.]#[ 0.134,  0.373,  4.494, 32.262]#[ 0.093,  0.399,  4.493, 32.261]#[0.5, 0.5, 10., 30.]
 
 '''
 If this is set to true, then L-IWP searches for a file containing cloud height
