@@ -150,7 +150,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     plt.close()
     plt.clf()
 
-    if loop_counter > 1:
+    if loop_count > 1:
         F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
         F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
         F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-1]) + np.array(jacobian))**2

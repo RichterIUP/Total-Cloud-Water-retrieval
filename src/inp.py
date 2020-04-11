@@ -162,8 +162,8 @@ MCP_APRIORI = np.array(MCP[:])
 The variance of the a priori and its weighting. This will be converted
 to the S_A matrix (watch comment of LM_INIT)
 '''
-VARIANCE_APRIORI = [1.0**(-2), 1.0**(-2), 40.0**(-2), 80.0**(-2)]
-WEIGHT_APRIORI = 1e-2#1.0
+VARIANCE_APRIORI = [4.0**(-2), 4.0**(-2), 40.0**(-2), 80.0**(-2)]
+WEIGHT_APRIORI = 1e-1#1.0
 
 '''
 Only retrieve the total optical depth
