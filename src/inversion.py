@@ -295,7 +295,7 @@ def __set_up_retrieval():
     '''
     Calculate the noise and the S_y matrix
     '''
-    [aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR] = aux.average(aux.WAVENUMBER_FTIR[:], aux.RADIANCE_FTIR[:])
+    #[aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR] = aux.average(aux.WAVENUMBER_FTIR[:], aux.RADIANCE_FTIR[:])
     #exit(-1)
     [variance_ra, aux.S_Y_INV_MATRIX] = aux.calc_noise()
 
