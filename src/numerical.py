@@ -16,6 +16,7 @@ sys.path.append("./src/")
 import inp
 import aux2 as aux
 import read_database as mie
+import log
 
 def residuum(idx=0):
     '''Calculation of the residuum
