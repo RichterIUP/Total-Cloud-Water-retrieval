@@ -107,7 +107,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     als 1 ist, verwerfe diese Parameter und erhoehe den Levenberg-Marquardt-
     Parameter und bestimme erneut das delta
     '''
-    while this_tt < 0.0 or this_fi < 0.0 or this_fi > 1.0 or this_rl < 1.0 or \
+    while this_tt < 0.0 or this_fi < 0.0 or this_fi > 100.0 or this_rl < 1.0 or \
         this_ri < 1.0:
             #lm_param = lm_param * 20.0
             #delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
@@ -142,79 +142,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     plt.clf()
 
     return [lm_param, cov_matrix, s_n, t_matrix_new]
-    '''
 
-            log.write("# Current X^2: {} + {} = {}".format(_res, _apr, chi2))
-            log.write("# Prev X^2: {}".format(aux.CHI2[-1])) 
-            if chi2 <= aux.CHI2[-1] and not skipped:
-                alpha = 1.0
-                aux.CHI2.append(chi2)
-                aux.RESIDUUM.append(residuum)
-                if lm_param > inp.LM_MIN or conv_test < 1.0:
-                    lm_param = lm_param / 10.0
-            else:
-                log.write("# X^2_n > X^2_n-1!")
-                log.write("# Increase Levenberg-Marquardt parameter")
-                log.write("# Discard s_n!")
-                lm_param = lm_param * 20.0
-                #if lm_param == 0.0 and aux.ENABLE_LM_DURING_ITER:
-                #    lm_param = 100.0
-                aux.CHI2.append(aux.CHI2[-1])
-                aux.RESIDUUM.append(aux.RESIDUUM[-1])
-                alpha = alpha / 2.0
-                aux.TOTAL_OPTICAL_DEPTH[-1] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] - alpha*np.float_(s_n[0]))
-                aux.ICE_FRACTION[-1] = np.float_(aux.ICE_FRACTION[-1] - alpha*np.float_(s_n[1]))
-                aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-1] - alpha*np.float_(s_n[2]))
-                aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-1] - alpha*np.float_(s_n[3]))
-                aux.T_MATRIX[-1] = aux.T_MATRIX[-2]
-                log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
-
-
-                nums = 9
-                #if inp.ONLY_OD:
-                #    nums = 2
-                
-                for num_iter in range(nums):
-                    aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
-                #continue
-            conv_test = __conv_diagnostics(cov_matrix)
-            converged = __convergence(lm_param*10, retr_loop, conv_test)
-                          
-
-        if retr_loop != 0 and converged[0]:
-            rms = np.sqrt(np.mean(np.array(aux.RESIDUUM[-1])**2))
-            log.write("# Root-Mean-Squared Error = {}".format(rms))
-            log.write("# Costfunction X^2 = {}".format(aux.CHI2[-1]))
-            log.write("# Convergence criterion (must be < {}): {}\n".format(inp.CONVERGENCE, conv_test))
-            aux.CHI_ADJ = chi2
-            return
-
-        rms = np.sqrt(np.mean(np.array(aux.RESIDUUM[-1])**2))
-        log.write("# Root-Mean-Squared Error = {}".format(rms))
-        log.write("# Costfunction X^2 = {}".format(aux.CHI2[-1]))
-
-        aux.TOTAL_OPTICAL_DEPTH.append(np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + alpha*s_n[0]))
-        aux.ICE_FRACTION.append(np.float_(aux.ICE_FRACTION[-1] + alpha*s_n[1]))
-        aux.RADIUS_LIQUID.append(np.float_(aux.RADIUS_LIQUID[-1] + alpha*s_n[2]))
-        aux.RADIUS_ICE.append(np.float_(aux.RADIUS_ICE[-1] + alpha*s_n[3]))
-        aux.T_MATRIX.append(t_matrix_new)
-            
-    #if s_n[1] + aux.ICE_FRACTION[-1] < 0.0 or s_n[3] + aux.RADIUS_ICE[-1] < 1.0:
-    #    s_n[3] = aux.RADIUS_LIQUID[-1]-aux.RADIUS_ICE[-1]
-    #    s_n[1] = -aux.ICE_FRACTION[-1]
-    #if s_n[0] + aux.TOTAL_OPTICAL_DEPTH[-1] < 0.0:
-    #    s_n[0] = -aux.TOTAL_OPTICAL_DEPTH
-    #    s_n[2] = aux.RADIUS_ICE[-1]-aux.RADIUS_LIQUID[-1]
-    #elif s_n[1] + aux.ICE_FRACTION[-1] > 1.0 or s_n[2] + aux.RADIUS_LIQUID[-1] < 1.0:
-    #    s_n[2] = aux.RADIUS_ICE[-1]-aux.RADIUS_LIQUID[-1]
-    #    s_n[1] = 1-aux.ICE_FRACTION[-1]
-
-
-    log.write("# Adjustment vector: ")
-    log.write("# s_n = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(np.float_(s_n[0]), np.float_(s_n[1]), np.float_(s_n[2]), np.float_(s_n[3])))
-
-    return [lm_param, cov_matrix, s_n, t_matrix_new]
-    '''
 ################################################################################
 
 def __convergence(lm_param, loop_count, conv_test):
