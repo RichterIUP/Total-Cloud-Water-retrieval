@@ -43,7 +43,7 @@ uses the far-infrared windows. FIR_MCP incorporates the thermal-infrared and the
 nearest far-infrared window
 '''
 FIR_TIR = range(22)
-TIR = range(3, 22)
+TIR = range(4, 22)
 
 '''
 Microwindows which are used by L-IWP. This can be either one of the predefined
