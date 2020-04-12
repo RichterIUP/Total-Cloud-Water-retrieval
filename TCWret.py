@@ -85,8 +85,8 @@ fi_best = np.interp(rad_ftir_av, np.array(rad_lbldis), fi)
 tl_best = tt_best * (1-fi_best)
 ti_best = tt_best * fi_best
 for ii in range(4):
-    rl_ii = rt[ii] / (0.5 - 0.5*fi)
-    ri_ii = rt[ii] / (3*fi)
+    rl_ii = rt[ii] / (0.5 - 0.5*fi[ii])
+    ri_ii = rt[ii] / (3*fi[ii])
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl_best), str(ti_best), str(rl_ii), str(ri_ii), "0", "0", "0", directory])
     with open("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory), "r") as f:
         cont = f.readlines()
