@@ -45,7 +45,7 @@ for ii in range(5):
         fi = float(cont[1])
         rl = float(cont[2])
         ri = float(cont[3])
-        chi = float(cont[4]
+        chi = float(cont[4])
     shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory))
         
     f = open("test", "a")
