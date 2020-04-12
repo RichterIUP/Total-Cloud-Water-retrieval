@@ -171,6 +171,8 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         change_of_costfunction = aux.CHI2[-2] - aux.CHI2[-1]
         change_of_costfunction_for_linear_model = aux.CHI2[-2] - linear_approx
         eps = change_of_costfunction / change_of_costfunction_for_linear_model
+        log.write("xi2_2 = {}; xi2_1 = {}; lin_approx = {}\n".format(linear_approx)) 
+        exit(-1)
         log.write("# epsilon = {}\n".format(eps)) 
     return [lm_param, cov_matrix, s_n, t_matrix_new]
 
