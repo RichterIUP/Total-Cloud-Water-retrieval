@@ -40,9 +40,6 @@ def calculate_epsilon(chi):
     s_n[3] = aux.RADIUS_ICE[-1] - aux.RADIUS_ICE[-2]
     s_n = np.array(s_n)
     deriv_x_n =  np.transpose(np.matmul(np.array(np.transpose(np.matrix(numerical.jacobian(-2)))), s_n))
-    #F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + deriv_x_n)**2
-    #eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
-    #log.write("||F_2_x_n||2 = {}; ||F_2_x_n1||2 = {}; ||F'_2_x_n*s_n|| = {}\n".format(F_2_x_n, F_2_x_n1, deriv_x_n))
     res_linapprox = np.transpose(np.matrix(np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)))
     linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
                         res_linapprox))
