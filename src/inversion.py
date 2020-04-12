@@ -98,10 +98,10 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
                 lm_param = inp.LM_INIT
         elif eps >= 0.25 and eps < 0.75:
             lm_param = lm_param
-        elif eps >= 0.75:# and eps < 0.95:
+        elif eps >= 0.75 and eps < 0.95:
             lm_param = lm_param / 2.0
-        #else:
-        #    lm_param = 0.0
+        else:
+            lm_param = 0.0
     elif chi2 > aux.CHI2[-1]:
         lm_param = lm_param*4.0
         if lm_param == 0.0:
