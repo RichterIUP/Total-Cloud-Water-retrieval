@@ -39,7 +39,7 @@ spec = spectrum.split("/")[-1]
 
 
 for ii in range(3):
-    subprocess.call(["python3", "src/main.py", spectrum, windows, "10", "0", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
+    subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "0", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
     with open("{}/{}/{}/results.dat".format(path, spectrum.split("/")[-1], directory), "r") as f:
         cont = f.readlines()
         tt = float(cont[0])
@@ -47,12 +47,12 @@ for ii in range(3):
         rl = float(cont[2])
         ri = float(cont[3])
         chi = float(cont[4])
-    shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory))
+    #shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory))
         
     f = open("test", "a")
-    f.write("[{}, {}, {}, {}]\t{}\n".format(0.1*tt, 0.1*fi, rl, ri, chi))
+    f.write("[{}, {}, {}, {}]\t{}\n".format(tt, fi, rl, ri, chi))
     f.close()
-  
+    exit(-1)
 '''
 Start the retrieval with high resolution
 '''    
