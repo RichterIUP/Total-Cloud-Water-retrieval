@@ -159,12 +159,18 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     plt.clf()
     #exit(-1)
     if loop_count > 0:
-        F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
-        F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
+        #F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
+        #F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
         deriv_x_n =  np.matmul(np.array(np.transpose(np.matrix(numerical.jacobian(-2)))), s_n)
-        F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + deriv_x_n)**2
-        eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
+        #F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + deriv_x_n)**2
+        #eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
         #log.write("||F_2_x_n||2 = {}; ||F_2_x_n1||2 = {}; ||F'_2_x_n*s_n|| = {}\n".format(F_2_x_n, F_2_x_n1, deriv_x_n))
+        res_linapprox = np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)
+        linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
+                            res_linapprox))
+        change_of_costfunction = aux.CHI2[-2] - aux.CHI2[-1]
+        change_of_costfunction_for_linear_model = aux.CHI2[-2] - linear_approx
+        eps = change_of_costfunction / change_of_costfunction_for_linear_model
         log.write("# epsilon = {}\n".format(eps)) 
     return [lm_param, cov_matrix, s_n, t_matrix_new]
 
@@ -413,7 +419,7 @@ def __run_lbldis_and_derivatives():
 
 ################################################################################
 
-def __calc_chi_2_and_residuum(idx=0):
+def __calc_chi_2_and_residuum(idx=-1):
     '''Calculate the new cost function
     
     @param chi_2 The current cost function
@@ -422,7 +428,7 @@ def __calc_chi_2_and_residuum(idx=0):
     @return The new cost function and the new residuum
     '''
 
-    residuum = numerical.residuum(idx)
+    residuum = numerical.residuum(idx=-1)
 
     '''
     Calculate (y - F(x))^T S_y_1 (y - F(x))
@@ -430,7 +436,7 @@ def __calc_chi_2_and_residuum(idx=0):
     _res = np.float_(np.dot(np.matmul(np.transpose(residuum), aux.S_Y_INV_MATRIX[:]), \
                             residuum))
                             
-    apr_vec = np.array(inp.MCP_APRIORI[:]) - np.array([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]])
+    apr_vec = np.array(inp.MCP_APRIORI[:]) - np.array([aux.TOTAL_OPTICAL_DEPTH[idx], aux.ICE_FRACTION[idx], aux.RADIUS_LIQUID[idx], aux.RADIUS_ICE[idx]])
 
     '''
     Calculate (x_a - x_i)^T S_a_1 (x_a - x_i)

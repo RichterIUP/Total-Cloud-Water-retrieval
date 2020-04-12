@@ -26,7 +26,7 @@ def residuum(idx=0):
     
     #print(np.array(aux.RADIANCE_FTIR[:]))
     #print(np.array(aux.RADIANCE_LBLDIS[idx][-1][:]))
-    res = np.array(aux.RADIANCE_FTIR[:]) - np.array(aux.RADIANCE_LBLDIS[idx][-1][:])
+    res = np.array(aux.RADIANCE_FTIR[:]) - np.array(aux.RADIANCE_LBLDIS[0][idx][:])
     return np.transpose(np.matrix(res))
 
 def jacobian(idx=-1):
