@@ -161,8 +161,10 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     if loop_count > 0:
         F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
         F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
-        F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + np.matmul(np.array(np.transpose(np.matrix(numerical.jacobian(-2)))), s_n))**2
+        deriv_x_n =  np.matmul(np.array(np.transpose(np.matrix(numerical.jacobian(-2)))), s_n)
+        F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + deriv_x_n)**2
         eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
+        log.write("||F_2_x_n||2 = {}; ||F_2_x_n1||2 = {}; ||F'_2_x_n*s_n|| = {}\n".format(F_2_x_n, F_2_x_n1, deriv_x_n))
         log.write("# epsilon = {}\n".format(eps)) 
     return [lm_param, cov_matrix, s_n, t_matrix_new]
 
