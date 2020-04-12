@@ -162,16 +162,18 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         #F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
         #F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
         deriv_x_n =  np.matmul(np.array(np.transpose(np.matrix(numerical.jacobian(-2)))), s_n)
+        log.write("deriv_x_n: {}\n".format(deriv_x_n))
         #F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + deriv_x_n)**2
         #eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
         #log.write("||F_2_x_n||2 = {}; ||F_2_x_n1||2 = {}; ||F'_2_x_n*s_n|| = {}\n".format(F_2_x_n, F_2_x_n1, deriv_x_n))
         res_linapprox = np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)
+        log.write("res_linapprox: {}\n".format(res_linapprox))
         linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
                             res_linapprox))
+        log.write("linear_approx: {}\n".format(linear_approx))
         change_of_costfunction = aux.CHI2[-2] - aux.CHI2[-1]
         change_of_costfunction_for_linear_model = aux.CHI2[-2] - linear_approx
         eps = change_of_costfunction / change_of_costfunction_for_linear_model
-        log.write("xi2_2 = {}; xi2_1 = {}; lin_approx = {}\n".format(aux.CHI2[-2], aux.CHI2[-1], linear_approx)) 
         exit(-1)
         log.write("# epsilon = {}\n".format(eps)) 
     return [lm_param, cov_matrix, s_n, t_matrix_new]
