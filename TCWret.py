@@ -71,7 +71,7 @@ rad_lbldis = [0, 0, 0]
 rad_ftir   = [0, 0, 0]
 
 for ii in range(3):
-    subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str((1-fi[ii])*tt), str(fi[ii]*tt), str(rl[0]), str(ri[0]), "0", "0", "0", directory])
+    subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str((1-fi[ii])*tt_best), str(fi[ii]*tt_best), str(rl[0]), str(ri[0]), "0", "0", "0", directory])
     with open("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory), "r") as f:
         cont = f.readlines()
         rad_lbldis[ii] = float(cont[-4])
