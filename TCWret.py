@@ -49,10 +49,10 @@ fi_best = 0.5
 tt = np.array([0.2, 1.0, 3.0, 4.0])
 rt = np.array([10, 20, 30, 40])
 
-#rad_lbldis = [0, 0, 0, 0]
-#rad_ftir   = [0, 0, 0, 0]
-#slope_lbldis = [0, 0, 0, 0]
-#slope_ftir = [0, 0, 0, 0]
+rad_lbldis = []#[0, 0, 0, 0]
+rad_ftir   = []#[0, 0, 0, 0]
+slope_lbldis = []#[0, 0, 0, 0]
+slope_ftir = []#[0, 0, 0, 0]
 
 for ii in range(4):
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl[ii]), str(ti[ii]), str(rl[0]), str(ri[0]), "0", "0", "0", directory])
