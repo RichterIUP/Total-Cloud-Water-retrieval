@@ -315,9 +315,9 @@ def average(wavenumber, radiance):
             if in_windows(wavenumber[loop], [win]):
                 dummy_wn.append(wavenumber[loop])
                 dummy_ra.append(radiance[loop])
-        #new_radiance.append(np.mean(dummy_ra))
+        new_radiance.append(np.mean(dummy_ra))
         #popt, pcov = opt.curve_fit(func, np.array(dummy_wn), np.array(dummy_ra))
-        new_radiance.append(np.mean([dummy_ra[0], dummy_ra[-1]]))
+        #new_radiance.append(np.mean([dummy_ra[0], dummy_ra[-1]]))
         #new_radiance.append(np.min(np.array(dummy_ra)))
         new_wavenumber.append(np.mean(dummy_wn))
         
