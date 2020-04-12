@@ -58,6 +58,8 @@ for ii in range(4):
         cont = f.readlines()
         rad_lbldis[ii] = float(cont[-4])
         rad_ftir[ii] =   float(cont[-3])
+    shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
+
     
 rad_ftir_av = np.mean(rad_ftir)
 tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt)
@@ -72,6 +74,8 @@ for ii in range(4):
         cont = f.readlines()
         slope_lbldis[ii] = float(cont[-2])
         slope_ftir[ii] =   float(cont[-1])
+    shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
+
 slope_ftir_av = np.mean(slope_ftir)
 rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt)
 rl_best = rt_best / 1.5
