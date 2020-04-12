@@ -43,7 +43,7 @@ def calculate_epsilon(chi):
     res_linapprox = np.transpose(np.matrix(np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)))
     linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
                         res_linapprox))
-    change_of_costfunction = aux.CHI2[-2] - aux.CHI[-1]
+    change_of_costfunction = aux.CHI2[-2] - aux.CHI2[-1]
     change_of_costfunction_for_linear_model = aux.CHI2[-2] - linear_approx
     eps = change_of_costfunction / change_of_costfunction_for_linear_model
     log.write("{} {} {} {} {}\n".format(aux.CHI2[-1], chi, linear_approx, change_of_costfunction, change_of_costfunction_for_linear_model))
