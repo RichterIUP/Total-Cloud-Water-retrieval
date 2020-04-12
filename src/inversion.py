@@ -32,6 +32,26 @@ ALPHA = 1.0
 X_PREV = [0.0, 0.0, 0.0, 0.0]
 LOOP_PREV = 0
 
+def calculate_epsilon(chi):
+    s_n = [0.0 for ii in range(4)]
+    s_n[0] = aux.TOTAL_OPTICAL_DEPTH[-2] - aux.TOTAL_OPTICAL_DEPTH[-1]
+    s_n[1] = aux.ICE_FRACTION[-2] - aux.ICE_FRACTION[-1]
+    s_n[2] = aux.RADIUS_LIQUID[-2] - aux.RADIUS_LIQUID[-1]
+    s_n[3] = aux.RADIUS_ICE[-2] - aux.RADIUS_ICE[-1]
+    s_n = np.array(s_n)
+    deriv_x_n =  np.transpose(np.matmul(np.array(np.transpose(np.matrix(numerical.jacobian(-2)))), s_n))
+    #F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + deriv_x_n)**2
+    #eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
+    #log.write("||F_2_x_n||2 = {}; ||F_2_x_n1||2 = {}; ||F'_2_x_n*s_n|| = {}\n".format(F_2_x_n, F_2_x_n1, deriv_x_n))
+    res_linapprox = np.transpose(np.matrix(np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)))
+    linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
+                        res_linapprox))
+    change_of_costfunction = aux.CHI2[-1] - chi
+    change_of_costfunction_for_linear_model = aux.CHI2[-1] - linear_approx
+    eps = change_of_costfunction / change_of_costfunction_for_linear_model
+    log.write("# epsilon = {}\n".format(eps)) 
+    return eps
+
 def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     '''
     Calculate the next parameters using Least Squares with Gauss-Newton/Levenberg-Marquardt.
@@ -67,13 +87,24 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     if loop_count > 0:
         log.write("# Prev X^2: {}".format(aux.CHI2[-1])) 
     if loop_count == 0 or chi2 <= aux.CHI2[-1]:
+        eps = 0.5
+        if loop_count != 0:
+            eps = calculate_epsilon(chi)
+        exit(-1)
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
-        #ALPHA = 1.0
-        if lm_param > inp.LM_MIN:# or conv_test < 1.0:
+        if eps < 0.25:
+            lm_param = lm_param * 4.0
+        elif eps >= 0.25 and eps < 0.75:
+            lm_param = lm_param
+        elif eps >= 0.75 and eps < 0.95:
             lm_param = lm_param / 2.0
+        else:
+            lm_param = 0.0
     elif chi2 > aux.CHI2[-1]:
         lm_param = lm_param*4.0
+        if lm_param == 0.0:
+            lm_param = inp.LM_INIT
         aux.CHI2.append(aux.CHI2[-1])
         aux.RESIDUUM.append(aux.RESIDUUM[-1])
         for num_iter in range(9):
@@ -160,19 +191,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     plt.clf()
     #exit(-1)
     if loop_count > 0:
-        #F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
-        #F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
-        deriv_x_n =  np.transpose(np.matmul(np.array(np.transpose(np.matrix(numerical.jacobian(-2)))), s_n))
-        #F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + deriv_x_n)**2
-        #eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
-        #log.write("||F_2_x_n||2 = {}; ||F_2_x_n1||2 = {}; ||F'_2_x_n*s_n|| = {}\n".format(F_2_x_n, F_2_x_n1, deriv_x_n))
-        res_linapprox = np.transpose(np.matrix(np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)))
-        linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
-                            res_linapprox))
-        change_of_costfunction = aux.CHI2[-2] - aux.CHI2[-1]
-        change_of_costfunction_for_linear_model = aux.CHI2[-2] - linear_approx
-        eps = change_of_costfunction / change_of_costfunction_for_linear_model
-        log.write("# epsilon = {}\n".format(eps)) 
+        eps = calculate_epsilon()
         exit(-1)
     return [lm_param, cov_matrix, s_n, t_matrix_new]
 
