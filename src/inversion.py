@@ -88,8 +88,8 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
         eps = 0.5
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
-        #if loop_count > 0:
-        #    eps = calculate_epsilon(s_n)
+        if loop_count > 1:
+            eps = calculate_epsilon(s_n)
         #    exit(-1)
         if eps < 0.25:
             lm_param = lm_param * 4.0
@@ -188,9 +188,9 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     plt.close()
     plt.clf()
     #exit(-1)
-    if loop_count > 0:
-        eps = calculate_epsilon(s_n)
-        exit(-1)
+    #if loop_count > 0:
+    #    eps = calculate_epsilon(s_n)
+    #    exit(-1)
     return [lm_param, cov_matrix, s_n, t_matrix_new]
 
 ################################################################################
