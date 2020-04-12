@@ -378,7 +378,7 @@ def __only_fwd(lblrtm=False):
     plt.savefig("radiance_fwd.png")
     plt.close()
     plt.clf()
-    exit(-1)
+    #exit(-1)
     f = open("{}/lbldis.spec".format(inp.PATH), "w")
     for ii in range(len(aux.WAVENUMBER_FTIR)):
         f.write("{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[0][-1][ii]))
