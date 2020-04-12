@@ -43,8 +43,8 @@ def calculate_epsilon(chi):
     res_linapprox = np.transpose(np.matrix(np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)))
     linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
                         res_linapprox))
-    change_of_costfunction = aux.CHI2[-1] - chi
-    change_of_costfunction_for_linear_model = aux.CHI2[-1] - linear_approx
+    change_of_costfunction = aux.CHI2[-2] - aux.CHI[-1]
+    change_of_costfunction_for_linear_model = aux.CHI2[-2] - linear_approx
     eps = change_of_costfunction / change_of_costfunction_for_linear_model
     log.write("{} {} {} {} {}\n".format(aux.CHI2[-1], chi, linear_approx, change_of_costfunction, change_of_costfunction_for_linear_model))
     log.write("# epsilon = {}\n".format(eps)) 
@@ -86,11 +86,11 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         log.write("# Prev X^2: {}".format(aux.CHI2[-1])) 
     if loop_count == 0 or chi2 <= aux.CHI2[-1]:
         eps = 0.5
-        if loop_count > 1:
-            eps = calculate_epsilon(chi2)
-            exit(-1)
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
+        if loop_count > 0:
+            eps = calculate_epsilon(chi2)
+            exit(-1)
         if eps < 0.25:
             lm_param = lm_param * 4.0
         elif eps >= 0.25 and eps < 0.75:
@@ -188,9 +188,9 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     plt.close()
     plt.clf()
     #exit(-1)
-    if loop_count > 0:
-        eps = calculate_epsilon()
-        exit(-1)
+    #if loop_count > 0:
+        #eps = calculate_epsilon()
+        #exit(-1)
     return [lm_param, cov_matrix, s_n, t_matrix_new]
 
 ################################################################################
