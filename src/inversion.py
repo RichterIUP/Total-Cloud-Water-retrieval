@@ -46,7 +46,7 @@ def calculate_epsilon(s_n):
     change_of_costfunction = aux.CHI2[-2] - aux.CHI2[-1]
     change_of_costfunction_for_linear_model = aux.CHI2[-2] - linear_approx
     eps = change_of_costfunction / change_of_costfunction_for_linear_model
-    log.write("{} {} {} {} {}\n".format(aux.CHI2[-1], chi, linear_approx, change_of_costfunction, change_of_costfunction_for_linear_model))
+    log.write("{} {} {} {} {}\n".format(aux.CHI2[-2], aux.CHI2[-1], linear_approx, change_of_costfunction, change_of_costfunction_for_linear_model))
     log.write("# epsilon = {}\n".format(eps)) 
     return eps
 
