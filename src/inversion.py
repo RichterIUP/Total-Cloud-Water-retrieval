@@ -88,7 +88,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     '''
     Calculate the adjustment vector
     '''
-    delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
+    delta = numerical.iteration(aux.RESIDUUM[-1], lm_param, aux.T_MATRIX[-1])
     
     s_n = delta[0]
     t_matrix_new = delta[1]
@@ -120,7 +120,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     while this_tt < 0.0 or this_fi < 0.0 or this_fi > 100.0 or this_rl < 1.0 or this_ri < 1.0:
         #while this_rl < 1.0 or this_ri < 1.0:
         lm_param = lm_param * 2.0
-        delta = numerical.iteration(residuum, lm_param, aux.T_MATRIX[-1])
+        delta = numerical.iteration(aux.RESIDUUM[-1], lm_param, aux.T_MATRIX[-1])
         s_n = delta[0]
         t_matrix_new = delta[1]
         cov_matrix = delta[2]
@@ -146,13 +146,13 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     
     rms = np.sqrt(np.mean(np.array(aux.RESIDUUM[-1])**2))
     log.write("# Root-Mean-Squared Error = {}".format(rms))
-    plt.plot(aux.WAVENUMBER_FTIR, aux.RESIDUUM[-1])
+    plt.plot(aux.WAVENUMBER_FTIR, aux.RESIDUUM[-1], ".")
     plt.grid(True)
     plt.savefig("{}/residuum_{}.png".format(inp.PATH, loop_count))
     plt.close()
     plt.clf()
-    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR)
-    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_LBLDIS[0][-1])
+    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR, ".")
+    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_LBLDIS[0][-1], ".")
     plt.grid(True)
     plt.savefig("{}/radiance_{}.png".format(inp.PATH, loop_count))
     plt.close()

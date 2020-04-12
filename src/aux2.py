@@ -301,7 +301,7 @@ def average(wavenumber, radiance):
     '''
     Remove microwindows with no datapoints
     '''
-    
+    func = lambda x, a, b: a * x + b 
     new_radiance = []
     new_wavenumber = []
     '''
@@ -315,7 +315,9 @@ def average(wavenumber, radiance):
                 dummy_wn.append(wavenumber[loop])
                 dummy_ra.append(radiance[loop])
         #new_radiance.append(np.mean(dummy_ra))
-        new_radiance.append(np.min(np.array(dummy_ra)))
+        #popt, pcov = opt.curve_fit(func, np.array(dummy_wn), np.array(dummy_ra))
+        new_radiance.append(np.mean([dummy_ra[0], dummy_ra[-1]]))
+        #new_radiance.append(np.min(np.array(dummy_ra)))
         new_wavenumber.append(np.mean(dummy_wn))
         
     return [np.array(new_wavenumber), np.array(new_radiance)]

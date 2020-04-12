@@ -101,7 +101,7 @@ Convergence criterion due to Rodgers (2000):
 [x_(n)-x_(n+1)]^T * S^-1 * [x_(n)-x_(n+1)] << len(x)
 This is reached if CONVERGENCE is undershot.
 '''
-CONVERGENCE = 1.0
+CONVERGENCE = 2.0
 
 '''
 Standard deviation of the measured spectral radiances. If STDDEV is below 
@@ -137,7 +137,7 @@ OFFSET = 0.0
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
 '''
-MCP = [0.191,0.297,10.012, 30.002]#[1.,1.,10.,30.]
+MCP = [1.,1.,15.,30.]
 
 '''
 If this is set to true, then L-IWP searches for a file containing cloud height
