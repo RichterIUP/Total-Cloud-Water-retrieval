@@ -32,13 +32,13 @@ ALPHA = 1.0
 X_PREV = [0.0, 0.0, 0.0, 0.0]
 LOOP_PREV = 0
 
-def calculate_epsilon(chi):
-    s_n = [0.0 for ii in range(4)]
-    s_n[0] = aux.TOTAL_OPTICAL_DEPTH[-1] - aux.TOTAL_OPTICAL_DEPTH[-2]
-    s_n[1] = aux.ICE_FRACTION[-1] - aux.ICE_FRACTION[-2]
-    s_n[2] = aux.RADIUS_LIQUID[-1] - aux.RADIUS_LIQUID[-2]
-    s_n[3] = aux.RADIUS_ICE[-1] - aux.RADIUS_ICE[-2]
-    s_n = np.array(s_n)
+def calculate_epsilon(chi, s_n):
+    #s_n = [0.0 for ii in range(4)]
+    #s_n[0] = aux.TOTAL_OPTICAL_DEPTH[-1] - aux.TOTAL_OPTICAL_DEPTH[-2]
+    #s_n[1] = aux.ICE_FRACTION[-1] - aux.ICE_FRACTION[-2]
+    #s_n[2] = aux.RADIUS_LIQUID[-1] - aux.RADIUS_LIQUID[-2]
+    #s_n[3] = aux.RADIUS_ICE[-1] - aux.RADIUS_ICE[-2]
+    #s_n = np.array(s_n)
     deriv_x_n =  np.transpose(np.matmul(np.array(np.transpose(np.matrix(numerical.jacobian(-2)))), s_n))
     res_linapprox = np.transpose(np.matrix(np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)))
     linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
@@ -49,7 +49,7 @@ def calculate_epsilon(chi):
     log.write("# epsilon = {}\n".format(eps)) 
     return eps
 
-def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
+def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     '''
     Calculate the next parameters using Least Squares with Gauss-Newton/Levenberg-Marquardt.
     If the prior cost function is better than the current one, the current elements of the
@@ -86,7 +86,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     if loop_count == 0 or chi2 <= aux.CHI2[-1]:
         eps = 0.5
         if loop_count != 0:
-            eps = calculate_epsilon(chi2)
+            eps = calculate_epsilon(chi2, s_n)
             exit(-1)
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
@@ -529,7 +529,7 @@ def retrieve():
         
         __run_lbldis_and_derivatives()
     
-        [lm_param, cov_matrix, s_n, t_matrix_new] = __retrieve_step(lm_param, retr_loop)#, aux.CHI2[-1], aux.RESIDUUM[-1])
+        [lm_param, cov_matrix, s_n, t_matrix_new] = __retrieve_step(lm_param, retr_loop, s_n)#, aux.CHI2[-1], aux.RESIDUUM[-1])
 
         conv_test = __conv_diagnostics(retr_loop, cov_matrix)
         converged = __convergence(lm_param*10, retr_loop, conv_test)
