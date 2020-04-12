@@ -148,8 +148,8 @@ class LBLDIS:
         if inp.ONLY_OD or True:
             #tau_ice = self.__tau_total * self.__f_ice
             #tau_liquid = self.__tau_total * (1 - self.__f_ice)
-            tau_ice = self.__f_ice/10.0#self.__tau_total * self.__f_ice
-            tau_liquid = self.__tau_total/10.0#self.__tau_total * (1 - self.__f_ice)
+            tau_ice = self.__f_ice#self.__tau_total * self.__f_ice
+            tau_liquid = self.__tau_total#self.__tau_total * (1 - self.__f_ice)
         if tau_liquid < 0.0:
             tau_liquid = 0.0
         if tau_ice < 0.0:
