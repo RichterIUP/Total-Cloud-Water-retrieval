@@ -55,6 +55,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     '''
     [chi2, residuum, _res, _apr] = __calc_chi_2_and_residuum()
 
+    # Wenn dann die Sache mit den Kostfunktionen hierhin verschieben und ein bool drauss machen
     '''
     Ueberpruefe, ob die neue Kostenfunktion kleiner ist als die vorherige. Falls die neue 
     Kostenfunktion groesser ist, verwirf die aktuellen Parameter und berechne mit dem vorherigen Parameter
@@ -168,8 +169,8 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
         #log.write("||F_2_x_n||2 = {}; ||F_2_x_n1||2 = {}; ||F'_2_x_n*s_n|| = {}\n".format(F_2_x_n, F_2_x_n1, deriv_x_n))
         res_linapprox = np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)
         log.write("res_linapprox: {}\n".format(res_linapprox))
-        linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
-                            res_linapprox))
+        linear_approx = np.float_(np.dot(np.matmul(res_linapprox, aux.S_Y_INV_MATRIX[:]), \
+                            np.transpose(res_linapprox)))
         log.write("linear_approx: {}\n".format(linear_approx))
         change_of_costfunction = aux.CHI2[-2] - aux.CHI2[-1]
         change_of_costfunction_for_linear_model = aux.CHI2[-2] - linear_approx
