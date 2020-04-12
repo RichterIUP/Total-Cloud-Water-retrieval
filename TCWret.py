@@ -103,8 +103,8 @@ for ii in range(4):
 slope_ftir_av = np.mean(slope_ftir)
 #rt_best = interp1d(slope_ftir_av, np.array(slope_lbldis), rt)
 rt_best = interp1d(np.array(slope_lbldis), np.array(rt), fill_value="extrapolate")
-rl_best = rt_best(slope_ftir_av) / (3*fi_best)
-ri_best = rt_best(slope_ftir_av) / (0.5+0.5*fi_best)
+ri_best = rt_best(slope_ftir_av) / (3*fi_best)
+rl_best = rt_best(slope_ftir_av) / (0.5+0.5*fi_best)
 
 tt = tl_best
 fi = fi_best#ti_best
