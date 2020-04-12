@@ -43,7 +43,7 @@ tl = [0.1, 0.5, 1.5, 2.0]
 ti = [0.1, 0.5, 1.5, 2.0]
 rl = [6.67, 13.33, 20, 26.67]
 ri = [13.33, 26.67, 40, 53.33]
-fi = [0.1, 0.5, 0.9]
+fi = [0.2, 0.5, 0.8]
 
 tt = np.array([0.2, 1.0, 3.0, 4.0])
 rt = np.array([10, 20, 30, 40])
@@ -84,9 +84,10 @@ fi_best = np.interp(rad_ftir_av, np.array(rad_lbldis), fi)
 
 tl_best = tt_best * (1-fi_best)
 ti_best = tt_best * fi_best
+
 for ii in range(4):
-    rl_ii = rt[ii] / (0.5 - 0.5*fi[ii])
-    ri_ii = rt[ii] / (3*fi[ii])
+    rl_ii = rt[ii] / (0.5 - 0.5*fi_best)
+    ri_ii = rt[ii] / (3*fi_best)
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl_best), str(ti_best), str(rl_ii), str(ri_ii), "0", "0", "0", directory])
     with open("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory), "r") as f:
         cont = f.readlines()
