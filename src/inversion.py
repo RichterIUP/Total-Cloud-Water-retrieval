@@ -93,14 +93,14 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
         aux.RESIDUUM.append(residuum)
         lm_param = lm_param / 2.0
         #    exit(-1)
-        #if eps < 0.25:
-        #    lm_param = lm_param * 4.0
-        #    if lm_param == 0.0:
-        #        lm_param = inp.LM_INIT
-        #elif eps >= 0.25 and eps < 0.75:
-        #    lm_param = lm_param
-        #elif eps >= 0.75 and eps < 0.95:
-        #    lm_param = lm_param / 2.0
+        if eps < 0.25:
+            lm_param = lm_param * 4.0
+            if lm_param == 0.0:
+                lm_param = inp.LM_INIT
+        elif eps >= 0.25 and eps < 0.75:
+            lm_param = lm_param
+        elif eps >= 0.75:
+            lm_param = lm_param / 2.0
         #else:
         #    lm_param = 0.0
     elif chi2 > aux.CHI2[-1]:
