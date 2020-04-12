@@ -198,7 +198,7 @@ class LBLDIS:
                                                                        alt, reff_liq, tau_liq_lay))
             for loop_ice_layer in range(n_layer_ice):
                 alt = cloud_grid[loop_ice_layer]*1e-3
-                reff_ice = self.__r_eff_ice
+                reff_ice = self.__r_eff_ice*inp.SCALE
                 tau_ice_lay = tau_ice/float(n_layer_ice)
                 if inp.BUILTIN:
                     if self.__r_eff_ice <= 16:

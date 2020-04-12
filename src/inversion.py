@@ -173,8 +173,8 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     Fuege die neuen Parameter in die Listen ein
     '''
     
-    log.write("# x_prev = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1]/inp.SCALE, aux.ICE_FRACTION[-1]/inp.SCALE, aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
-    log.write("# s_n = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(np.float_(s_n[0])/inp.SCALE, np.float_(s_n[1])/inp.SCALE, np.float_(s_n[2]), np.float_(s_n[3])))
+    log.write("# x_prev = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1]/inp.SCALE, aux.ICE_FRACTION[-1]/inp.SCALE, aux.RADIUS_LIQUID[-1], inp.SCALE*aux.RADIUS_ICE[-1]))
+    log.write("# s_n = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(np.float_(s_n[0])/inp.SCALE, np.float_(s_n[1])/inp.SCALE, np.float_(s_n[2]), inp.SCALE*np.float_(s_n[3])))
     aux.TOTAL_OPTICAL_DEPTH.append(this_tt)
     aux.ICE_FRACTION.append(this_fi)
     aux.RADIUS_LIQUID.append(this_rl)
@@ -532,7 +532,7 @@ def retrieve():
         log.write("# Iteration: {}".format(retr_loop))
         log.write("# [{}]".format(dt.datetime.now()))
         log.write("# MCP of the current iteration: ")
-        log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1]/inp.SCALE, aux.ICE_FRACTION[-1]/inp.SCALE, aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
+        log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1]/inp.SCALE, aux.ICE_FRACTION[-1]/inp.SCALE, aux.RADIUS_LIQUID[-1], inp.SCALE*aux.RADIUS_ICE[-1]))
         log.write("# Levenberg-Marquardt parameter: {}".format(lm_param))
         
         __run_lbldis_and_derivatives()

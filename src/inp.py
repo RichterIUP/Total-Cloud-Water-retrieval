@@ -139,7 +139,7 @@ Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
 '''
 SCALE = 10.
 MCP = [SCALE*0.1792602215767696, SCALE*0.38852287300776545, 2.818394255095849, 50.42567168992403]#[SCALE*1., SCALE*1., 15., 30.]#[ 0.277,  0.230,  9.775, 41.394]#[ 0.415,  0.072, 14.782, 30.017]#[1.,1.,15.,30.]
-MCP = [SCALE*0.192,SCALE*0.394, 2.496, 50.532]
+MCP = [SCALE*0.192,SCALE*0.394, 2.496, 50.532/SCALE]
 
 '''
 If this is set to true, then L-IWP searches for a file containing cloud height
@@ -164,7 +164,7 @@ MCP_APRIORI = np.array(MCP[:])
 The variance of the a priori and its weighting. This will be converted
 to the S_A matrix (watch comment of LM_INIT)
 '''
-VARIANCE_APRIORI = [(4.0*SCALE)**(-2), (4.0*SCALE)**(-2), 20.0**(-2), 30.0**(-2)]
+VARIANCE_APRIORI = [(4.0*SCALE)**(-2), (4.0*SCALE)**(-2), 20.0**(-2), (30.0/SCALE)**(-2)]
 WEIGHT_APRIORI = 1.0
 
 '''
