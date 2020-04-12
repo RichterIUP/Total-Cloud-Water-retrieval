@@ -93,12 +93,14 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
         #    exit(-1)
         if eps < 0.25:
             lm_param = lm_param * 4.0
+            if lm_param == 0.0:
+                lm_param = inp.LM_INIT
         elif eps >= 0.25 and eps < 0.75:
             lm_param = lm_param
-        elif eps >= 0.75 and eps < 0.95:
+        elif eps >= 0.75:# and eps < 0.95:
             lm_param = lm_param / 2.0
-        else:
-            lm_param = 0.0
+        #else:
+        #    lm_param = 0.0
     elif chi2 > aux.CHI2[-1]:
         lm_param = lm_param*4.0
         if lm_param == 0.0:
@@ -150,6 +152,8 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     while this_tt < 0.0 or this_fi < 0.0 or this_fi > 100.0 or this_rl < 1.0 or this_ri < 1.0:
         #while this_rl < 1.0 or this_ri < 1.0:
         lm_param = lm_param * 2.0
+        if lm_param == 0.0:
+            lm_param = inp.LM_INIT
         delta = numerical.iteration(aux.RESIDUUM[-1], lm_param, aux.T_MATRIX[-1])
         s_n = delta[0]
         t_matrix_new = delta[1]
