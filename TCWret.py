@@ -39,7 +39,7 @@ spec = spectrum.split("/")[-1]
 
 
 for ii in range(3):
-    subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
+    subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "0", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
     with open("{}/{}/{}/results.dat".format(path, spectrum.split("/")[-1], directory), "r") as f:
         cont = f.readlines()
         tt = float(cont[0])
