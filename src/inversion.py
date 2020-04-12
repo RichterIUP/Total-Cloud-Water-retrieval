@@ -218,7 +218,7 @@ def __convergence(lm_param, loop_count, conv_test):
         
     global ALPHA
     if loop_count != 0 or aux.MAX_ITER == 1:     
-        condition = conv_test < inp.CONVERGENCE and ALPHA == 1.0 and lm_param <= 0.001
+        condition = conv_test < inp.CONVERGENCE# and ALPHA == 1.0 and lm_param <= 0.001
         #log.write("{} < {}? {} {}\n".format(conv_test, inp.CONVERGENCE, conv_test < inp.CONVERGENCE, condition))                       
 
         if loop_count != 0 and condition or loop_count == aux.MAX_ITER-1:
