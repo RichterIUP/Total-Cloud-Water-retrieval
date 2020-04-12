@@ -69,9 +69,9 @@ for ii in range(4):
 
     
 rad_ftir_av = np.mean(rad_ftir)
-#tt_best = interp1d(rad_ftir_av, np.array(rad_lbldis), tt)
-tt_best = interp1d(np.array(rad_lbldis), np.array(tt_y), fill_value="extrapolate")
-tt_best = tt_best(rad_ftir_av)
+tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt)
+#tt_best = interp1d(np.array(rad_lbldis), np.array(tt_y), fill_value="extrapolate")
+#tt_best = tt_best(rad_ftir_av)
 #tl_best = tt_best / 2.0
 #ti_best = tl_best
 '''
@@ -106,10 +106,10 @@ for ii in range(4):
         shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
 
 slope_ftir_av = np.mean(slope_ftir)
-#rt_best = interp1d(slope_ftir_av, np.array(slope_lbldis), rt)
-rt_best = interp1d(np.array(slope_lbldis), np.array(rt_y), fill_value="extrapolate")
-rl_best = rt_best(slope_ftir_av) / (3*fi_best)
-ri_best = rt_best(slope_ftir_av) / (0.5+0.5*fi_best)
+rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt)
+#rt_best = np.interp1d(np.array(slope_lbldis), np.array(rt_y), fill_value="extrapolate")
+rl_best = rt_best / (3*fi_best)
+ri_best = rt_best / (0.5+0.5*fi_best)
 
 tt = tl_best
 fi = ti_best#ti_best
