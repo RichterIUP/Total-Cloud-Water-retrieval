@@ -32,7 +32,7 @@ ALPHA = 1.0
 X_PREV = [0.0, 0.0, 0.0, 0.0]
 LOOP_PREV = 0
 
-def calculate_epsilon(s_n):
+def calculate_epsilon(chi, s_n):
     #s_n = [0.0 for ii in range(4)]
     #s_n[0] = aux.TOTAL_OPTICAL_DEPTH[-1] - aux.TOTAL_OPTICAL_DEPTH[-2]
     #s_n[1] = aux.ICE_FRACTION[-1] - aux.ICE_FRACTION[-2]
@@ -43,8 +43,8 @@ def calculate_epsilon(s_n):
     res_linapprox = np.transpose(np.matrix(np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)))
     linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
                         res_linapprox))
-    change_of_costfunction = aux.CHI2[-2] - aux.CHI2[-1]
-    change_of_costfunction_for_linear_model = aux.CHI2[-2] - linear_approx
+    change_of_costfunction = aux.CHI2[-1] - chi
+    change_of_costfunction_for_linear_model = aux.CHI2[-1] - linear_approx
     eps = change_of_costfunction / change_of_costfunction_for_linear_model
     log.write("# epsilon = {}".format(eps)) 
     return eps
@@ -81,16 +81,16 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     '''
     ALPHA = 1.0
     log.write("# Current X^2: {} + {} = {}".format(_res, _apr, chi2))
-    if loop_count >= 1:
-            eps = calculate_epsilon(s_n)
+    if loop_count  1:
+            eps = calculate_epsilon(chi2, s_n)
     if loop_count > 0:
         log.write("# Prev X^2: {}".format(aux.CHI2[-1])) 
     if loop_count == 0 or chi2 <= aux.CHI2[-1]:
         eps = 0.5
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
-        if loop_count >= 1:
-            eps = calculate_epsilon(s_n)
+        #if loop_count >= 1:
+        #    eps = calculate_epsilon(s_n)
         #    exit(-1)
         if eps < 0.25:
             lm_param = lm_param * 4.0
