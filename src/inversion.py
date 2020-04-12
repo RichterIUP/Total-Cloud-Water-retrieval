@@ -471,7 +471,7 @@ def __conv_diagnostics(loop, cov_matrix):
     Calculate (x_n - x_n+1)^T J^T S_y_1 (y-F(x)) + S_a_1 (x_a - x_i)
     '''
     convergence_rodgers = np.abs(np.float_(np.matmul(x_n_x_n_1, cov_matrix)))
-    convergence_rodgers = (aux.CHI2[-1]-aux.CHI2[-1])/4.0
+    convergence_rodgers = (aux.CHI2[-1]-aux.CHI2[-2])/4.0
     return convergence_rodgers
     
 ################################################################################
