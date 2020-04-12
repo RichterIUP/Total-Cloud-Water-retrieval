@@ -37,8 +37,8 @@ resolution_retrieval = -0.5
 
 spec = spectrum.split("/")[-1]
 
-for ii in range(5):
-    subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "0", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
+for ii in range(3):
+    subprocess.call(["python3", "src/main.py", spectrum, windows, "10", "0", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
     with open("{}/{}/{}/results.dat".format(path, spectrum.split("/")[-1], directory), "r") as f:
         cont = f.readlines()
         tt = float(cont[0])
@@ -46,8 +46,6 @@ for ii in range(5):
         rl = float(cont[2])
         ri = float(cont[3])
     shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory))
-    if tt > 8.0:
-        exit(-1)
         
     f = open("test", "a")
     f.write("[{}, {}, {}, {}]\n".format(tt, fi, rl, ri))
