@@ -16,5 +16,5 @@ module load matplotlib
 module load netcdf4-python
 
 
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012092517_cld1_0004_ch2_singleLayer.nc TIR 0.5 0.5 6.67 13.33
+python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012092517_cld1_0004_ch2_singleLayer.nc TIR 0.275 0.275 13.33 26.67
 

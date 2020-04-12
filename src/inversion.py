@@ -385,6 +385,11 @@ def __only_fwd(lblrtm=False):
         
     f.write("{}\n".format(np.sum(aux.RADIANCE_LBLDIS[0][-1])))
     f.write("{}\n".format(np.sum(aux.RADIANCE_FTIR)))
+    slope_lbldis = (aux.RADIANCE_LBLDIS[0][-1][0] - aux.RADIANCE_LBLDIS[0][-1][-1])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[-1])
+    slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[-1])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[-1])
+
+    f.write("{}\n".format(slope_lbldis))
+    f.write("{}\n".format(slope_ftir))
     f.close()
     return
 
