@@ -163,7 +163,7 @@ The variance of the a priori and its weighting. This will be converted
 to the S_A matrix (watch comment of LM_INIT)
 '''
 VARIANCE_APRIORI = [4.0**(-2), 4.0**(-2), 20.0**(-2), 30.0**(-2)]
-WEIGHT_APRIORI = 1.0
+WEIGHT_APRIORI = 10.0
 
 '''
 Only retrieve the total optical depth
