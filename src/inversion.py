@@ -73,7 +73,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
             lm_param = lm_param / 2.0
     elif chi2 > aux.CHI2[-1]:
         lm_param = lm_param*4.0
-        aux.CHI2.append(aux.CHI2[-1])
+        aux.CHI2.append(aux.CHI2[-1])8Kapitel 1: Nichtlineare Ausgleichsprobleme1.3  LEVENBERG-MARQUARDT-VERFAHRENDas Problem des Gauß-Newton-Verfahrens ist, dass die Linearisierung nur f ̈ur”kleine“ Schritteskzul ̈assig ist, sofern die Iteriertexknoch weit vom Minimum entfernt ist. Die folgende Methodeversucht durch eine Steuerung der L ̈ange des Korrekturvektorsskeine Verbesserung zu erzielen.Im Levenberg-Marquardt-Verfahren wird das Ausgleichsproblem (1.5) zur Bestimmung des Kor-rekturvektorsskdurch ein anderes leicht abge ̈andertes Minimierungsproblem‖F′(xk)sk+F(xk)‖22+μ2‖sk‖22→min(1.9)ersetzt, wobeiμ>0ein zu w ̈ahlender Parameter ist. Als neue Ann ̈aherung wird dann wiederumxk+1=xk+skgesetzt. Aus der Gleichung∥∥∥∥(F′(xk)μI)sk+(F(xk)0)∥∥∥∥22=‖F′(xk)sk+F(xk)‖22+μ2‖sk‖22folgt, dass die Minimierungsaufgabe (1.9) die ̈aquivalente Formulierung∥∥∥∥(F′(xk)μI)sk+(F(xk)0)∥∥∥∥2→min(1.10)besitzt. Im Vergleich zum Ausgleichsproblem (1.5) im Gauß-Newton-Verfahren besitzt (1.10) im-mer eine eindeutige L ̈osungsk, da die Matrix(F′(xk)μI)vollen Rang hat.F ̈ur den Korrekturvektorsk-=0giltμ2‖sk‖22≤‖F′(xk)sk+F(xk)‖22+μ2‖sk‖22=mins∈Rn{‖F′(xk)s+F(xk)‖22+μ2‖s‖22}≤‖F(xk)‖22und daher‖sk‖2≤‖F(xk)‖2μ.Der Parameterμ>0kann folglich eine D ̈ampfung der Korrekturskbewirken und durch einegeeignete Wahl vonμkann man eine zu große Korrektur vermeiden. Man kann zeigen, dass unterbestimmten Voraussetzungen anFdas Levenberg-Marquardt-Verfahren f ̈ur”hinreichend großes“μkonvergiert. Um Konvergenz zu gew ̈ahrleisten darf manμalso nicht zu klein w ̈ahlen; auf deranderen Seite f ̈uhrt ein großesμaber nur zu einer kleinen Korrektur und somit erh ̈alt man nur sehrlangsame Konvergenz.Im Folgenden wird ein m ̈ogliches Verfahren zur Bestimmung des Parametersμvorgestellt, in demin jedem Schritt ̈uberpr ̈uft wird, obμzu klein oder zu groß gew ̈ahlt ist, undμgegebenenfallsangepasst wird.Sei dazuxk∈Rn,sk=sk(μ)die Korrektur aus (1.9) sowieεμ:=‖F(xk)‖22−‖F(xk+sk)‖2
         aux.RESIDUUM.append(aux.RESIDUUM[-1])
         for num_iter in range(9):
             aux.RADIANCE_LBLDIS[num_iter][-1] = aux.RADIANCE_LBLDIS[num_iter][-2]
@@ -161,7 +161,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     if loop_count > 0:
         F_2_x_n = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-2])**2
         F_2_x_n1 = np.linalg.norm(aux.RADIANCE_LBLDIS[0][-1])**2
-        F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + np.matmul(np.array(jacobian_mat), s_n))**2
+        F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + np.matmul(np.array(numerical.jacobian(-2)), s_n))**2
         eps = (F_2_x_n - F_2_x_n1) / (F_2_x_n - F_2_x_n1_series)
         log.write("# epsilon = {}\n".format(eps)) 
     return [lm_param, cov_matrix, s_n, t_matrix_new]

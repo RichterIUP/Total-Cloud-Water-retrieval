@@ -29,7 +29,7 @@ def residuum(idx=0):
     res = np.array(aux.RADIANCE_FTIR[:]) - np.array(aux.RADIANCE_LBLDIS[idx][-1][:])
     return np.transpose(np.matrix(res))
 
-def jacobian():
+def jacobian(idx=-1):
     '''Calculation of the jacobian_matrix
     
     @return The transposed jacobian matrix
@@ -39,18 +39,18 @@ def jacobian():
         deriv_r_liq = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
         deriv_r_ice = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
         deriv_f_ice = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
-        deriv_tau_total = (np.array(aux.RADIANCE_LBLDIS[1][-1]) \
-                     - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE)
+        deriv_tau_total = (np.array(aux.RADIANCE_LBLDIS[1][idx]) \
+                     - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE)
         
     else:
-        deriv_r_liq = (np.array(aux.RADIANCE_LBLDIS[1][-1]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE2)
-        deriv_r_ice = (np.array(aux.RADIANCE_LBLDIS[3][-1]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE2)
-        deriv_tau_total = (np.array(aux.RADIANCE_LBLDIS[5][-1]) \
-                        - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE)
-        deriv_f_ice = (np.array(aux.RADIANCE_LBLDIS[7][-1]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE)
+        deriv_r_liq = (np.array(aux.RADIANCE_LBLDIS[1][idx]) \
+                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE2)
+        deriv_r_ice = (np.array(aux.RADIANCE_LBLDIS[3][idx]) \
+                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE2)
+        deriv_tau_total = (np.array(aux.RADIANCE_LBLDIS[5][idx]) \
+                        - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE)
+        deriv_f_ice = (np.array(aux.RADIANCE_LBLDIS[7][idx]) \
+                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE)
 
         '''
         counter = 0
