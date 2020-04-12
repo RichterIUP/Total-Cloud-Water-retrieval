@@ -107,7 +107,7 @@ ri_best = rt_best(slope_ftir_av) / (3*fi_best)
 rl_best = rt_best(slope_ftir_av) / (0.5+0.5*fi_best)
 
 tt = tl_best
-fi = fi_best#ti_best
+fi = ti_best#ti_best
 rl = rl_best
 ri = ri_best
 print(tt, fi, ri, rl)
