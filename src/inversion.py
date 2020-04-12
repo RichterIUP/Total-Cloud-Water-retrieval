@@ -505,7 +505,7 @@ def retrieve():
     
         [lm_param, cov_matrix, s_n, t_matrix_new] = __retrieve_step(lm_param, retr_loop)#, aux.CHI2[-1], aux.RESIDUUM[-1])
 
-        conv_test = __conv_diagnostics(loop, cov_matrix)
+        conv_test = __conv_diagnostics(retr_loop, cov_matrix)
         converged = __convergence(lm_param*10, retr_loop, conv_test)
         if converged:
             return
