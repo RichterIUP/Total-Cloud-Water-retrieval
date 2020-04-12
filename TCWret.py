@@ -58,6 +58,7 @@ for ii in range(4):
         cont = f.readlines()
         rad_lbldis[ii] = float(cont[-4])
         rad_ftir[ii] =   float(cont[-3])
+    
 rad_ftir_av = np.mean(rad_ftir)
 tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt)
 tl_best = tt_best / 2.0
