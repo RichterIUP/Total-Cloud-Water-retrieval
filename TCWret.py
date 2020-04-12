@@ -44,7 +44,7 @@ ti = [0.1, 0.5, 1.5, 2.0]
 rl = [6.67, 13.33, 20, 26.67]
 ri = [13.33, 26.67, 40, 53.33]
 fi = [0.2, 0.5, 0.8]
-
+fi_best = 0.5
 tt = np.array([0.2, 1.0, 3.0, 4.0])
 rt = np.array([10, 20, 30, 40])
 
@@ -66,7 +66,7 @@ rad_ftir_av = np.mean(rad_ftir)
 tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt)
 #tl_best = tt_best / 2.0
 #ti_best = tl_best
-
+'''
 rad_lbldis = [0, 0, 0]
 rad_ftir   = [0, 0, 0]
 
@@ -81,7 +81,7 @@ for ii in range(3):
     
 rad_ftir_av = np.mean(rad_ftir)
 fi_best = np.interp(rad_ftir_av, np.array(rad_lbldis), fi)
-
+'''
 tl_best = tt_best * (1-fi_best)
 ti_best = tt_best * fi_best
 
@@ -97,11 +97,11 @@ for ii in range(4):
 
 slope_ftir_av = np.mean(slope_ftir)
 rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt)
-rl_best = rt_best / 1.5
-ri_best = rt_best / 0.75
+rl_best = rt_best / (3*fi_best)
+ri_best = rt_best / (0.5-0.5*fi_best)
 
 tt = tl_best
-fi = ti_best
+fi = fi_best#ti_best
 rl = rl_best
 ri = ri_best
 print(tt, fi, ri, rl)
