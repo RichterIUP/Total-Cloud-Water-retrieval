@@ -86,7 +86,7 @@ tl_best = tt_best * (1-fi_best)
 ti_best = tt_best * fi_best
 
 for ii in range(4):
-    rl_ii = rt[ii] / (0.5 - 0.5*fi_best)
+    rl_ii = rt[ii] / (0.5 + 0.5*fi_best)
     ri_ii = rt[ii] / (3*fi_best)
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl_best), str(ti_best), str(rl_ii), str(ri_ii), "0", "0", "0", directory])
     with open("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory), "r") as f:
@@ -98,7 +98,7 @@ for ii in range(4):
 slope_ftir_av = np.mean(slope_ftir)
 rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt)
 rl_best = rt_best / (3*fi_best)
-ri_best = rt_best / (0.5-0.5*fi_best)
+ri_best = rt_best / (0.5+0.5*fi_best)
 
 tt = tl_best
 fi = fi_best#ti_best
