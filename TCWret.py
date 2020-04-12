@@ -45,7 +45,7 @@ ti = [0.1, 0.5, 1.5, 2.0]
 rl = [6.67, 13.33, 20, 26.67]
 ri = [13.33, 26.67, 40, 53.33]
 fi = [0.2, 0.5, 0.8]
-fi_best = 0.5
+#fi_best = 0.5
 tt = np.array([0.2, 1.0, 3.0, 4.0])
 rt = np.array([10, 20, 30, 40])
 
@@ -74,22 +74,25 @@ tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt)
 #tt_best = tt_best(rad_ftir_av)
 #tl_best = tt_best / 2.0
 #ti_best = tl_best
-'''
-rad_lbldis = [0, 0, 0]
-rad_ftir   = [0, 0, 0]
+
+rad_lbldis = []
+rad_ftir   = []
 
 for ii in range(3):
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str((1-fi[ii])*tt_best), str(fi[ii]*tt_best), str(rl[0]), str(ri[0]), "0", "0", "0", directory])
-    with open("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory), "r") as f:
-        cont = f.readlines()
-        rad_lbldis[ii] = float(cont[-4])
-        rad_ftir[ii] =   float(cont[-3])
-    shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
+    if os.path.exists("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory)):
+
+        with open("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory), "r") as f:
+            cont = f.readlines()
+            rad_lbldis.append(float(cont[-4]))
+            rad_ftir.append(float(cont[-3]))
+        shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
 
     
 rad_ftir_av = np.mean(rad_ftir)
 fi_best = np.interp(rad_ftir_av, np.array(rad_lbldis), fi)
-'''
+
+
 tl_best = tt_best * (1-fi_best)
 ti_best = tt_best * fi_best
 
