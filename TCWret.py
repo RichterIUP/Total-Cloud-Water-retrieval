@@ -82,6 +82,7 @@ fi = ti_best
 rl = rl_best
 ri = ri_best
 print(tt, fi, ri, rl)
+subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "0", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
 exit(-1)
 '''
 Start the retrieval with high resolution
