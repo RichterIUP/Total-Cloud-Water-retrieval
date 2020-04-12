@@ -60,7 +60,7 @@ MAX_ALT = 30.0
 Deceide wether L-IWP shall convolve the calculated radiances with a boxcar or
 not.
 '''
-CONVOLVE = True
+CONVOLVE = False
 
 '''
 Resolution of the spectrum in cm-1. FTIR spectral radiances will be interpolated
