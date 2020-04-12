@@ -446,14 +446,14 @@ def __calc_chi_2_and_residuum(idx=0):
 
 ################################################################################
 
-def __conv_diagnostics(cov_matrix):
+def __conv_diagnostics(loop, cov_matrix):
     '''Calculate the convergence value
     
     @param cov_matrix The current covariance matrix
     
     @return The convergence value
     '''
-    if type(cov_matrix) == type(None):
+    if loop == 0:#type(cov_matrix) == type(None):
         return 1e10
     tt = aux.TOTAL_OPTICAL_DEPTH[-2:]
     fi = aux.ICE_FRACTION[-2:]
@@ -471,6 +471,7 @@ def __conv_diagnostics(cov_matrix):
     Calculate (x_n - x_n+1)^T J^T S_y_1 (y-F(x)) + S_a_1 (x_a - x_i)
     '''
     convergence_rodgers = np.abs(np.float_(np.matmul(x_n_x_n_1, cov_matrix)))
+    convergence_rodgers = (aux.CHI2[-1]-aux.CHI2[-1])/4.0
     return convergence_rodgers
     
 ################################################################################
@@ -504,7 +505,7 @@ def retrieve():
     
         [lm_param, cov_matrix, s_n, t_matrix_new] = __retrieve_step(lm_param, retr_loop)#, aux.CHI2[-1], aux.RESIDUUM[-1])
 
-        conv_test = __conv_diagnostics(cov_matrix)
+        conv_test = __conv_diagnostics(loop, cov_matrix)
         converged = __convergence(lm_param*10, retr_loop, conv_test)
         if converged:
             return
