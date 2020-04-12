@@ -44,9 +44,9 @@ def jacobian():
         
     else:
         deriv_r_liq = (np.array(aux.RADIANCE_LBLDIS[1][-1]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE)
+                       - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE2)
         deriv_r_ice = (np.array(aux.RADIANCE_LBLDIS[3][-1]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE)
+                       - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE2)
         deriv_tau_total = (np.array(aux.RADIANCE_LBLDIS[5][-1]) \
                         - np.array(aux.RADIANCE_LBLDIS[0][-1]))/(aux.STEPSIZE)
         deriv_f_ice = (np.array(aux.RADIANCE_LBLDIS[7][-1]) \
