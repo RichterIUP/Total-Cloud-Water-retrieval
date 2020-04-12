@@ -34,10 +34,10 @@ LOOP_PREV = 0
 
 def calculate_epsilon(chi):
     s_n = [0.0 for ii in range(4)]
-    s_n[0] = aux.TOTAL_OPTICAL_DEPTH[-2] - aux.TOTAL_OPTICAL_DEPTH[-1]
-    s_n[1] = aux.ICE_FRACTION[-2] - aux.ICE_FRACTION[-1]
-    s_n[2] = aux.RADIUS_LIQUID[-2] - aux.RADIUS_LIQUID[-1]
-    s_n[3] = aux.RADIUS_ICE[-2] - aux.RADIUS_ICE[-1]
+    s_n[0] = aux.TOTAL_OPTICAL_DEPTH[-1] - aux.TOTAL_OPTICAL_DEPTH[-2]
+    s_n[1] = aux.ICE_FRACTION[-1] - aux.ICE_FRACTION[-2]
+    s_n[2] = aux.RADIUS_LIQUID[-1] - aux.RADIUS_LIQUID[-2]
+    s_n[3] = aux.RADIUS_ICE[-1] - aux.RADIUS_ICE[-2]
     s_n = np.array(s_n)
     deriv_x_n =  np.transpose(np.matmul(np.array(np.transpose(np.matrix(numerical.jacobian(-2)))), s_n))
     #F_2_x_n1_series = np.linalg.norm(np.array(aux.RADIANCE_LBLDIS[0][-2]) + deriv_x_n)**2
@@ -89,7 +89,7 @@ def __retrieve_step(lm_param, loop_count):#, chi2, residuum):
     if loop_count == 0 or chi2 <= aux.CHI2[-1]:
         eps = 0.5
         if loop_count != 0:
-            eps = calculate_epsilon(chi)
+            eps = calculate_epsilon(chi2)
             exit(-1)
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
