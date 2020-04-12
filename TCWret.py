@@ -77,6 +77,7 @@ tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt)
 
 rad_lbldis = []
 rad_ftir   = []
+fi_y = []
 
 for ii in range(3):
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str((1-fi[ii])*tt_best), str(fi[ii]*tt_best), str(rl[0]), str(ri[0]), "0", "0", "0", directory])
@@ -86,11 +87,12 @@ for ii in range(3):
             cont = f.readlines()
             rad_lbldis.append(float(cont[-4]))
             rad_ftir.append(float(cont[-3]))
+            fi_y.append(fi[ii])
         shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
 
     
 rad_ftir_av = np.mean(rad_ftir)
-fi_best = np.interp(rad_ftir_av, np.array(rad_lbldis), fi)
+fi_best = np.interp(rad_ftir_av, np.array(rad_lbldis), fi_y)
 
 
 tl_best = tt_best * (1-fi_best)
