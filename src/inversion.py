@@ -498,7 +498,7 @@ def retrieve():
         log.write("# Iteration: {}".format(retr_loop))
         log.write("# [{}]".format(dt.datetime.now()))
         log.write("# MCP of the current iteration: ")
-        log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
+        log.write("# MCP = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(0.1*aux.TOTAL_OPTICAL_DEPTH[-1], 0.1*aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]))
         log.write("# Levenberg-Marquardt parameter: {}".format(lm_param))
         
         __run_lbldis_and_derivatives()

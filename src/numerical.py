@@ -143,7 +143,7 @@ def iteration(res, lm_param, t_matrix):
     '''
     Calculate D
     '''
-    lm_matrix = np.identity(dim)
+    lm_matrix = s_a_inv_matrix#np.identity(dim)
 
     '''
     Calculate S_a_1 (x_a - x_i)
