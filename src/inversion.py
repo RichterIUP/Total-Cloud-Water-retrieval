@@ -384,6 +384,7 @@ def __only_fwd(lblrtm=False):
         f.write("{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[0][-1][ii]))
         
     f.write("{}\n".format(np.sum(aux.RADIANCE_LBLDIS[0][-1])))
+    f.write("{}\n".format(np.sum(aux.RADIANCE_FTIR)))
     f.close()
     return
 
