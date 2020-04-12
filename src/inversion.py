@@ -91,7 +91,7 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
             eps = calculate_epsilon(chi2, s_n)
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
-        lm_param = lm_param / 2.0
+        #lm_param = lm_param / 2.0
         #    exit(-1)
         if eps < 0.25:
             lm_param = lm_param * 4.0
