@@ -111,7 +111,7 @@ for ii in range(4):
         shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
 
 slope_ftir_av = np.mean(slope_ftir)
-rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt)
+rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
 #rt_best = np.interp1d(np.array(slope_lbldis), np.array(rt_y), fill_value="extrapolate")
 rl_best = rt_best / (3*fi_best)
 ri_best = rt_best / (0.5+0.5*fi_best)

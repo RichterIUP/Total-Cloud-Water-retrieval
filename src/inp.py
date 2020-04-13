@@ -76,7 +76,7 @@ Initial parameter mu for the Levenberg-Marquardt-Algorithm. The inversion follow
 The matrix D is D = np.diag(JT_W_J) * np.identity(len(MCP)
 If LM_INIT equals 0.0, then the iteration changes over to Gauss-Newton
 '''
-LM_INIT = 1e-3#100.0#1e-3
+LM_INIT = 1e0#100.0#1e-3
 
 '''
 Minimum value for mu. The parameter won't go below this value.
@@ -101,7 +101,7 @@ Convergence criterion due to Rodgers (2000):
 [x_(n)-x_(n+1)]^T * S^-1 * [x_(n)-x_(n+1)] << len(x)
 This is reached if CONVERGENCE is undershot.
 '''
-CONVERGENCE = 0.01#2.0
+CONVERGENCE = 0.001#2.0
 
 '''
 Standard deviation of the measured spectral radiances. If STDDEV is below 
@@ -111,7 +111,7 @@ the value from the spectrum file. If a testcase is retrieved, then positive
 values are the standard deviation of the added noise
 '''
 
-STDDEV = 0.2
+STDDEV = 0.0
 
 '''
 Possible values: %, ppmv, g/m3, g/kg
