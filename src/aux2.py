@@ -319,8 +319,8 @@ def average(wavenumber, radiance):
                 dummy_ra.append(radiance[loop])
         new_radiance.append(np.median(dummy_ra))
         new_wavenumber.append(np.median(dummy_wn))
-    new_wavenumber = wavenumber
-    new_radiance = radiance
+    #new_wavenumber = wavenumber
+    #new_radiance = radiance
     return [np.array(new_wavenumber), np.array(new_radiance)]
         
     
