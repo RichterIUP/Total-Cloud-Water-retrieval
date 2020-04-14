@@ -85,9 +85,9 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1):
         avk = outfile.createVariable("averaging kernel matrix", "f8", ("mcp", "mcp"))
         avk.units = "1"
     
-        tt = outfile.createVariable("tt", "f8", ("const", ))
+        tt = outfile.createVariable("tl", "f8", ("const", ))
         tt.units = "1"
-        fi = outfile.createVariable("fi", "f8", ("const", ))
+        fi = outfile.createVariable("ti", "f8", ("const", ))
         fi.units = "1"
         rl = outfile.createVariable("rl", "f8", ("const", ))
         rl.units = "um"
@@ -100,9 +100,9 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1):
         twp = outfile.createVariable("twp", "f8", ("const", ))
         twp.units = "g/m2"
         
-        dtt = outfile.createVariable("dtt", "f8", ("const", ))
+        dtt = outfile.createVariable("dtl", "f8", ("const", ))
         dtt.units = "1"
-        dfi = outfile.createVariable("dfi", "f8", ("const", ))
+        dfi = outfile.createVariable("dti", "f8", ("const", ))
         dfi.units = "1"
         drl = outfile.createVariable("drl", "f8", ("const", ))
         drl.units = "um"
