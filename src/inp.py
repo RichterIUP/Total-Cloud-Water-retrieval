@@ -138,7 +138,7 @@ OFFSET = 0.0
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
 '''
 SCALE = 1.
-MCP = [0.275, 0.275, 19.71/inp.SCALE, 39.42/inp.SCALE]#[1., 1., 10., 30.]
+MCP = [0.275, 0.275, 19.71/SCALE, 39.42/SCALE]#[1., 1., 10., 30.]
 
 '''
 If this is set to true, then L-IWP searches for a file containing cloud height
