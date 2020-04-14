@@ -98,7 +98,7 @@ fi_best = np.interp(rad_ftir_av, np.array(rad_lbldis), fi_y)
 
 tl_best = tt_best * (1-fi_best)
 ti_best = tt_best * fi_best
-
+'''
 for ii in range(4):
     ri_ii = rt[ii] / (0.5 + 0.5*fi_best)
     rl_ii = rt[ii] / (3*fi_best)
@@ -116,11 +116,11 @@ rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
 #rt_best = np.interp1d(np.array(slope_lbldis), np.array(rt_y), fill_value="extrapolate")
 rl_best = rt_best / (3*fi_best)
 ri_best = rt_best / (0.5+0.5*fi_best)
-
+'''
 tt = tl_best
 fi = ti_best#ti_best
-rl = rl_best
-ri = ri_best
+rl = 10.0#rl_best
+ri = 30.0#ri_best
 print(tt, fi, ri, rl)
 if tt < 0.0:
     tt = 1.0
