@@ -98,10 +98,11 @@ fi_best = np.interp(rad_ftir_av, np.array(rad_lbldis), fi_y)
 
 tl_best = tt_best * (1-fi_best)
 ti_best = tt_best * fi_best
-'''
+
 for ii in range(4):
-    ri_ii = rt[ii] / (0.5 + 0.5*fi_best)
-    rl_ii = rt[ii] / (3*fi_best)
+    #ri_ii = rt[ii] / (0.5 + 0.5*fi_best)
+    rl_ii = rt[ii] / (2*fi_best+1)
+    ri_ii = 3*rl_ii
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl_best), str(ti_best), str(rl_ii), str(ri_ii), "0", "0", "0", directory])
     if os.path.exists("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory)):
         with open("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory), "r") as f:
@@ -114,13 +115,14 @@ for ii in range(4):
 slope_ftir_av = np.mean(slope_ftir)
 rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
 #rt_best = np.interp1d(np.array(slope_lbldis), np.array(rt_y), fill_value="extrapolate")
-rl_best = rt_best / (3*fi_best)
-ri_best = rt_best / (0.5+0.5*fi_best)
-'''
+rl_best = rt_best / (2*fi_best+1)
+ri_best = 3*rl_best
+#ri_best = rt_best / (0.5+0.5*fi_best)
+
 tt = tl_best
 fi = ti_best#ti_best
-rl = 10.0#rl_best
-ri = 30.0#ri_best
+rl = rl_best
+ri = ri_best
 print(tt, fi, ri, rl)
 if tt < 0.0:
     tt = 1.0
@@ -130,7 +132,7 @@ if rl < 0.0:
     rl = 10.0
 if ri < 0.0:
     ri = 30.0
-subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "0", str(resolution_retrieval), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
+subprocess.call(["python3", "src/main.py", spectrum, windows, "15", "0", str(resolution_retrieval), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
 #exit(-1)
 '''
 Start the retrieval with high resolution

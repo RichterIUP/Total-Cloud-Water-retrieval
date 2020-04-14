@@ -9,8 +9,8 @@ import os
 
 def read_csv(fname):
     with sio.netcdf_file(fname, "r") as f:
-        tt = np.array([f.variables['tt'][:], f.variables['dtt'][:]])
-        fi = np.array([f.variables['fi'][:], f.variables['dfi'][:]])
+        tt = np.array([f.variables['tl'][:], f.variables['dtl'][:]])
+        fi = np.array([f.variables['ti'][:], f.variables['dti'][:]])
         rl = np.array([f.variables['rl'][:], f.variables['drl'][:]])
         ri = np.array([f.variables['ri'][:], f.variables['dri'][:]])
         lwp = np.array([f.variables['lwp'][:], f.variables['dlwp'][:]])
