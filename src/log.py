@@ -19,7 +19,7 @@ def log_prog_start():
     '''
     with open("{}/retrieval_log.dat".format(inp.PATH), "a") as file_:
         file_.write("\n\n#########################################\n")
-        file_.write("# L\\IWP\n")
+        file_.write("# TCWret\n")
         file_.write("#\n")
         file_.write("# Spec: {}\n".format(aux.FTIR))
         file_.write("# Started: {}\n".format(aux.TIME_INDEX))

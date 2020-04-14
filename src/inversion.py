@@ -28,9 +28,6 @@ FI = 1
 RL = 2
 RI = 3
 
-ALPHA = 1.0
-X_PREV = [0.0, 0.0, 0.0, 0.0]
-LOOP_PREV = 0
 
 def calculate_epsilon(chi, s_n):
     #s_n = [0.0 for ii in range(4)]
@@ -64,8 +61,6 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     @return The residuum, the cost function, the new Levenberg-Marquardt parameter and the covariance matrix
     '''
 
-    global INCREASE
-    global ALPHA
     
     '''
     Berechne die Kostenfunktion
@@ -79,7 +74,6 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     und einem hoeheren Levenberg-Marquardt-Parameter den neuen Vektor s_n. Ansonsten berechne die Anpassung
     von den aktuellen Werten ausgehend und verringere den Levenberg-Marquardt-Parameter
     '''
-    ALPHA = 1.0
     log.write("# Current X^2: {} + {} = {}".format(_res, _apr, chi2))
     #if loop_count > 0:
     #    eps = calculate_epsilon(chi2, s_n)
@@ -91,21 +85,16 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
             eps = calculate_epsilon(chi2, s_n)
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
-        #if loop_count != 0:
-        #    lm_param = lm_param / 2.0
-        #    exit(-1)
         if eps < 0.25:
-            lm_param = lm_param * 4.0
+            lm_param = lm_param * aux.INCREASE_LM
             if lm_param == 0.0:
                 lm_param = inp.LM_INIT
         elif eps >= 0.25 and eps < 0.75:
             lm_param = lm_param
         elif eps >= 0.75:
-            lm_param = lm_param / 2.0
-        #else:
-        #    lm_param = 0.0
+            lm_param = lm_param / aux.DECREASE_LM
     elif chi2 > aux.CHI2[-1]:
-        lm_param = lm_param*4.0
+        lm_param = lm_param * aux.INCREASE_LM
         if lm_param == 0.0:
             lm_param = inp.LM_INIT
         aux.CHI2.append(aux.CHI2[-1])
@@ -117,7 +106,6 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
         aux.RADIUS_LIQUID[-1] = np.float_(aux.RADIUS_LIQUID[-2])
         aux.RADIUS_ICE[-1] = np.float_(aux.RADIUS_ICE[-2])
         aux.T_MATRIX[-1] = aux.T_MATRIX[-2]
-        #ALPHA = ALPHA / 2.0
 
         
     '''
@@ -129,23 +117,15 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     t_matrix_new = delta[1]
     cov_matrix = delta[2]
     jacobian_mat = delta[3]
-    
-    #skipped = False
+
     
     '''
     Berechne die neuen Parameter
     '''
-    this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + ALPHA*s_n[0])
-    this_fi = np.float_(aux.ICE_FRACTION[-1] + ALPHA*s_n[1])
-    this_rl = np.float_(aux.RADIUS_LIQUID[-1] + ALPHA*s_n[2])
-    this_ri = np.float_(aux.RADIUS_ICE[-1] + ALPHA*s_n[3])
-    
-    #if this_tt < 0.0:
-    #    this_tt = 0.0
-    #    this_rl = aux.RADIUS_LIQUID[-1]
-    #if this_fi < 0.0:
-    #    this_fi = 0.0
-    #    this_ri = aux.RADIUS_ICE[-1]
+    this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + s_n[0])
+    this_fi = np.float_(aux.ICE_FRACTION[-1]        + s_n[1])
+    this_rl = np.float_(aux.RADIUS_LIQUID[-1]       + s_n[2])
+    this_ri = np.float_(aux.RADIUS_ICE[-1]          + s_n[3])
     
     '''
     Falls einer der Parameter kleiner als 0 ist, oder ice fraction groesser
@@ -153,8 +133,7 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     Parameter und bestimme erneut das delta
     '''
     while this_tt < 0.0 or this_fi < 0.0 or this_fi > 100.0 or this_rl < 1.0 or this_ri < 1.0:
-        #while this_rl < 1.0 or this_ri < 1.0:
-        lm_param = lm_param * 2.0
+        lm_param = lm_param * aux.INCREASE_LM
         if lm_param == 0.0:
             lm_param = inp.LM_INIT
         delta = numerical.iteration(aux.RESIDUUM[-1], lm_param, aux.T_MATRIX[-1])
@@ -162,11 +141,10 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
         t_matrix_new = delta[1]
         cov_matrix = delta[2]
         jacobian_mat = delta[3]
-        #ALPHA /= 2.0
-        this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + ALPHA*s_n[0])
-        this_fi = np.float_(aux.ICE_FRACTION[-1] + ALPHA*s_n[1])
-        this_rl = np.float_(aux.RADIUS_LIQUID[-1] + ALPHA*s_n[2])
-        this_ri = np.float_(aux.RADIUS_ICE[-1] + ALPHA*s_n[3])
+        this_tt = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1] + s_n[0])
+        this_fi = np.float_(aux.ICE_FRACTION[-1]        + s_n[1])
+        this_rl = np.float_(aux.RADIUS_LIQUID[-1]       + s_n[2])
+        this_ri = np.float_(aux.RADIUS_ICE[-1]          + s_n[3])
         log.write("# x_n = [{:6.3f}, {:6.3f}, {:6.3f}, {:6.3f}]".format(this_tt, this_fi, this_rl, this_ri))
         
     '''
@@ -194,10 +172,7 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     plt.savefig("{}/radiance_{}.png".format(inp.PATH, loop_count))
     plt.close()
     plt.clf()
-    #exit(-1)
-    #if loop_count > 0:
-    #    eps = calculate_epsilon(s_n)
-    #    exit(-1)
+
     return [lm_param, cov_matrix, s_n, t_matrix_new]
 
 ################################################################################

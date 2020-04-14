@@ -24,8 +24,7 @@ def residuum(idx=0):
     @return The residuum y - F(x)
     '''
     
-    #print(np.array(aux.RADIANCE_FTIR[:]))
-    #print(np.array(aux.RADIANCE_LBLDIS[idx][-1][:]))
+
     res = np.array(aux.RADIANCE_FTIR[:]) - np.array(aux.RADIANCE_LBLDIS[0][idx][:])
     return np.transpose(np.matrix(res))
 
@@ -40,17 +39,17 @@ def jacobian(idx=-1):
         deriv_r_ice = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
         deriv_f_ice = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
         deriv_tau_total = (np.array(aux.RADIANCE_LBLDIS[1][idx]) \
-                     - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE)
+                     - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_TAU)
         
     else:
         deriv_r_liq = (np.array(aux.RADIANCE_LBLDIS[1][idx]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE2)
+                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_RADIUS)
         deriv_r_ice = (np.array(aux.RADIANCE_LBLDIS[3][idx]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE2)
+                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_RADIUS)
         deriv_tau_total = (np.array(aux.RADIANCE_LBLDIS[5][idx]) \
-                        - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE)
+                        - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_TAU)
         deriv_f_ice = (np.array(aux.RADIANCE_LBLDIS[7][idx]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE)
+                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_TAU)
 
         '''
         counter = 0

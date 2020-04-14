@@ -52,10 +52,10 @@ rt = np.array([10, 20, 30, 40])
 rt_y = []
 tt_y = []
 
-rad_lbldis = []#[0, 0, 0, 0]
-rad_ftir   = []#[0, 0, 0, 0]
-slope_lbldis = []#[0, 0, 0, 0]
-slope_ftir = []#[0, 0, 0, 0]
+rad_lbldis = []
+rad_ftir   = []
+slope_lbldis = []
+slope_ftir = []
 
 for ii in range(4):
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl[ii]), str(ti[ii]), str(rl[0]), str(ri[0]), "0", "0", "0", directory])
@@ -70,37 +70,10 @@ for ii in range(4):
     
 rad_ftir_av = np.mean(rad_ftir)
 tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt)
-#tt_best = interp1d(np.array(rad_lbldis), np.array(tt_y), fill_value="extrapolate")
-#tt_best = tt_best(rad_ftir_av)
-#tl_best = tt_best / 2.0
-#ti_best = tl_best
-
-'''
-rad_lbldis = []
-rad_ftir   = []
-fi_y = []
-
-for ii in range(3):
-    subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str((1-fi[ii])*tt_best), str(fi[ii]*tt_best), str(rl[0]), str(ri[0]), "0", "0", "0", directory])
-    if os.path.exists("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory)):
-
-        with open("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory), "r") as f:
-            cont = f.readlines()
-            rad_lbldis.append(float(cont[-4]))
-            rad_ftir.append(float(cont[-3]))
-            fi_y.append(fi[ii])
-        shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
-
-    
-rad_ftir_av = np.mean(rad_ftir)
-fi_best = np.interp(rad_ftir_av, np.array(rad_lbldis), fi_y)
-'''
-
 tl_best = tt_best * (1-fi_best)
 ti_best = tt_best * fi_best
 
 for ii in range(4):
-    #ri_ii = rt[ii] / (0.5 + 0.5*fi_best)
     rl_ii = rt[ii] / (2*fi_best+1)
     ri_ii = 3*rl_ii
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl_best), str(ti_best), str(rl_ii), str(ri_ii), "0", "0", "0", directory])
@@ -114,10 +87,8 @@ for ii in range(4):
 
 slope_ftir_av = np.mean(slope_ftir)
 rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
-#rt_best = np.interp1d(np.array(slope_lbldis), np.array(rt_y), fill_value="extrapolate")
 rl_best = rt_best / (2*fi_best+1)
 ri_best = 3*rl_best
-#ri_best = rt_best / (0.5+0.5*fi_best)
 
 tt = tl_best
 fi = ti_best#ti_best

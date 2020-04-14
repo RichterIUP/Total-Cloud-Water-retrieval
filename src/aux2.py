@@ -55,8 +55,10 @@ O3_PROFILE = None
 '''
 Stepsize for the calculation of the derivative
 '''
-STEPSIZE = 1e-3#5e-4
-STEPSIZE2 = 1e-2
+STEPSIZE_TAU = 1e-3#5e-4
+STEPSIZE_RADIUS = 1e-2
+INCREASE_LM = 4.0
+DECREASE_LM = 2.0
 #STEPSIZE_TT = 1e-3
 #STEPSIZE_FI = 1e-3
 #STEPSIZE_RL = 1e-3
@@ -316,9 +318,6 @@ def average(wavenumber, radiance):
                 dummy_wn.append(wavenumber[loop])
                 dummy_ra.append(radiance[loop])
         new_radiance.append(np.mean(dummy_ra))
-        #popt, pcov = opt.curve_fit(func, np.array(dummy_wn), np.array(dummy_ra))
-        #new_radiance.append(np.mean([dummy_ra[0], dummy_ra[-1]]))
-        #new_radiance.append(np.min(np.array(dummy_ra)))
         new_wavenumber.append(np.mean(dummy_wn))
     new_wavenumber = wavenumber
     new_radiance = radiance

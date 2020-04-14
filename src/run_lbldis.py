@@ -29,10 +29,10 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
     '''
     Calculate the disturbance for each MCP
     '''
-    drl = thread_fact[1] * np.array([0.0, aux.STEPSIZE2, 0.0, 0.0, 0.0])
-    dri = thread_fact[1] * np.array([0.0, 0.0, aux.STEPSIZE2, 0.0, 0.0])
-    dtl = thread_fact[1] * np.array([0.0, 0.0, 0.0, aux.STEPSIZE, 0.0])
-    dti = thread_fact[1] * np.array([0.0, 0.0, 0.0, 0.0, aux.STEPSIZE])
+    drl = thread_fact[1] * np.array([0.0, aux.STEPSIZE_RADIUS, 0.0, 0.0, 0.0])
+    dri = thread_fact[1] * np.array([0.0, 0.0, aux.STEPSIZE_RADIUS, 0.0, 0.0])
+    dtl = thread_fact[1] * np.array([0.0, 0.0, 0.0, aux.STEPSIZE_TAU,    0.0])
+    dti = thread_fact[1] * np.array([0.0, 0.0, 0.0, 0.0, aux.STEPSIZE_TAU])
 
     atm = [0.0, 0.0, 0.0, 0.0]
     atm[0] = atmospheric_param[0]+dtl[thread_fact[0]]
@@ -56,13 +56,7 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
     '''
     Save the calculated radiance
     '''
-    #if inp.SEARCH_INIT:
-    #    #aux.RADIANCE_LBLDIS[file_num] = np.array(radiance)
-    #    aux.RADIANCE_SKIP[file_num] = np.array(radiance)
-    #elif inp.SKIP_SN:
-    #    aux.RADIANCE_SKIP[file_num] = np.array(radiance)
-    #else:
-    #aux.RADIANCE_LBLDIS[file_num].append(np.array(radiance))
+
     aux.RADIANCE_LBLDIS[file_num].append(aux.average(np.array(aux.WAVENUMBER_FTIR), np.array(radiance))[1])
 
     return
@@ -88,8 +82,8 @@ class LBLDIS:
                         "humidity": aux.ATMOSPHERIC_GRID[aux.HUM]}
         self.__r_eff_liq = mcp[2]
         self.__r_eff_ice = mcp[3]
-        self.__tau_total = mcp[0]
-        self.__f_ice = mcp[1]
+        self.__tau_liquid = mcp[0]
+        self.__tau_ice = mcp[1]
         self.__thread = thread
         
 
@@ -145,11 +139,9 @@ class LBLDIS:
             cloud_grid.append(layer)
             
             
-        if inp.ONLY_OD or True:
-            #tau_ice = self.__tau_total * self.__f_ice
-            #tau_liquid = self.__tau_total * (1 - self.__f_ice)
-            tau_ice = self.__f_ice/inp.SCALE#self.__tau_total * self.__f_ice
-            tau_liquid = self.__tau_total/inp.SCALE#self.__tau_total * (1 - self.__f_ice)
+        tau_ice = self.__tau_ice
+        tau_liquid = self.__tau_liquid
+        
         if tau_liquid < 0.0:
             tau_liquid = 0.0
         if tau_ice < 0.0:
@@ -193,7 +185,7 @@ class LBLDIS:
                 else:
                     mie_liq = 0
                 tau_liq_lay = tau_liquid/float(n_layer_liq)
-                reff_liq = self.__r_eff_liq
+                reff_liq = self.__r_eff_liq*inp.SCALE
                 file_.write("{} {:5.3f} {:10.8f} -1 {:10.8f}\n".format(mie_liq, \
                                                                        alt, reff_liq, tau_liq_lay))
             for loop_ice_layer in range(n_layer_ice):
