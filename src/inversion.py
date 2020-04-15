@@ -315,12 +315,12 @@ def __set_up_retrieval():
     '''
     [aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR] = aux.average(aux.WAVENUMBER_FTIR[:], aux.RADIANCE_FTIR[:])
     #exit(-1)
-    [variance_ra, aux.S_Y_INV_MATRIX] = aux.calc_noise()
+    [variance_ra, aux.S_Y_INV_MATRIX] = aux.s_y_inv()
 
     #aux.RADIANCE_LBLDIS = [[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR]]
 
     
-    log.log_pre_iter(variance_ra)
+    log.log_pre_iter(aux.variance_ra)
     return
 
 ################################################################################

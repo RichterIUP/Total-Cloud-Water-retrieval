@@ -166,10 +166,10 @@ def read_input(fname):
     #cont = f.readlines()
     #f.close()
     #aux.SOLAR_ZENITH_ANGLE = float(90) - float(cont[4].split(":")[-1])
-    aux.SOLAR_ZENITH_ANGLE = 61.01#dataset.variables['sza'][0]
+    aux.SOLAR_ZENITH_ANGLE = dataset.variables['sza'][0]
     aux.WAVENUMBER_FTIR = np.array(dataset.variables['wavenumber'][:])
     aux.RADIANCE_FTIR = np.array(dataset.variables['radiance'][:])+inp.OFFSET
-    aux.NOISE_FTIR = np.array(dataset.variables['stdDev'][:])
+    aux.NOISE_FTIR = aux.calc_noise()#np.array(dataset.variables['stdDev'][:])
 
     '''
     Test if there is an additional file with cloud height informations 

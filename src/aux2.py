@@ -327,7 +327,6 @@ def average(wavenumber, radiance):
 
 ####################################################################################
 
-
 def calc_noise():
     '''
     Calculate the noise of the spectrum
@@ -341,23 +340,61 @@ def calc_noise():
     RADIANCE_LBLDIS = [[], [], [], [], [], [], [], [], []]
 
     
-    if inp.STDDEV == 0.0:
+    if inp.STDDEV >= 0.0:
         '''
         Apply a non-weighted least squares algorithm
         '''
-        s_y_inv_matrix = np.identity(len(WAVENUMBER_FTIR))
-        variance_ra = 0.0
-        return [variance_ra, s_y_inv_matrix]
-    elif inp.STDDEV > 0.0:
-        '''
-        Use the standard deviation from inp.py
-        '''
-        variance_ra = inp.STDDEV**2     
+        stdDev = [inp.STDDEV for ii in range(len(WAVENUMBER_FTIR))]
+
     else:
         '''
         Use the standard deviation retrieved from the spectrum
         '''
-        variance_ra = np.mean(NOISE_FTIR)**2
+        wavenumber = []
+        spectral_radiance = []
+        histogram = []
+        wn_window = []
+        ra_window = []
+        stdDev = []
+        for line in wn_rad:
+            wavenumber.append(line[0])
+            spectral_radiance.append(line[1])
+        #   stdDev.append(0.16)
+            for number in inp.WINDOWS:
+                for window in [number]:
+                    #print(line[0], window)
+                    if aux.in_windows(line[0], [window]):
+                        wn_window.append(line[0])
+                        ra_window.append(line[1])
+                if len(ra_window) > 3:
+                    func = lambda x, a, b, c: a * x**2 + b * x + c
+                    popt, pcov = opt.curve_fit(func, wn_window, ra_window)
+                    for ii in range(len(ra_window)):
+                        histogram.append(np.array(ra_window[ii])-(popt[0]*np.array(wn_window[ii])**2+popt[1]*np.array(wn_window[ii])+popt[2]))
+                    wn_window = []
+                    ra_window = []
+        for element in spectral_radiance:
+            stdDev.append(np.std(histogram))
+
+
+    return stdDev
+
+
+####################################################################################
+
+def s_y_inv():
+    '''
+    Calculate the noise of the spectrum
+    
+    @return The calculated variance of the spectrum and the inverse of the covariance matrix S_y
+    '''
+    global NOISE_FTIR
+    global WAVENUMBER_FTIR
+    global RADIANCE_LBLDIS
+
+    RADIANCE_LBLDIS = [[], [], [], [], [], [], [], [], []]
+
+    variance_ra = NOISE_FTIR**2
     vec_error = np.array([variance_ra for ii in range(len(WAVENUMBER_FTIR))])
     s_y_inv_matrix = np.reciprocal(vec_error) * np.identity(len(vec_error))
 

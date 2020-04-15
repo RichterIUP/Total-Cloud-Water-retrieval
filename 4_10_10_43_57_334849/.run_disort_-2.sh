@@ -1,2 +1,0 @@
-#!/bin/bash
-(/home/phi.richter/radiative_transfer/lbldis/lbldis /home/phi.richter/TCWret/OUTFOLDER/simulation_2012110621_cld1_0001_ch2_singleLayer.nc/4_10_10_43_57_334849/.lbldis_-2.parm 0 /home/phi.richter/TCWret/OUTFOLDER/simulation_2012110621_cld1_0001_ch2_singleLayer.nc/4_10_10_43_57_334849/.lbldisout_-2) >& /home/phi.richter/TCWret/OUTFOLDER/simulation_2012110621_cld1_0001_ch2_singleLayer.nc/4_10_10_43_57_334849/.lbldislog_-2.txt
