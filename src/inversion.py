@@ -497,8 +497,7 @@ def retrieve():
     for retr_loop in range(aux.MAX_ITER):
 
         if inp.FORWARD:
-            [sum_lbldis, sum_ftir, slope_lbldis, slope_ftir] = __only_fwd()
-            return [sum_lbldis, sum_ftir, slope_lbldis, slope_ftir]
+            return __only_fwd()
             
             
         log.write("# Iteration: {}".format(retr_loop))
