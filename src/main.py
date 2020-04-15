@@ -99,9 +99,8 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         rad_ftir = []
         tt_y = []
         for param_num in range(len(tt)):
-            inp.MCP[0] = tt[param_num]/2.0
-            inp.MCP[1] = tt[param_num]/2.0
-            print(inp.MCP)
+            inp.MCP[0] = tt[param_num]*fi
+            inp.MCP[1] = tt[param_num]*fi
             guess_apr = inversion.retrieve()
             rad_lbldis.append(guess_apr[0])
             rad_ftir.append(guess_apr[1])
@@ -111,13 +110,31 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
 
         inp.MCP[0] = tt_best * (1-fi)
         inp.MCP[1] = tt_best * fi
+        
+        slope_lbldis = []
+        slope_ftir = []
+        fi = [0.0, 0.25, 0.5, 0.75, 1.0]
+        fi_y = []
+        for param_num in range(len(tt)):
+            inp.MCP[0] = tt_best * (1 - fi)
+            inp.MCP[1] = tt_best * fi
+            guess_apr = inversion.retrieve()
+            slope_lbldis.append(guess_apr[2])
+            slope_ftir.append(guess_apr[3])
+            fi_y.append(fi[param_num])
+        slope_ftir_av = np.mean(slope_ftir)
+        fi_best = np.interp(slope_ftir_av, np.array(slope_lbldis), fi_y)
+
+        inp.MCP[0] = tt_best * (1-fi_best)
+        inp.MCP[1] = tt_best * fi_best
 
         slope_lbldis = []
         slope_ftir = []
         rt_y = []
+        fact = 3
         for param_num in range(len(rt)):
-            inp.MCP[2] = rt[param_num] / (2*fi+1)
-            inp.MCP[3] = 3*inp.MCP[2]
+            inp.MCP[2] = rt[param_num] / ((fact-1)*fi+1)
+            inp.MCP[3] = rt[param_num] * fact / ((fact-1)*fi+1)
             print(inp.MCP)
             guess_apr = inversion.retrieve()
             slope_lbldis.append(guess_apr[2])
@@ -125,8 +142,8 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
             rt_y.append(rt[param_num])
         slope_ftir_av = np.mean(slope_ftir)
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
-        inp.MCP[2] = rt_best / (2*fi+1)
-        inp.MCP[3] = 3*inp.MCP[2]
+        inp.MCP[2] = rt_best / ((fact-1)*fi+1)
+        inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
 
         
         inp.FORWARD = False
