@@ -303,8 +303,9 @@ def __set_up_retrieval():
     '''
     Calculate the clear sky spectrum
     '''
-    if inp.MODELFRAMEWORK == "LBLDIS":
-        rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], True, 0)
+    if not os.path.exists(aux.LBLDIR):
+        if inp.MODELFRAMEWORK == "LBLDIS":
+            rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], True, 0)
     
     '''
     If the current spectrum is a testcase, add some noise to the radiances
@@ -345,8 +346,8 @@ def __only_fwd(lblrtm=False):
     @param lblrtm If true, also execute lblrtm
     '''
 
-    if os.path.exists(aux.LBLDIR):
-        shutil.rmtree(aux.LBLDIR)
+    #if os.path.exists(aux.LBLDIR):
+    #    shutil.rmtree(aux.LBLDIR)
     if inp.MODELFRAMEWORK == "LBLDIS":
         rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
     #elif inp.MODELFRAMEWORK == "CLARRA":
