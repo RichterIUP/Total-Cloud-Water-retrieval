@@ -49,7 +49,7 @@ TIR = range(4, 20)
 Microwindows which are used by L-IWP. This can be either one of the predefined
 spectral ranges or one can pass a self-defined list of microwindows
 '''
-WINDOWS = FIR_TIR
+WINDOWS = TIR
 
 '''
 Set the maximum altitude for the atmospheric profile in km
