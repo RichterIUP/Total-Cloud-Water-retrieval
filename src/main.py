@@ -105,8 +105,8 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         '''
     
         inp.FORWARD = True
-        tt = np.array([0.2, 1.0, 3.0, 4.0, 6.0])
-        rt = np.array([10, 15, 20, 25, 30, 35, 40, 45])
+        tt = [0.2, 1.0, 3.0, 4.0, 6.0]
+        rt = [10, 15, 20, 25, 30, 35, 40, 45]
         fi = 0.5
         rad_lbldis = []
         rad_ftir = []
@@ -132,6 +132,7 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         for param_num in range(len(rt)):
             inp.MCP[2] = rt[param_num] / (2*fi+1)
             inp.MCP[3] = 3*inp.MCP[2]
+            print(inp.MCP)
             guess_apr = inversion.retrieve()
             slope_lbldis.append(guess_apr[2])
             slope_ftir.append(guess_apr[3])
