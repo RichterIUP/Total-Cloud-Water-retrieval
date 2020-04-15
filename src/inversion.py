@@ -6,6 +6,7 @@ import threading as th
 import os
 import sys
 import datetime as dt
+import shutil
 sys.path.append("./src")
 sys.path.append("./src/prowe/clarragroup-run_lblrtm_disort")
 import numpy as np
@@ -344,11 +345,13 @@ def __only_fwd(lblrtm=False):
     @param lblrtm If true, also execute lblrtm
     '''
 
-    print(inp.MODELFRAMEWORK)
+    if os.path.exists(aux.LBLDIR):
+        shutil.rmtree(aux.LBLDIR)
     if inp.MODELFRAMEWORK == "LBLDIS":
         rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
     #elif inp.MODELFRAMEWORK == "CLARRA":
     #    rD.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
+    '''
     plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR)
     plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_LBLDIS[0][-1])
     plt.grid(True)
@@ -367,8 +370,8 @@ def __only_fwd(lblrtm=False):
     f.write("{}\n".format(slope_lbldis))
     f.write("{}\n".format(slope_ftir))
     f.close()
-
-    return
+    '''
+    return [np.sum(aux.RADIANCE_LBLDIS[0][-1]), np.sum(aux.RADIANCE_FTIR), slope_lbldis, slope_ftir]
 
 ################################################################################
 
@@ -510,8 +513,8 @@ def retrieve():
     for retr_loop in range(aux.MAX_ITER):
 
         if inp.FORWARD:
-            __only_fwd()
-            return
+            [sum_lbldis, sum_ftir, slope_lbldis, slope_ftir] = __only_fwd()
+            return [sum_lbldis, sum_ftir, slope_lbldis, slope_ftir]
             
             
         log.write("# Iteration: {}".format(retr_loop))

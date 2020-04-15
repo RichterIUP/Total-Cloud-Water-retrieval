@@ -8,6 +8,8 @@ import os
 
 sys.path.append("./src")
 
+import numpy as np
+
 import inp
 import aux2 as aux
 import inversion
@@ -84,18 +86,59 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         Start the iteration using the chosen microwindows
         '''
     
+        inp.FORWARD = True
+        tt = np.array([0.2, 1.0, 3.0, 4.0, 6.0])
+        rt = np.array([10, 15, 20, 25, 30, 35, 40, 45])
+        fi = 0.5
+        rad_lbldis = []
+        rad_ftir = []
+        tt_y = []
+        for param_num in range(len(tt)):
+            inp.MCP[0] = tt[param_num]/2.0
+            inp.MCP[1] = tt[param_num]/2.0
+            guess_apr = inversion.retrieve()
+            rad_lbldis.append(guess_apr[0])
+            rad_ftir.append(guess_apr[1])
+            tt_y.append(tt[param_num])
+        rad_ftir_av = np.mean(rad_ftir)
+        tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt_y)
+        inp.MCP[0] = tt_best * (1-fi)
+        inp.MCP[1] = tt_best * fi
+        f = open("MCP", "a")
+        f.write("{}\n".format(inp.MCP))
+        f.close()
+        slope_lbldis = []
+        slope_ftir = []
+        rt_y
+        for param_num in range(len(rt)):
+            inp.MCP[2] = rt[param_num] / (2*fi+1)
+            inp.MCP[3] = 3*inp.MCP[2]
+            guess_apr = inversion.retrieve()
+            slope_lbldis.append(guess_apr[2])
+            slope_ftir.append(guess_apr[3])
+            rt_y.append(tt[param_num])
+        slope_ftir_av = np.mean(slope_ftir)
+        rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
+        inp.MCP[2] = rt_best / (2*fi+1)
+        inp.MCP[3] = 3*inp.MCP[2]
+        f = open("MCP", "a")
+        f.write("{}\n".format(inp.MCP))
+        f.close()
+        exit(-1)
+        
+        inp.FORWARD = False
         inversion.retrieve()
-        with open("{}/results.dat".format(inp.PATH), "w") as f:
-            f.write("{}\n".format(aux.TOTAL_OPTICAL_DEPTH[-1]))
-            f.write("{}\n".format(aux.ICE_FRACTION[-1]))
-            f.write("{}\n".format(aux.RADIUS_LIQUID[-1]))
-            f.write("{}\n".format(aux.RADIUS_ICE[-1]))
-            f.write("{}\n".format(aux.CHI_ADJ))
+        #with open("{}/results.dat".format(inp.PATH), "w") as f:
+        #    f.write("{}\n".format(aux.TOTAL_OPTICAL_DEPTH[-1]))
+        #    f.write("{}\n".format(aux.ICE_FRACTION[-1]))
+        #    f.write("{}\n".format(aux.RADIUS_LIQUID[-1]))
+        #    f.write("{}\n".format(aux.RADIUS_ICE[-1]))
+        #    f.write("{}\n".format(aux.CHI_ADJ))
     else:   
         '''
         Calculate the spectral radiance for the entire spectral range
         '''
-        #inp.WINDOWS = [-1]
+        inp.WINDOWS = [-1]
         inversion.retrieve()
         
     return

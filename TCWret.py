@@ -37,7 +37,7 @@ path = "/home/phi.richter/TCWret/OUTFOLDER"
 
 resolution_only_od   = 2.0
 resolution_retrieval = -0.5
-
+'''
 spec = spectrum.split("/")[-1]
 
 tl = [0.1, 0.5, 1.5, 2.0]
@@ -109,7 +109,7 @@ if rl < 0.0:
     rl = 10.0
 if ri < 0.0:
     ri = 30.0
-
+'''
 subprocess.call(["python3", "src/main.py", spectrum, windows, "15", "0", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
 #exit(-1)
 '''
