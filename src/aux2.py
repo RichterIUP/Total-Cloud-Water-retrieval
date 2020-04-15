@@ -363,7 +363,7 @@ def calc_noise():
         #   stdDev.append(0.16)
             for number in inp.WINDOWS:
                 for window in [number]:
-                    #print(line[0], window)
+                    print(WAVENUMBER_FTIR[line], window)
                     if in_windows(WAVENUMBER_FTIR[line], [window]):
                         wn_window.append(WAVENUMBER_FTIR[line])
                         ra_window.append(RADIANCE_FTIR[line])
