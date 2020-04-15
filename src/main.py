@@ -50,16 +50,16 @@ def main(cl_param):
     #    inp.MCP = cl_param[5][:]
 
     inp.SEARCH_INIT = False
-    if int(ONLY_OD) > 0:
-        inp.ONLY_OD = True
-        inp.NO_OD = False
-    elif int(ONLY_OD) == 0:
-        inp.ONLY_OD = False
-        inp.NO_OD = False
-    else:
-        inp.ONLY_OD = False
-        inp.NO_OD = False#True
-        inp.FIXED_FI = True
+    #if int(ONLY_OD) > 0:
+    #    inp.ONLY_OD = True
+    #    inp.NO_OD = False
+    #elif int(ONLY_OD) == 0:
+    #    inp.ONLY_OD = False
+    #    inp.NO_OD = False
+    #else:
+    #    inp.ONLY_OD = False
+    inp.NO_OD = False#True
+    inp.FIXED_FI = True
     
     inp.ONLY_OD = False
     inp.ADJUST_RADII = False
