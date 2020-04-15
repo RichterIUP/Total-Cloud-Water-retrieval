@@ -160,7 +160,7 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_ma
         rl[:] = np.float_(aux.RADIUS_LIQUID[-1])
         ri[:] = np.float_(aux.RADIUS_ICE[-1])
         
-        x_a[:] = np.array([np.float_(aux.TOTAL_OPTICAL_DEPTH[0]), np.float_(aux.ICE_FRACTION[0]), np.float_(aux.RADIUS_LIQUID[0]), np.float_(aux.RADIUS_ICE[-1])])
+        x_a[:] = np.array([np.float_(aux.TOTAL_OPTICAL_DEPTH[0]), np.float_(aux.ICE_FRACTION[0]), np.float_(aux.RADIUS_LIQUID[0]), np.float_(aux.RADIUS_ICE[0])])
         
         if type(errors) != type(None):
             dtt[:] = np.float_(errors[0])

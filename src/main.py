@@ -96,16 +96,7 @@ def main(cl_param):
         '''
     
         inp.FORWARD = True
-        '''
-        inp.MCP = [ 1.136,  0.423, 11.916, 13.374]
-        tt = inp.MCP[0] + inp.MCP[1]
-        for param_num in range(11):
-            inp.MCP[0] = tt*(1-param_num*0.1)
-            inp.MCP[1] = tt*param_num*0.1
-            guess_apr = inversion.retrieve()
-            print(guess_apr[0], guess_apr[1], guess_apr[2], guess_apr[3], inp.MCP)
-        exit(-1)
-        '''
+
         tt = [0.2, 1.0, 3.0, 4.0, 6.0]
         rt = [10, 15, 20, 25, 30, 35, 40, 45]
         fi = 0.5
@@ -139,7 +130,7 @@ def main(cl_param):
             rt_y.append(rt[param_num])
         slope_ftir_av = np.mean(slope_ftir)
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
-        inp.MCP[2] = rt_best / ((fact-1)*fi+1)
+        #inp.MCP[2] = rt_best / ((fact-1)*fi+1)
         inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
 
         
