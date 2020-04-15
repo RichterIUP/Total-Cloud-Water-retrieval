@@ -189,7 +189,7 @@ def calc_error(atmospheric_param, t_matrix):
     @return The standard deviations of the MCP
     '''
 
-    tau_liquid = atmospheric_param[0]
+    tau_liq = atmospheric_param[0]
     tau_ice = atmospheric_param[1]
     reff_liq = atmospheric_param[2]
     reff_ice = atmospheric_param[3]
