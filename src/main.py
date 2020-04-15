@@ -38,15 +38,15 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         inp.WINDOWS = inp.FIR_MCP
     elif cl_param[1] == "NIR":
         inp.WINDOWS = inp.NIR
-    aux.MAX_ITER = cl_param[2]
-    inp.FORWARD = cl_param[3]
-    inp.RESOLUTION = cl_param[4]
-    if inp.FI_FROM_CLOUDS:
-        fi = inp.MCP[1]
-        inp.MCP = cl_param[5][:]
-        inp.MCP[1] = fi
-    else:
-        inp.MCP = cl_param[5][:]
+    #aux.MAX_ITER = cl_param[2]
+    #inp.FORWARD = cl_param[3]
+    #inp.RESOLUTION = cl_param[4]
+    #if inp.FI_FROM_CLOUDS:
+    #    fi = inp.MCP[1]
+    #    inp.MCP = cl_param[5][:]
+    #    inp.MCP[1] = fi
+    #else:
+    #    inp.MCP = cl_param[5][:]
 
     inp.SEARCH_INIT = bool(int(SEARCH_INIT))
     if int(ONLY_OD) > 0:
@@ -133,8 +133,8 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         rt_y = []
         fact = 3
         for param_num in range(len(rt)):
-            inp.MCP[2] = rt[param_num] / ((fact-1)*fi+1)
-            inp.MCP[3] = rt[param_num] * fact / ((fact-1)*fi+1)
+            inp.MCP[2] = rt[param_num] / ((fact-1)*fi_best+1)
+            inp.MCP[3] = rt[param_num] * fact / ((fact-1)*fi_best+1)
             print(inp.MCP)
             guess_apr = inversion.retrieve()
             slope_lbldis.append(guess_apr[2])
@@ -168,7 +168,7 @@ if __name__ == '__main__':
         cl_param.append(sys.argv[2])
     else:
         cl_param.append("TIR")
-        
+    '''
     if len(sys.argv) > 3:
         cl_param.append(int(sys.argv[3]))
     else:
@@ -194,5 +194,5 @@ if __name__ == '__main__':
             cl_param.append([float(sys.argv[6]), float(sys.argv[7]), float(sys.argv[8]), float(sys.argv[9])])
     else:
         cl_param.append(inp.MCP)
-
-    main(cl_param, ONLY_OD=sys.argv[10], SEARCH_INIT=sys.argv[11], DIR=sys.argv[13], ADJUST_RADII=sys.argv[12])
+    '''
+    main(cl_param)#, ONLY_OD=sys.argv[10], SEARCH_INIT=sys.argv[11], DIR=sys.argv[13], ADJUST_RADII=sys.argv[12])
