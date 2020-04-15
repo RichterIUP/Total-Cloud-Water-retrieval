@@ -189,23 +189,15 @@ def calc_error(atmospheric_param, t_matrix):
     @return The standard deviations of the MCP
     '''
 
-    tau_total = atmospheric_param[0]
-    f_ice = atmospheric_param[1]
+    tau_liquid = atmospheric_param[0]
+    tau_ice = atmospheric_param[1]
     reff_liq = atmospheric_param[2]
     reff_ice = atmospheric_param[3]
     cov = calc_vcm(t_matrix)
-    tau_t_var = np.sqrt(cov.item((0, 0)))
-    f_i_var = np.sqrt(cov.item((1, 1)))
+    tau_l_var = np.sqrt(cov.item((0, 0)))
+    tau_i_var = np.sqrt(cov.item((1, 1)))
     ref_l_var = np.sqrt(cov.item((2, 2)))
     ref_i_var = np.sqrt(cov.item((3, 3)))
-    
-    '''
-    Convert tau_total and f_ice to tau_liquid and tau_ice
-    '''
-    tau_liq = tau_total# * (1 - f_ice)
-    tau_ice = f_ice#tau_total * f_ice
-    tau_l_var = tau_t_var#tau_t_var#np.abs(tau_t_var * (1 - f_ice)) + np.abs(- tau_total * f_i_var)
-    tau_i_var = f_i_var#tau_i_var#np.abs(tau_t_var * f_ice) + np.abs(tau_total * f_i_var)
 
     ice_database_shapes = [None for count in range(8)]
     ice_water_path = [0.0 for count in range(8)]

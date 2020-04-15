@@ -203,6 +203,7 @@ def __convergence(lm_param, loop_count, conv_test):
 
             averaging_kernel = numerical.calc_avk(aux.T_MATRIX[-1])
             errors = numerical.calc_error(mcp, aux.T_MATRIX[-1])
+            cov_mat = errors[-1]
             log.write("# Final change of parameters: {}\n".format(conv_test))
             if  loop_count == aux.MAX_ITER-1:
                 log.write("Not converged!\n")
@@ -216,21 +217,22 @@ def __convergence(lm_param, loop_count, conv_test):
                 aux.RESIDUUM[-1] = aux.RESIDUUM[idx]
                 #averaging_kernel = numerical.calc_avk(aux.T_MATRIX[idx])
                 errors = numerical.calc_error(mcp, aux.T_MATRIX[idx])
+                cov_mat = errors[-1]
                 log.write("Best estimation: x_{} = ({}, {}, {}, {})\n".format(loop_count, mcp[0], mcp[1], mcp[2], mcp[3])) 
                 
                 #Perform error estimation using the current step
-                if not inp.ONLY_OD:
-                    __run_lbldis_and_derivatives()
-                    [chi2, residuum, _res, _apr] = __calc_chi_2_and_residuum()
-                    delta = numerical.iteration(residuum, 0.0, np.zeros((4, len(aux.WAVENUMBER_FTIR))))
-                    averaging_kernel = numerical.calc_avk(delta[1])
-                    errors = numerical.calc_error(mcp, delta[1])
-                    create_nc.create_nc(chi_2=chi2, avk_matrix=averaging_kernel, errors=errors, index=-1, nc=0)               
+                #if not inp.ONLY_OD:
+                #    __run_lbldis_and_derivatives()
+                #    [chi2, residuum, _res, _apr] = __calc_chi_2_and_residuum()
+                #    delta = numerical.iteration(residuum, 0.0, np.zeros((4, len(aux.WAVENUMBER_FTIR))))
+                #    averaging_kernel = numerical.calc_avk(delta[1])
+                #    errors = numerical.calc_error(mcp, delta[1])
+                create_nc.create_nc(chi_2=chi2, avk_matrix=averaging_kernel, errors=errors, index=-1, nc=0, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[idx])               
             else:
                 aux.CONVERGED = True
                 log.write("Finished! Final Parameters: x_{} = ({}, {}, {}, {})\n".format(loop_count, mcp[0], mcp[1], mcp[2], mcp[3]))
                 if not inp.ONLY_OD:
-                    create_nc.create_nc(chi_2=aux.CHI2[-1], avk_matrix=averaging_kernel, errors=errors)
+                    create_nc.create_nc(chi_2=aux.CHI2[-1], avk_matrix=averaging_kernel, errors=errors, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[-1])
 
             
             return True

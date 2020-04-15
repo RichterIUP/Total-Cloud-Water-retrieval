@@ -13,7 +13,7 @@ import inp
 import aux2 as aux
 
 
-def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1):
+def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_matrix=None, transfer_matrix=[:]):
     '''
     Create the netCDF file
     
@@ -84,7 +84,12 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1):
         
         avk = outfile.createVariable("averaging kernel matrix", "f8", ("mcp", "mcp"))
         avk.units = "1"
-    
+
+        cov_mat = outfile.createVariable("covariance matrix", "f8", ("mcp", "mcp"))
+        cov_mat.units = "1"
+                
+        t_mat = outfile.createVariable("transfer matrix", "f8", ("mcp", "wavenumber"))
+        t_mat.units = "1"    
         tt = outfile.createVariable("tl", "f8", ("const", ))
         tt.units = "1"
         fi = outfile.createVariable("ti", "f8", ("const", ))
@@ -143,6 +148,10 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1):
         chi2[:] = chi_2
         if type(avk_matrix) != type(None):
             avk[:] = avk_matrix[:]
+        if type(cov_matrix) != type(None):
+            cov_mat[:] = covariance_matrix[:]
+        if type(transfer_matrix) != type(None):
+            t_mat[:] = transfer_matrix[:]
         
         tt[:] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1])
         fi[:] = np.float_(aux.ICE_FRACTION[-1])
