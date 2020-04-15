@@ -84,34 +84,6 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
     if not os.path.exists("{}".format(inp.PATH)):
         os.mkdir("{}".format(inp.PATH))
 
-
-    #aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
-    #aux.LBLTMP = '{}'.format(inp.PATH)
-    #aux.LBLLOG = '{}/lbllog.txt'.format(inp.PATH)
-    #aux.LBLDIR = "{}/lblout_{}".format(inp.PATH, aux.FTIR.split("/")[-1])
-
-    '''
-    Create the directory for the optical depths of LBLRTM
-    '''
-    #if not os.path.exists("{}".format(aux.LBLDIR)):
-    #    os.mkdir("{}".format(aux.LBLDIR))
-        
-        
-    #get_atm.get_atm()
-    
-    #aux.change_resolution()
-
-    #if inp.TESTCASE:
-    #    aux.RADIANCE_FTIR = aux.add_noise()
-        
-    '''
-    Calculate the noise and the S_y matrix
-    '''
-    #[aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR] = aux.average(aux.WAVENUMBER_FTIR[:], aux.RADIANCE_FTIR[:])
-    #exit(-1)
-    #[variance_ra, aux.S_Y_INV_MATRIX] = aux.calc_noise()
-    #rL.forward_run([0.1, 0.1, 7.0, 7.0], [0, 1.0], True, 0)
-
     inversion.__set_up_retrieval()
     
     if not inp.FORWARD:
@@ -136,15 +108,10 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
             tt_y.append(tt[param_num])
         rad_ftir_av = np.mean(rad_ftir)
         tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt_y)
-        print(tt_best)
-        print(rad_ftir_av)
-        print(rad_lbldis)
-        print(fi)
+
         inp.MCP[0] = tt_best * (1-fi)
         inp.MCP[1] = tt_best * fi
-        f = open("MCP", "a")
-        f.write("{}\n".format(inp.MCP))
-        f.close()
+
         slope_lbldis = []
         slope_ftir = []
         rt_y = []
@@ -160,19 +127,11 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
         inp.MCP[2] = rt_best / (2*fi+1)
         inp.MCP[3] = 3*inp.MCP[2]
-        f = open("MCP", "a")
-        f.write("{}\n".format(inp.MCP))
-        f.close()
-        exit(-1)
+
         
         inp.FORWARD = False
         inversion.retrieve()
-        #with open("{}/results.dat".format(inp.PATH), "w") as f:
-        #    f.write("{}\n".format(aux.TOTAL_OPTICAL_DEPTH[-1]))
-        #    f.write("{}\n".format(aux.ICE_FRACTION[-1]))
-        #    f.write("{}\n".format(aux.RADIUS_LIQUID[-1]))
-        #    f.write("{}\n".format(aux.RADIUS_ICE[-1]))
-        #    f.write("{}\n".format(aux.CHI_ADJ))
+
     else:   
         '''
         Calculate the spectral radiance for the entire spectral range

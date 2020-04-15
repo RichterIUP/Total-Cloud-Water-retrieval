@@ -503,7 +503,6 @@ def retrieve():
     @return True if converged and the final cost function
     '''
 
-    #__set_up_retrieval()
     aux.RADIANCE_LBLDIS = [[],[],[],[],[],[],[],[],[]]
     aux.TOTAL_OPTICAL_DEPTH = [inp.MCP[0]]
     aux.ICE_FRACTION = [inp.MCP[1]]
