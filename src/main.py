@@ -84,7 +84,7 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         os.mkdir("{}".format(inp.PATH))
 
 
-    rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], True, 0)
+    rL.forward_run([0.1, 0.1, 7.0, 7.0], [0, 1.0], True, 0)
 
     if not inp.FORWARD:
         '''
