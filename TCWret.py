@@ -73,18 +73,31 @@ tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt)
 tl_best = tt_best * (1-fi_best)
 ti_best = tt_best * fi_best
 
-for ii in range(4):
-    rl_ii = rt[ii] / (2*fi_best+1)
-    ri_ii = 3*rl_ii
-    subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl_best), str(ti_best), str(rl_ii), str(ri_ii), "0", "0", "0", directory])
-    if os.path.exists("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory)):
-        with open("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory), "r") as f:
-            cont = f.readlines()
-            slope_lbldis.append(float(cont[-2]))
-            slope_ftir.append(float(cont[-1]))
-            rt_y.append(rt[ii])
-        shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
 
+diff_slope = []
+vals_r = []
+for ri_ii in [15, 30, 45, 60]:
+    for rl_ii in [5, 10, 15, 20]:
+    #rl_ii = rt[ii] / (2*fi_best+1)
+    #ri_ii = 3*rl_ii
+        subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl_best), str(ti_best), str(rl_ii), str(ri_ii), "0", "0", "0", directory])
+        if os.path.exists("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory)):
+            with open("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory), "r") as f:
+                cont = f.readlines()
+                slope_lbldis.append(float(cont[-2]))
+                slope_ftir.append(float(cont[-1]))
+                diff_slope(np.abs(float(cont[-2])-float(cont[-1])))
+                vals_r.append([rl_ii, ri_ii])
+                rt_y.append(rt[ii])
+            shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
+
+print(slope_lbldis)
+print(slope_ftir)
+print(diff_slope)
+idx = diff_slope.index(np.min(diff_slope))
+print(vals_r)
+print(vals_r[idx])
+'''
 slope_ftir_av = np.mean(slope_ftir)
 rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
 rl_best = rt_best / (2*fi_best+1)
@@ -105,6 +118,7 @@ if ri < 0.0:
     ri = 30.0
 
 subprocess.call(["python3", "src/main.py", spectrum, windows, "15", "0", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
+'''
 #exit(-1)
 '''
 Start the retrieval with high resolution
