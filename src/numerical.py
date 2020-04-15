@@ -251,4 +251,4 @@ def calc_error(atmospheric_param, t_matrix):
 
     return [tau_l_var, tau_i_var, ref_l_var, ref_i_var, \
             total_liq_water_path, total_dliq_water_path, \
-            total_ice_water_path, total_dice_water_path]
+            total_ice_water_path, total_dice_water_path, cov]
