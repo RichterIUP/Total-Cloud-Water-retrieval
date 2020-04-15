@@ -15,6 +15,7 @@ import aux2 as aux
 import inversion
 import read_input
 import run_lbldis as rL
+import get_atm
 
 
 def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False):
@@ -94,6 +95,8 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
     '''
     if not os.path.exists("{}".format(aux.LBLDIR)):
         os.mkdir("{}".format(aux.LBLDIR))
+        
+    get_atm.get_atm()
     rL.forward_run([0.1, 0.1, 7.0, 7.0], [0, 1.0], True, 0)
 
     if not inp.FORWARD:

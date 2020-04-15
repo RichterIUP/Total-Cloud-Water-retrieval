@@ -268,7 +268,7 @@ def __set_up_retrieval():
     '''
     Prepare the atmospheric data
     '''
-    get_atm.get_atm()
+    #get_atm.get_atm()
        
     '''
     Set up the S_a matrix
