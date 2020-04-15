@@ -130,6 +130,7 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
 
         
         inp.FORWARD = False
+        inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
 
     else:   
