@@ -127,6 +127,8 @@ CHI2 = []
 RESIDUUM = []
 T_MATRIX = []
 
+VARIANCE_RA = 0.0
+
 PROF_FILE = "prof20170611_1651.nc"
 '''
 Set this true if convergence reached

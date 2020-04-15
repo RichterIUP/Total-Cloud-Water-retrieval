@@ -320,7 +320,7 @@ def __set_up_retrieval():
     #aux.RADIANCE_LBLDIS = [[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR]]
 
     
-    log.log_pre_iter(aux.variance_ra)
+    log.log_pre_iter(variance_ra)
     return
 
 ################################################################################
