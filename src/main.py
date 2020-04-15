@@ -84,6 +84,16 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         os.mkdir("{}".format(inp.PATH))
 
 
+    aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
+    aux.LBLTMP = '{}'.format(inp.PATH)
+    aux.LBLLOG = '{}/lbllog.txt'.format(inp.PATH)
+    aux.LBLDIR = "{}/lblout_{}".format(inp.PATH, aux.FTIR.split("/")[-1])
+
+    '''
+    Create the directory for the optical depths of LBLRTM
+    '''
+    if not os.path.exists("{}".format(aux.LBLDIR)):
+        os.mkdir("{}".format(aux.LBLDIR))
     rL.forward_run([0.1, 0.1, 7.0, 7.0], [0, 1.0], True, 0)
 
     if not inp.FORWARD:

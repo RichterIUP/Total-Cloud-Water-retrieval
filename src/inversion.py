@@ -254,16 +254,16 @@ def __set_up_retrieval():
     aux.RADIUS_LIQUID.append(inp.MCP[2])
     aux.RADIUS_ICE.append(inp.MCP[3])
     
-    aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
-    aux.LBLTMP = '{}'.format(inp.PATH)
-    aux.LBLLOG = '{}/lbllog.txt'.format(inp.PATH)
-    aux.LBLDIR = "{}/lblout_{}".format(inp.PATH, aux.FTIR.split("/")[-1])
+    #aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
+    #aux.LBLTMP = '{}'.format(inp.PATH)
+    #aux.LBLLOG = '{}/lbllog.txt'.format(inp.PATH)
+    #aux.LBLDIR = "{}/lblout_{}".format(inp.PATH, aux.FTIR.split("/")[-1])
 
     '''
     Create the directory for the optical depths of LBLRTM
     '''
-    if not os.path.exists("{}".format(aux.LBLDIR)):
-        os.mkdir("{}".format(aux.LBLDIR))
+    #if not os.path.exists("{}".format(aux.LBLDIR)):
+    #    os.mkdir("{}".format(aux.LBLDIR))
 
     '''
     Prepare the atmospheric data
