@@ -115,9 +115,9 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         slope_ftir = []
         fi = [0.0, 0.25, 0.5, 0.75, 1.0]
         fi_y = []
-        for param_num in range(len(tt)):
-            inp.MCP[0] = tt_best * (1 - fi)
-            inp.MCP[1] = tt_best * fi
+        for param_num in range(len(fi)):
+            inp.MCP[0] = tt_best * (1 - fi[param_num])
+            inp.MCP[1] = tt_best * fi[param_num]
             guess_apr = inversion.retrieve()
             slope_lbldis.append(guess_apr[2])
             slope_ftir.append(guess_apr[3])
