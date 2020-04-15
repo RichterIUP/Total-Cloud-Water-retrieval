@@ -131,6 +131,8 @@ def main(cl_param):
 
         inp.MCP[0] = tt_best * (1-fi_best)
         inp.MCP[1] = tt_best * fi_best
+        
+        
 
         slope_lbldis = []
         slope_ftir = []
