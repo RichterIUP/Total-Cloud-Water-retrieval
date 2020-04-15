@@ -96,6 +96,7 @@ def main(cl_param):
         '''
     
         inp.FORWARD = True
+        '''
         inp.MCP = [ 1.136,  0.423, 11.916, 13.374]
         tt = inp.MCP[0] + inp.MCP[1]
         for param_num in range(11):
@@ -104,6 +105,7 @@ def main(cl_param):
             guess_apr = inversion.retrieve()
             print(guess_apr[0], guess_apr[1], guess_apr[2], guess_apr[3], inp.MCP)
         exit(-1)
+        '''
         tt = [0.2, 1.0, 3.0, 4.0, 6.0]
         rt = [10, 15, 20, 25, 30, 35, 40, 45]
         fi = 0.5

@@ -104,6 +104,8 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_ma
         lwp.units = "g/m2"
         twp = outfile.createVariable("twp", "f8", ("const", ))
         twp.units = "g/m2"
+        x_a = outfile.createVariable("x_a", "f8", ("mcp", ))
+        x_a.units = "1"
         
         dtt = outfile.createVariable("dtl", "f8", ("const", ))
         dtt.units = "1"
@@ -157,6 +159,8 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_ma
         fi[:] = np.float_(aux.ICE_FRACTION[-1])
         rl[:] = np.float_(aux.RADIUS_LIQUID[-1])
         ri[:] = np.float_(aux.RADIUS_ICE[-1])
+        
+        x_a[:] = np.array([np.float_(aux.TOTAL_OPTICAL_DEPTH[0]), np.float_(aux.ICE_FRACTION[0]), np.float_(aux.RADIUS_LIQUID[0]), np.float_(aux.RADIUS_ICE[-1])])
         
         if type(errors) != type(None):
             dtt[:] = np.float_(errors[0])
