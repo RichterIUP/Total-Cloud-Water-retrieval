@@ -127,7 +127,7 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         f.close()
         slope_lbldis = []
         slope_ftir = []
-        rt_y
+        rt_y = []
         for param_num in range(len(rt)):
             inp.MCP[2] = rt[param_num] / (2*fi+1)
             inp.MCP[3] = 3*inp.MCP[2]
