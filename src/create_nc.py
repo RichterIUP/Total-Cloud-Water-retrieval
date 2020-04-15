@@ -148,7 +148,7 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_ma
         chi2[:] = chi_2
         if type(avk_matrix) != type(None):
             avk[:] = avk_matrix[:]
-        if type(cov_matrix) != type(None):
+        if type(covariance_matrix) != type(None):
             cov_mat[:] = covariance_matrix[:]
         if type(transfer_matrix) != type(None):
             t_mat[:] = transfer_matrix[:]
