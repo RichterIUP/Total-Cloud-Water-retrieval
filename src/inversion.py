@@ -363,14 +363,14 @@ def __only_fwd(lblrtm=False):
     f.write("{}\n".format(np.sum(aux.RADIANCE_LBLDIS[0][-1])))
     f.write("{}\n".format(np.sum(aux.RADIANCE_FTIR)))
     '''
-    slope_lbldis = (aux.RADIANCE_LBLDIS[0][-1][0] - aux.RADIANCE_LBLDIS[0][-1][15])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[14])
-    slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[15])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[14])
+    slope_lbldis = (aux.RADIANCE_LBLDIS[0][-1][0] - aux.RADIANCE_LBLDIS[0][-1][11])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[11])
+    slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[11])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[11])
     '''
     f.write("{}\n".format(slope_lbldis))
     f.write("{}\n".format(slope_ftir))
     f.close()
     '''
-    return [np.sum(aux.RADIANCE_LBLDIS[0][-1][15:-1]), np.sum(aux.RADIANCE_FTIR[15:-1]), slope_lbldis, slope_ftir]
+    return [np.sum(aux.RADIANCE_LBLDIS[0][-1][11:-1]), np.sum(aux.RADIANCE_FTIR[11:-1]), slope_lbldis, slope_ftir]
 
 ################################################################################
 
