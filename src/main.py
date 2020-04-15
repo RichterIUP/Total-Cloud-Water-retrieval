@@ -117,7 +117,7 @@ def main(cl_param):
         
         slope_lbldis = []
         slope_ftir = []
-        fi = [0.0, 0.25, 0.5, 0.75, 1.0]
+        fi = [0.25, 0.5, 0.75]
         fi_y = []
         for param_num in range(len(fi)):
             inp.MCP[0] = tt_best * (1 - fi[param_num])
