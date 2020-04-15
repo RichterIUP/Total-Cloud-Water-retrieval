@@ -249,10 +249,10 @@ def __set_up_retrieval():
     aux.ICE_FRACTION = []
     aux.RADIUS_LIQUID = []
     aux.RADIUS_ICE = []
-    aux.TOTAL_OPTICAL_DEPTH.append(inp.MCP[0])
-    aux.ICE_FRACTION.append(inp.MCP[1])
-    aux.RADIUS_LIQUID.append(inp.MCP[2])
-    aux.RADIUS_ICE.append(inp.MCP[3])
+    aux.TOTAL_OPTICAL_DEPTH = [inp.MCP[0]]
+    aux.ICE_FRACTION = [inp.MCP[1]]
+    aux.RADIUS_LIQUID = [inp.MCP[2]]
+    aux.RADIUS_ICE = [inp.MCP[3]]
     
     #aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
     #aux.LBLTMP = '{}'.format(inp.PATH)
