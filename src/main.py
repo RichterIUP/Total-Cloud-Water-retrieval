@@ -114,6 +114,7 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         for param_num in range(len(tt)):
             inp.MCP[0] = tt[param_num]/2.0
             inp.MCP[1] = tt[param_num]/2.0
+            print(inp.MCP)
             guess_apr = inversion.retrieve()
             rad_lbldis.append(guess_apr[0])
             rad_ftir.append(guess_apr[1])
