@@ -245,14 +245,10 @@ def __set_up_retrieval():
     '''Initialise the retrieval and the matrizes
     '''
     aux.RADIANCE_LBLDIS = [[],[],[],[],[],[],[],[],[]]
-    aux.TOTAL_OPTICAL_DEPTH = []
-    aux.ICE_FRACTION = []
-    aux.RADIUS_LIQUID = []
-    aux.RADIUS_ICE = []
-    aux.TOTAL_OPTICAL_DEPTH = [inp.MCP[0]]
-    aux.ICE_FRACTION = [inp.MCP[1]]
-    aux.RADIUS_LIQUID = [inp.MCP[2]]
-    aux.RADIUS_ICE = [inp.MCP[3]]
+    #aux.TOTAL_OPTICAL_DEPTH = [inp.MCP[0]]
+    #aux.ICE_FRACTION = [inp.MCP[1]]
+    #aux.RADIUS_LIQUID = [inp.MCP[2]]
+    #aux.RADIUS_ICE = [inp.MCP[3]]
     
     aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
     aux.LBLTMP = '{}'.format(inp.PATH)
@@ -305,7 +301,7 @@ def __set_up_retrieval():
     '''
     #if not os.path.exists(aux.LBLDIR):
     if inp.MODELFRAMEWORK == "LBLDIS":
-        rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], True, 0)
+        rL.forward_run(inp.MCP, [0, 1.0], True, 0)
     
     '''
     If the current spectrum is a testcase, add some noise to the radiances
@@ -508,6 +504,11 @@ def retrieve():
     '''
 
     #__set_up_retrieval()
+    aux.RADIANCE_LBLDIS = [[],[],[],[],[],[],[],[],[]]
+    aux.TOTAL_OPTICAL_DEPTH = [inp.MCP[0]]
+    aux.ICE_FRACTION = [inp.MCP[1]]
+    aux.RADIUS_LIQUID = [inp.MCP[2]]
+    aux.RADIUS_ICE = [inp.MCP[3]]
     conv_test = 1000.0
     [lm_param, lm_param_prev] = __initialise_variables()
     cov_matrix = None
