@@ -254,21 +254,21 @@ def __set_up_retrieval():
     aux.RADIUS_LIQUID = [inp.MCP[2]]
     aux.RADIUS_ICE = [inp.MCP[3]]
     
-    #aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
-    #aux.LBLTMP = '{}'.format(inp.PATH)
-    #aux.LBLLOG = '{}/lbllog.txt'.format(inp.PATH)
-    #aux.LBLDIR = "{}/lblout_{}".format(inp.PATH, aux.FTIR.split("/")[-1])
+    aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
+    aux.LBLTMP = '{}'.format(inp.PATH)
+    aux.LBLLOG = '{}/lbllog.txt'.format(inp.PATH)
+    aux.LBLDIR = "{}/lblout_{}".format(inp.PATH, aux.FTIR.split("/")[-1])
 
     '''
     Create the directory for the optical depths of LBLRTM
     '''
-    #if not os.path.exists("{}".format(aux.LBLDIR)):
-    #    os.mkdir("{}".format(aux.LBLDIR))
+    if not os.path.exists("{}".format(aux.LBLDIR)):
+        os.mkdir("{}".format(aux.LBLDIR))
 
     '''
     Prepare the atmospheric data
     '''
-    #get_atm.get_atm()
+    get_atm.get_atm()
        
     '''
     Set up the S_a matrix
@@ -304,12 +304,13 @@ def __set_up_retrieval():
     Calculate the clear sky spectrum
     '''
     #if not os.path.exists(aux.LBLDIR):
-    #    if inp.MODELFRAMEWORK == "LBLDIS":
-    #        rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], True, 0)
+    if inp.MODELFRAMEWORK == "LBLDIS":
+        rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], True, 0)
     
     '''
     If the current spectrum is a testcase, add some noise to the radiances
     '''
+
     if inp.TESTCASE:
         aux.RADIANCE_FTIR = aux.add_noise()
         
@@ -506,7 +507,7 @@ def retrieve():
     @return True if converged and the final cost function
     '''
 
-    __set_up_retrieval()
+    #__set_up_retrieval()
     conv_test = 1000.0
     [lm_param, lm_param_prev] = __initialise_variables()
     cov_matrix = None

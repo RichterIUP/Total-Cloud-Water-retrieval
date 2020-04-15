@@ -85,33 +85,35 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         os.mkdir("{}".format(inp.PATH))
 
 
-    aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
-    aux.LBLTMP = '{}'.format(inp.PATH)
-    aux.LBLLOG = '{}/lbllog.txt'.format(inp.PATH)
-    aux.LBLDIR = "{}/lblout_{}".format(inp.PATH, aux.FTIR.split("/")[-1])
+    #aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
+    #aux.LBLTMP = '{}'.format(inp.PATH)
+    #aux.LBLLOG = '{}/lbllog.txt'.format(inp.PATH)
+    #aux.LBLDIR = "{}/lblout_{}".format(inp.PATH, aux.FTIR.split("/")[-1])
 
     '''
     Create the directory for the optical depths of LBLRTM
     '''
-    if not os.path.exists("{}".format(aux.LBLDIR)):
-        os.mkdir("{}".format(aux.LBLDIR))
+    #if not os.path.exists("{}".format(aux.LBLDIR)):
+    #    os.mkdir("{}".format(aux.LBLDIR))
         
         
-    get_atm.get_atm()
+    #get_atm.get_atm()
     
-    aux.change_resolution()
+    #aux.change_resolution()
 
-    if inp.TESTCASE:
-        aux.RADIANCE_FTIR = aux.add_noise()
+    #if inp.TESTCASE:
+    #    aux.RADIANCE_FTIR = aux.add_noise()
         
     '''
     Calculate the noise and the S_y matrix
     '''
-    [aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR] = aux.average(aux.WAVENUMBER_FTIR[:], aux.RADIANCE_FTIR[:])
+    #[aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR] = aux.average(aux.WAVENUMBER_FTIR[:], aux.RADIANCE_FTIR[:])
     #exit(-1)
-    [variance_ra, aux.S_Y_INV_MATRIX] = aux.calc_noise()
-    rL.forward_run([0.1, 0.1, 7.0, 7.0], [0, 1.0], True, 0)
+    #[variance_ra, aux.S_Y_INV_MATRIX] = aux.calc_noise()
+    #rL.forward_run([0.1, 0.1, 7.0, 7.0], [0, 1.0], True, 0)
 
+    inversion.__set_up_retrieval()
+    
     if not inp.FORWARD:
         '''
         Start the iteration using the chosen microwindows
