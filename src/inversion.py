@@ -228,7 +228,7 @@ def __convergence(lm_param, loop_count, conv_test):
                 #    delta = numerical.iteration(residuum, 0.0, np.zeros((4, len(aux.WAVENUMBER_FTIR))))
                 #    averaging_kernel = numerical.calc_avk(delta[1])
                 #    errors = numerical.calc_error(mcp, delta[1])
-                create_nc.create_nc(chi_2=chi2, avk_matrix=averaging_kernel, errors=errors, index=-1, nc=0, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[idx])               
+                create_nc.create_nc(chi_2=aux.CHI2[idx], avk_matrix=averaging_kernel, errors=errors, index=-1, nc=0, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[idx])               
             else:
                 aux.CONVERGED = True
                 log.write("Finished! Final Parameters: x_{} = ({}, {}, {}, {})\n".format(loop_count, mcp[0], mcp[1], mcp[2], mcp[3]))
