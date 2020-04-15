@@ -115,6 +115,7 @@ def main(cl_param):
         inp.MCP[0] = tt_best * (1-fi)
         inp.MCP[1] = tt_best * fi
         
+        '''
         slope_lbldis = []
         slope_ftir = []
         fi = [0.25, 0.5, 0.75]
@@ -131,13 +132,13 @@ def main(cl_param):
 
         inp.MCP[0] = tt_best * (1-fi_best)
         inp.MCP[1] = tt_best * fi_best
-        
+        '''
         
 
         slope_lbldis = []
         slope_ftir = []
         rt_y = []
-        fact = 3
+        fact = 1
         for param_num in range(len(rt)):
             inp.MCP[2] = rt[param_num] / ((fact-1)*fi_best+1)
             inp.MCP[3] = rt[param_num] * fact / ((fact-1)*fi_best+1)
