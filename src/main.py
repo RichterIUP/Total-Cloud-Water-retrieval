@@ -146,8 +146,8 @@ def main(cl_param):
             rt_y.append(rt[param_num])
         slope_ftir_av = np.mean(slope_ftir)
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
-        inp.MCP[2] = rt_best / ((fact-1)*fi+1)
-        inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
+        inp.MCP[2] = rt_best / ((fact-1)*fi_best+1)
+        inp.MCP[3] = rt_best * fact / ((fact-1)*fi_best+1)
 
         
         inp.FORWARD = False
