@@ -86,7 +86,7 @@ for ri_ii in [15, 30, 45, 60]:
                 cont = f.readlines()
                 slope_lbldis.append(float(cont[-2]))
                 slope_ftir.append(float(cont[-1]))
-                diff_slope(np.abs(float(cont[-2])-float(cont[-1])))
+                diff_slope.append((np.abs(float(cont[-2])-float(cont[-1]))))
                 vals_r.append([rl_ii, ri_ii])
                 rt_y.append(rt[ii])
             shutil.rmtree("{}/{}/{}".format(path, spectrum.split("/")[-1], directory)) 
