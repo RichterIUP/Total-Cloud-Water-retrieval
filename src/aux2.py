@@ -356,16 +356,17 @@ def calc_noise():
         wn_window = []
         ra_window = []
         stdDev = []
-        for line in wn_rad:
-            wavenumber.append(line[0])
-            spectral_radiance.append(line[1])
+        dp = len(WAVENUMBER_FTIR)
+        for line in range(dp):
+            wavenumber.append(WAVENUMBER_FTIR[line])#line[0])
+            spectral_radiance.append(RADIANCE_FTIR[line])#line[1])
         #   stdDev.append(0.16)
             for number in inp.WINDOWS:
                 for window in [number]:
                     #print(line[0], window)
-                    if aux.in_windows(line[0], [window]):
-                        wn_window.append(line[0])
-                        ra_window.append(line[1])
+                    if aux.in_windows(WAVENUMBER_FTIR[line], [window]):
+                        wn_window.append(WAVENUMBER_FTIR[line])
+                        ra_window.append(RADIANCE_FTIR[line])
                 if len(ra_window) > 3:
                     func = lambda x, a, b, c: a * x**2 + b * x + c
                     popt, pcov = opt.curve_fit(func, wn_window, ra_window)
