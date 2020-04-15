@@ -363,7 +363,6 @@ def calc_noise():
         #   stdDev.append(0.16)
             for number in inp.WINDOWS:
                 for window in [number]:
-                    print(WAVENUMBER_FTIR[line], window)
                     if in_windows(WAVENUMBER_FTIR[line], [window]):
                         wn_window.append(WAVENUMBER_FTIR[line])
                         ra_window.append(RADIANCE_FTIR[line])
@@ -395,7 +394,10 @@ def s_y_inv():
 
     RADIANCE_LBLDIS = [[], [], [], [], [], [], [], [], []]
 
-    variance_ra = NOISE_FTIR**2
+    if inp.STDDEV < 0.0:
+        variance_ra = np.mean(np.array(NOISE_FTIR))**2
+    else:
+        variance_ra = inp.STDDEV**2
     vec_error = np.array([variance_ra for ii in range(len(WAVENUMBER_FTIR))])
     s_y_inv_matrix = np.reciprocal(vec_error) * np.identity(len(vec_error))
 
