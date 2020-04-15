@@ -123,7 +123,7 @@ def main(cl_param):
         fact = 1
         for param_num in range(len(rt)):
             #inp.MCP[2] = rt[param_num] / ((fact-1)*fi+1)
-            inp.MCP[3] = rt[param_num] * fact / ((fact-1)*fi+1)
+            inp.MCP[3] = rt[param_num]# * fact / ((fact-1)*fi+1)
             print(inp.MCP)
             guess_apr = inversion.retrieve()
             slope_lbldis.append(guess_apr[2])
@@ -132,9 +132,9 @@ def main(cl_param):
         slope_ftir_av = np.mean(slope_ftir)
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
         #inp.MCP[2] = rt_best / ((fact-1)*fi+1)
-        inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
+        inp.MCP[3] = rt_best# * fact / ((fact-1)*fi+1)
         
-        '''
+
         slope_lbldis = []
         slope_ftir = []
         rt_y = []
@@ -151,7 +151,7 @@ def main(cl_param):
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
         inp.MCP[2] = rt_best
         #inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
-        '''
+
         
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
