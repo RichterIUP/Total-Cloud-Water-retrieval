@@ -56,7 +56,7 @@ rad_lbldis = []
 rad_ftir   = []
 slope_lbldis = []
 slope_ftir = []
-'''
+
 for ii in range(4):
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl[ii]), str(ti[ii]), str(rl[0]), str(ri[0]), "0", "0", "0", directory])
     if os.path.exists("{}/{}/{}/lbldis.spec".format(path, spectrum.split("/")[-1], directory)):
@@ -103,11 +103,7 @@ if rl < 0.0:
     rl = 10.0
 if ri < 0.0:
     ri = 30.0
-'''
-tt = 0.182
-fi = 0.383
-rl = 3.520
-ri= 57.423
+
 subprocess.call(["python3", "src/main.py", spectrum, windows, "15", "0", str(resolution_only_od), str(tt), str(fi), str(rl), str(ri), "0", "0", "0", directory])
 #exit(-1)
 '''
