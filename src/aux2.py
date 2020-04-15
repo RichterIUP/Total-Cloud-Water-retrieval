@@ -396,7 +396,7 @@ def s_y_inv():
 
     RADIANCE_LBLDIS = [[], [], [], [], [], [], [], [], []]
 
-    if inp.STDDEV < 0.0:
+    if inp.STDDEV < 0.0 and not inp.TESTCASE:
         variance_ra = np.mean(np.array(NOISE_FTIR))**2
     else:
         variance_ra = inp.STDDEV**2

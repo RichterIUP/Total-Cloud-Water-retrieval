@@ -343,33 +343,11 @@ def __only_fwd(lblrtm=False):
     @param lblrtm If true, also execute lblrtm
     '''
 
-    #if os.path.exists(aux.LBLDIR):
-    #    shutil.rmtree(aux.LBLDIR)
-    if inp.MODELFRAMEWORK == "LBLDIS":
-        rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
-    #elif inp.MODELFRAMEWORK == "CLARRA":
-    #    rD.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
-    '''
-    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR)
-    plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_LBLDIS[0][-1])
-    plt.grid(True)
-    plt.savefig("radiance_fwd.png")
-    plt.close()
-    plt.clf()
-    #exit(-1)
-    f = open("{}/lbldis.spec".format(inp.PATH), "w")
-    for ii in range(len(aux.WAVENUMBER_FTIR)):
-        f.write("{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[0][-1][ii]))
-    f.write("{}\n".format(np.sum(aux.RADIANCE_LBLDIS[0][-1])))
-    f.write("{}\n".format(np.sum(aux.RADIANCE_FTIR)))
-    '''
+    rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
+
     slope_lbldis = (aux.RADIANCE_LBLDIS[0][-1][0] - aux.RADIANCE_LBLDIS[0][-1][11])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[11])
     slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[11])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[11])
-    '''
-    f.write("{}\n".format(slope_lbldis))
-    f.write("{}\n".format(slope_ftir))
-    f.close()
-    '''
+
     return [np.sum(aux.RADIANCE_LBLDIS[0][-1][11:-1]), np.sum(aux.RADIANCE_FTIR[11:-1]), slope_lbldis, slope_ftir]
 
 ################################################################################

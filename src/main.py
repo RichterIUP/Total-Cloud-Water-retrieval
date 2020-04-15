@@ -130,7 +130,7 @@ def main(cl_param):
         rt_y = []
         fact = 1
         for param_num in range(len(rt)):
-            inp.MCP[2] = rt[param_num] / ((fact-1)*fi+1)
+            #inp.MCP[2] = rt[param_num] / ((fact-1)*fi+1)
             inp.MCP[3] = rt[param_num] * fact / ((fact-1)*fi+1)
             print(inp.MCP)
             guess_apr = inversion.retrieve()
