@@ -5,6 +5,7 @@ Entrance point for L-IWP. Prepare the data and call the iteration
 
 import sys
 import os
+import datetime as dt
 
 sys.path.append("./src")
 
@@ -18,7 +19,7 @@ import run_lbldis as rL
 import get_atm
 
 
-def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False):
+def main(cl_param):
     '''
     Write the command line parameters to the corresponding variables
     @param cl_param All the command line parameters: 
@@ -48,7 +49,7 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
     #else:
     #    inp.MCP = cl_param[5][:]
 
-    inp.SEARCH_INIT = bool(int(SEARCH_INIT))
+    inp.SEARCH_INIT = False
     if int(ONLY_OD) > 0:
         inp.ONLY_OD = True
         inp.NO_OD = False
@@ -60,10 +61,13 @@ def main(cl_param, ONLY_OD=False, SEARCH_INIT=False, DIR="", ADJUST_RADII=False)
         inp.NO_OD = False#True
         inp.FIXED_FI = True
     
-    inp.ONLY_OD = bool(int(ONLY_OD))
-    inp.ADJUST_RADII = bool(int(ADJUST_RADII))
+    inp.ONLY_OD = False
+    inp.ADJUST_RADII = False
 
-    aux.TIME_INDEX = DIR
+    NOW = dt.datetime.now()
+    directory = "{}_{}_{}_{}_{}_{}".format(NOW.month, NOW.day, \
+      NOW.hour, NOW.minute, NOW.second, NOW.microsecond)
+    aux.TIME_INDEX = directory
     
     if inp.SEARCH_INIT or inp.ONLY_OD:
         inp.LM_INIT = 0.0
