@@ -76,7 +76,7 @@ ti_best = tt_best * fi_best
 
 diff_slope = []
 vals_r = []
-for ri_ii in range(8):
+for ii in range(8):
     rl_ii = rt[ii] / (2*fi_best+1)
     ri_ii = 3*rl_ii
     subprocess.call(["python3", "src/main.py", spectrum, windows, "20", "1", str(resolution_only_od), str(tl_best), str(ti_best), str(rl_ii), str(ri_ii), "0", "0", "0", directory])
