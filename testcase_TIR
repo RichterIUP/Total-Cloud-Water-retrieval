@@ -15,7 +15,7 @@ module load Python
 module load matplotlib
 module load netcdf4-python
 
-python3 TCWret.py /home/phi.richter/Emission_Data/PS.20170611_101300.nc TI
+python3 TCWret.py /home/phi.richter/Emission_Data/PS.20170611_141300.nc TIR
 #python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012110621_cld1_0001_ch2_singleLayer.nc TIR
 #python3 src/main.py /home/phi.richter/TESTCASES_nc/simulation_2012042117_cld1_0003_ch2_singleLayer.nc TIR
 #python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012092517_cld1_0004_ch2_singleLayer.nc TIR
