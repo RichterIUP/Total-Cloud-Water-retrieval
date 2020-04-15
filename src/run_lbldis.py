@@ -57,7 +57,8 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
     Save the calculated radiance
     '''
 
-    aux.RADIANCE_LBLDIS[file_num].append(aux.average(np.array(aux.WAVENUMBER_FTIR), np.array(radiance))[1])
+    if not lblrtm:
+        aux.RADIANCE_LBLDIS[file_num].append(aux.average(np.array(aux.WAVENUMBER_FTIR), np.array(radiance))[1])
 
     return
 
