@@ -140,7 +140,7 @@ CONVERGED = False
 Microwindows in cm-1
 '''
 
-MICROWINDOWS = [[] for ii in range(18)]
+MICROWINDOWS = [[] for ii in range(19)]
 MICROWINDOWS[0] = [529.9, 533.0]
 #MICROWINDOWS[1] = [538.0, 539.0]
 #MICROWINDOWS[2] = [542.0, 544.0]
@@ -157,25 +157,25 @@ MICROWINDOWS[7] = [828.3, 834.6]
 #MICROWINDOWS[10] = [835.8, 838.7]
 #MICROWINDOWS[8] = [843.1, 848.1]
 #MICROWINDOWS[12] = [855.5, 858.0]
-#MICROWINDOWS[8] = [860.1, 864.0]
+MICROWINDOWS[8] = [860.1, 864.0]
 #MICROWINDOWS[14] = [866.0, 870.0]
-MICROWINDOWS[8] = [872.2, 877.5]
+MICROWINDOWS[9] = [872.2, 877.5]
 #MICROWINDOWS[16] = [884.5, 886.0]
-MICROWINDOWS[9] = [891.9, 895.8]
-MICROWINDOWS[10] = [898.2, 904.8]
+MICROWINDOWS[10] = [891.9, 895.8]
+MICROWINDOWS[11] = [898.2, 904.8]
 #MICROWINDOWS[19] = [911.0, 913.0]
 #MICROWINDOWS[20] = [914.5, 917.0]
-MICROWINDOWS[11] = [929.6, 939.7]
-MICROWINDOWS[12] = [958.0, 964.3]
+MICROWINDOWS[12] = [929.6, 939.7]
+MICROWINDOWS[13] = [958.0, 964.3]
 #MICROWINDOWS[14] = [985.0, 991.5]
 #MICROWINDOWS[22] = [931.5, 932.0]
 #MICROWINDOWS[16] = [1076.6, 1084.8]
-MICROWINDOWS[13] = [1092.2, 1098.1]
+MICROWINDOWS[14] = [1092.2, 1098.1]
 #MICROWINDOWS[24] = [1102.5, 1105.0]
-MICROWINDOWS[14] = [1113.3, 1116.6]
-MICROWINDOWS[15] = [1124.4, 1132.6]
-MICROWINDOWS[16] = [1142.2, 1148.0]
-MICROWINDOWS[17] = [1155.2, 1163.4]
+MICROWINDOWS[15] = [1113.3, 1116.6]
+MICROWINDOWS[16] = [1124.4, 1132.6]
+MICROWINDOWS[17] = [1142.2, 1148.0]
+MICROWINDOWS[18] = [1155.2, 1163.4]
 
 TEMP_OF_CLOUD = 0.0
 ENABLE_LM_DURING_ITER = True
@@ -302,9 +302,9 @@ def average(wavenumber, radiance):
     Speichere nur den Slope und den RMS ab
     '''
 
-    #if SLOPE_RETR: 
-    #    new_radiance = [(new_radiance[0] - new_radiance[7])/(new_wavenumber[0] - new_wavenumber[7]), (new_radiance[8] - new_radiance[-1])/(new_wavenumber[8] - new_wavenumber[-1]), np.sum(new_radiance[0:8]), np.sum(new_radiance[8:-1])]
-    #    new_wavenumber = range(len(new_radiance))#wavenumber[0:4]
+    if SLOPE_RETR: 
+        new_radiance = [(new_radiance[0] - new_radiance[7])/(new_wavenumber[0] - new_wavenumber[7]), (new_radiance[8] - new_radiance[-1])/(new_wavenumber[8] - new_wavenumber[-1]), np.sum(new_radiance[0:8]), np.sum(new_radiance[8:-1])]
+        new_wavenumber = range(len(new_radiance))#wavenumber[0:4]
     #else:
     #    new_radiance = radiance
     #    new_wavenumber = wavenumber
