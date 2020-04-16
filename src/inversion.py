@@ -275,7 +275,7 @@ def __set_up_retrieval():
     Change the resolution of the spectrum
     '''
     aux.change_resolution()
-S
+
 
     '''
     If the current spectrum is a testcase, convolve is with a boxcar
