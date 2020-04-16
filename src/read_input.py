@@ -129,7 +129,7 @@ def read_testcase(fname):
         else:
             aux.CLOUD_TOP = inp.CLOUD_TOP
 
-        if inp.TESTCASE and "multiLayer" not in fname:
+        if inp.TESTCASE and "multiLayer" not in fname and inp_CLOUD_TOP[0] != -1 and inp.CLOUD_BASE[0] != -1:
             aux.CLOUD_BASE = aux.CLOUD_TOP 
             
         inp.HUMIDITY = 'g/m3'
