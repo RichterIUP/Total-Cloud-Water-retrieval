@@ -61,7 +61,7 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-
+        '''
         inp.FORWARD = True
 
         tt = [0.2, 1.0, 3.0, 4.0, 6.0]
@@ -102,15 +102,15 @@ def main(cl_param):
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
-
+        '''
         
-        #inp.MCP = [ 0.028,  0.027, 24.996, 24.993]
-        #inp.FORWARD = False
-        #aux.SLOPE_RETR = True
-        #read_input.read_input(cl_param[0])
-        #inversion.__set_up_retrieval()
-        #inp.MCP_APRIORI = inp.MCP[:]
-        #inversion.retrieve()
+        inp.MCP = [ 0.056,  0.000, 14.990, 75.000]
+        inp.FORWARD = False
+        aux.SLOPE_RETR = True
+        read_input.read_input(cl_param[0])
+        inversion.__set_up_retrieval()
+        inp.MCP_APRIORI = inp.MCP[:]
+        inversion.retrieve()
         
 
     else:   
