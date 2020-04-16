@@ -128,6 +128,7 @@ RESIDUUM = []
 T_MATRIX = []
 
 VARIANCE_RA = 0.0
+SLOPE_RETR = False
 
 PROF_FILE = "prof20170611_1651.nc"
 '''
@@ -300,6 +301,9 @@ def __redefine_microwindows():
 ####################################################################################
 
 def average(wavenumber, radiance):
+    
+    global SLOPE_RETR
+    
     windows = inp.WINDOWS
     
     num_of_lines = len(wavenumber)
@@ -329,8 +333,9 @@ def average(wavenumber, radiance):
     Speichere nur den Slope und den RMS ab
     '''
 
-    #new_radiance = [1e2*(new_radiance[0] - new_radiance[11])/(new_wavenumber[0] - new_wavenumber[11]), 1e4*(new_radiance[12] - new_radiance[-1])/(new_wavenumber[12] - new_wavenumber[-1]), np.sum(new_radiance[0:12]), np.sum(new_radiance[12:-1])]
-    #new_wavenumber = wavenumber[0:4]
+    if SLOPE_RETR: 
+        new_radiance = [1e2*(new_radiance[0] - new_radiance[11])/(new_wavenumber[0] - new_wavenumber[11]), 1e4*(new_radiance[12] - new_radiance[-1])/(new_wavenumber[12] - new_wavenumber[-1]), np.sum(new_radiance[0:12]), np.sum(new_radiance[12:-1])]
+        new_wavenumber = wavenumber[0:4]
 
     return [np.array(new_wavenumber), np.array(new_radiance)]
         

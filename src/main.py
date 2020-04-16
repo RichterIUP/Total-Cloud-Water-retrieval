@@ -88,6 +88,7 @@ def main(cl_param):
     if not os.path.exists("{}".format(inp.PATH)):
         os.mkdir("{}".format(inp.PATH))
 
+    aux.SLOPE_RETR = False
     inversion.__set_up_retrieval()
     
     if not inp.FORWARD:
@@ -136,6 +137,15 @@ def main(cl_param):
 
         
         inp.FORWARD = False
+        aux.SLOPE_RETR = True
+        read_input.read_input(cl_param[0])
+        inversion.__set_up_retrieval()
+        inp.MCP_APRIORI = inp.MCP[:]
+        inversion.retrieve()
+        
+        aux.SLOPE_RETR = False
+        read_input.read_input(cl_param[0])
+        inversion.__set_up_retrieval()
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
 
