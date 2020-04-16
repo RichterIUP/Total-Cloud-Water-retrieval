@@ -94,7 +94,7 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-        '''
+
         inp.FORWARD = True
 
         tt = [0.2, 1.0, 3.0, 4.0, 6.0]
@@ -133,7 +133,7 @@ def main(cl_param):
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
         inp.MCP[2] = rt_best / ((fact-1)*fi+1)
         inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
-        '''
+
         
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
