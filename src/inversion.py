@@ -330,6 +330,14 @@ def __only_fwd(lblrtm=False):
     slope_2_lbldis = (aux.RADIANCE_LBLDIS[0][-1][idx] - aux.RADIANCE_LBLDIS[0][-1][-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
     slope_2_ftir = (aux.RADIANCE_FTIR[idx] - aux.RADIANCE_FTIR[-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
     
+    with open("{}/lbldis.spec".format(inp.PATH), "w") as f:
+        for ii in range(len(aux.RADIANCE_LBLDIS[0][-1])):
+            f.write("{}\n".format(aux.RADIANCE_LBLDIS[0][-1][ii]))
+            
+    with open("{}/wn.spec".format(inp.PATH), "w") as f:
+        for ii in range(len(aux.WAVENUMBER_FTIR)):
+            f.write("{}\n".format(aux.WAVENUMBER_FTIR[ii]))
+    
     return [np.sum(aux.RADIANCE_LBLDIS[0][-1][idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), slope_lbldis, slope_ftir, slope_2_lbldis, slope_2_ftir]
 
 ################################################################################

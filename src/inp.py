@@ -138,7 +138,7 @@ OFFSET = 0.0
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
 '''
 SCALE = 1.
-MCP = [1., 1., 10., 30.]
+MCP = [0.0, 1.1095654964447, 7, 29]#[1., 1., 10., 30.]
 
 '''
 If this is set to true, then L-IWP searches for a file containing cloud height
@@ -214,7 +214,7 @@ STANDARD = True
 If this is true, then a forward simulation (after a possible retrieval)
 will be performed
 '''
-FORWARD = False
+FORWARD = True
 
 '''
 If this is true, then the calculated radiances will be written to lbldis.spec
