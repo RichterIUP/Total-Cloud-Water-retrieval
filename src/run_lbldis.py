@@ -63,6 +63,7 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
         aux.RADIANCE_LBLDIS[file_num].append(aux.average(np.array(wavenumber), np.array(radiance))[1])
     if thread_fact[0] == 0:
         log.write(aux.average(np.array(wavenumber), np.array(radiance))[1])
+        log.write(aux.RADIANCE_FTIR)
     return
 
 ####################################################################################
