@@ -137,13 +137,13 @@ def main(cl_param):
 
         
         inp.FORWARD = False
-        aux.SLOPE_RETR = True
-        read_input.read_input(cl_param[0])
-        inversion.__set_up_retrieval()
+        aux.SLOPE_RETR = False
+        #read_input.read_input(cl_param[0])
+        #inversion.__set_up_retrieval()
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
         
-        aux.SLOPE_RETR = False
+        aux.SLOPE_RETR = True
         read_input.read_input(cl_param[0])
         inversion.__set_up_retrieval()
         inp.MCP_APRIORI = inp.MCP[:]
