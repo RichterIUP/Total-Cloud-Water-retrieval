@@ -24,7 +24,7 @@ def read_csv(fname):
         pwv = f.variables['pwv'][:].copy()
         cloud = np.array([np.float_(f.variables['cloud_base'][:]), np.float_(f.variables['cloud_top'][:])])
         
-        slope = (res[0] - res[11]) / (wn[0] - wn[11])
+        slope = 0.0#(res[0] - res[11]) / (wn[0] - wn[11])
         
         print("Results:")
         print("Filename: {}".format(fname))
