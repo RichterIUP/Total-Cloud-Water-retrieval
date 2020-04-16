@@ -312,6 +312,7 @@ def average(wavenumber, radiance):
     '''
     Remove all datapoints outside the microwindows
     '''
+
     for win in inp.WINDOWS:
         dummy_wn = []
         dummy_ra = []
@@ -323,6 +324,12 @@ def average(wavenumber, radiance):
         new_wavenumber.append(np.median(dummy_wn))
     #new_wavenumber = wavenumber
     #new_radiance = radiance
+    
+    '''
+    Speichere nur den Slope und den RMS ab
+    '''
+    new_wavenumber = wavenumber[0:2]
+    new_radiance = [new_radiance[0] - new_radiance[11]/(wavenumber[0] - wavenumber[11]), np.sum(new_radiance)]
     return [np.array(new_wavenumber), np.array(new_radiance)]
         
     

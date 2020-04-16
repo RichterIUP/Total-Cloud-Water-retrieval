@@ -51,7 +51,7 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
         forward = LBLDIS(atm, file_num)
     else:
         forward = LBLDIS(atm, int(thread_fact[0]*thread_fact[1]))
-    radiance = forward.execute(lblrtm=lblrtm)
+    wavenumber, radiance = forward.execute(lblrtm=lblrtm)
     
     '''
     Save the calculated radiance
@@ -297,6 +297,10 @@ class LBLDIS:
         '''
         If necessery, interpolate the calculated radiances to the FTIR grid
         '''
+        
+        '''
+        Nicht interpolieren, wenn nur slope und rms gesucht werden
+
         for element in aux.WAVENUMBER_FTIR:
             try:
                 if(element > wavenumber[0] and element < wavenumber[-1]):
@@ -306,14 +310,16 @@ class LBLDIS:
                 sys.stderr.write("{}\n".format(wavenumber))
                 sys.exit(-1)
         '''
+        '''
         Discard all values outside the microwindows
+        '''
         '''
         number_of_datapoints = len(wn_interpolated)
         for i in range(number_of_datapoints):
             if aux.in_windows(wn_interpolated[i], inp.WINDOWS):
                 radiance_out.append(radiance_interpolated[i])
-
-        return radiance_out
+        '''
+        return wavenumber, radiance
 
     ####################################################################################
 
@@ -331,5 +337,5 @@ class LBLDIS:
 
         self.write_lbldis_parm()
         self.run_disort()
-        radiance = self.write_data_to_file()
-        return radiance
+        wavenumber, radiance = self.write_data_to_file()
+        return wavenumber, radiance
