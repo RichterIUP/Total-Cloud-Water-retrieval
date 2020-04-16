@@ -319,15 +319,16 @@ def __only_fwd(lblrtm=False):
     @param lblrtm If true, also execute lblrtm
     '''
 
+    idx=7
     rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
 
-    slope_lbldis = (aux.RADIANCE_LBLDIS[0][-1][0] - aux.RADIANCE_LBLDIS[0][-1][11])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[11])
-    slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[11])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[11])
+    slope_lbldis = (aux.RADIANCE_LBLDIS[0][-1][0] - aux.RADIANCE_LBLDIS[0][-1][idx])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[idx])
+    slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[idx])
 
-    slope_2_lbldis = (aux.RADIANCE_LBLDIS[0][-1][11] - aux.RADIANCE_LBLDIS[0][-1][-1])/(aux.WAVENUMBER_FTIR[11]-aux.WAVENUMBER_FTIR[-1])
-    slope_2_ftir = (aux.RADIANCE_FTIR[11] - aux.RADIANCE_FTIR[-1])/(aux.WAVENUMBER_FTIR[11]-aux.WAVENUMBER_FTIR[-1])
+    slope_2_lbldis = (aux.RADIANCE_LBLDIS[0][-1][idx] - aux.RADIANCE_LBLDIS[0][-1][-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
+    slope_2_ftir = (aux.RADIANCE_FTIR[idx] - aux.RADIANCE_FTIR[-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
     
-    return [np.sum(aux.RADIANCE_LBLDIS[0][-1][11:-1]), np.sum(aux.RADIANCE_FTIR[11:-1]), slope_lbldis, slope_ftir, slope_2_lbldis, slope_2_ftir]
+    return [np.sum(aux.RADIANCE_LBLDIS[0][-1][idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), slope_lbldis, slope_ftir, slope_2_lbldis, slope_2_ftir]
 
 ################################################################################
 
