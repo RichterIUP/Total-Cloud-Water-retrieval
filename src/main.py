@@ -54,18 +54,18 @@ def main(cl_param):
     if not os.path.exists("{}".format(inp.PATH)):
         os.mkdir("{}".format(inp.PATH))
 
-    aux.SLOPE_RETR = True
+    aux.SLOPE_RETR = False
     inversion.__set_up_retrieval()
     
     if not inp.FORWARD:
         '''
         Start the iteration using the chosen microwindows
         '''
-        '''
+
         inp.FORWARD = True
 
         tt = [0.2, 1.0, 3.0, 4.0, 6.0]
-        rt = [10, 15, 20, 25]#, 30, 35, 40, 45]
+        rt = [10, 15, 20, 25, 30, 35, 40, 45]
         fi = 0.5
         rad_lbldis = []
         rad_ftir = []
@@ -86,11 +86,10 @@ def main(cl_param):
         slope_lbldis = []
         slope_ftir = []
         rt_y = []
-        fact = 1
+        fact = 5
         for param_num in range(len(rt)):
             inp.MCP[2] = rt[param_num] / ((fact-1)*fi+1)
             inp.MCP[3] = rt[param_num] * fact / ((fact-1)*fi+1)
-            print(inp.MCP)
             guess_apr = inversion.retrieve()
             slope_lbldis.append(guess_apr[2])
             slope_ftir.append(guess_apr[3])
@@ -103,15 +102,15 @@ def main(cl_param):
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
-        '''
+
         
-        inp.MCP = [ 0.028,  0.027, 24.996, 24.993]
-        inp.FORWARD = False
-        aux.SLOPE_RETR = True
+        #inp.MCP = [ 0.028,  0.027, 24.996, 24.993]
+        #inp.FORWARD = False
+        #aux.SLOPE_RETR = True
         #read_input.read_input(cl_param[0])
         #inversion.__set_up_retrieval()
-        inp.MCP_APRIORI = inp.MCP[:]
-        inversion.retrieve()
+        #inp.MCP_APRIORI = inp.MCP[:]
+        #inversion.retrieve()
         
 
     else:   
