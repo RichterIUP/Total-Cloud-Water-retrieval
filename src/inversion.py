@@ -233,7 +233,7 @@ def __convergence(lm_param, loop_count, conv_test):
                 log.write("Finished! Final Parameters: x_{} = ({}, {}, {}, {})\n".format(loop_count, mcp[0], mcp[1], mcp[2], mcp[3]))
                 create_nc.create_nc(chi_2=aux.CHI2[-1], avk_matrix=averaging_kernel, errors=errors, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[-1])
 
-            
+            inp.MCP = mcp
             return True
     return False
 
@@ -368,10 +368,10 @@ def __run_lbldis_and_derivatives():
     3 -> Derivative wrt tau total
     4 -> Derivative wrt f ice
     '''
-    if inp.ONLY_OD:
-        iter_list = [[0, 1.0], [3, 1.0]]
-    else:
-        iter_list = [[0, 1.0], [1, 1.0], [1, -1.0], [2, 1.0], [2, -1.0], [3, 1.0], [3, -1.0], [4, 1.0], [4, -1.0]]
+    #if inp.ONLY_OD:
+    #    iter_list = [[0, 1.0], [3, 1.0]]
+    #else:
+    iter_list = [[0, 1.0], [1, 1.0], [1, -1.0], [2, 1.0], [2, -1.0], [3, 1.0], [3, -1.0], [4, 1.0], [4, -1.0]]
         
     '''
     Limit the number of the allocated CPUs
