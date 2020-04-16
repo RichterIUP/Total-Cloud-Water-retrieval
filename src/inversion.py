@@ -31,12 +31,7 @@ RI = 3
 
 
 def calculate_epsilon(chi, s_n):
-    #s_n = [0.0 for ii in range(4)]
-    #s_n[0] = aux.TOTAL_OPTICAL_DEPTH[-1] - aux.TOTAL_OPTICAL_DEPTH[-2]
-    #s_n[1] = aux.ICE_FRACTION[-1] - aux.ICE_FRACTION[-2]
-    #s_n[2] = aux.RADIUS_LIQUID[-1] - aux.RADIUS_LIQUID[-2]
-    #s_n[3] = aux.RADIUS_ICE[-1] - aux.RADIUS_ICE[-2]
-    #s_n = np.array(s_n)
+
     deriv_x_n =  np.transpose(np.matmul(np.array(np.transpose(np.matrix(numerical.jacobian(-2)))), s_n))
     res_linapprox = np.transpose(np.matrix(np.array(aux.RADIANCE_FTIR[:]) - (np.array(aux.RADIANCE_LBLDIS[0][-2][:]) + deriv_x_n)))
     linear_approx = np.float_(np.dot(np.matmul(np.transpose(res_linapprox), aux.S_Y_INV_MATRIX[:]), \
@@ -193,8 +188,7 @@ def __convergence(lm_param, loop_count, conv_test):
         
     global ALPHA
     if loop_count != 0 or aux.MAX_ITER == 1:     
-        condition = conv_test < inp.CONVERGENCE and conv_test > 0.0# and ALPHA == 1.0 and lm_param <= 0.001
-        #log.write("{} < {}? {} {}\n".format(conv_test, inp.CONVERGENCE, conv_test < inp.CONVERGENCE, condition))                       
+        condition = conv_test < inp.CONVERGENCE and conv_test > 0.0                   
 
         if loop_count != 0 and condition or loop_count == aux.MAX_ITER-1:
 
@@ -207,7 +201,7 @@ def __convergence(lm_param, loop_count, conv_test):
             log.write("# Final change of parameters: {}\n".format(conv_test))
             if  loop_count == aux.MAX_ITER-1:
                 log.write("Not converged!\n")
-                idx = aux.CHI2.index(min(aux.CHI2))
+                idx = aux.CHI2.index(min(aux.CHI2))-1
                 mcp = [np.float_(aux.TOTAL_OPTICAL_DEPTH[idx]), np.float_(aux.ICE_FRACTION[idx]), \
                     np.float_(aux.RADIUS_LIQUID[idx]), np.float_(aux.RADIUS_ICE[idx])]
                 aux.TOTAL_OPTICAL_DEPTH[-1] = aux.TOTAL_OPTICAL_DEPTH[idx]
@@ -215,18 +209,10 @@ def __convergence(lm_param, loop_count, conv_test):
                 aux.RADIUS_LIQUID[-1] = aux.RADIUS_LIQUID[idx]
                 aux.RADIUS_ICE[-1] = aux.RADIUS_ICE[idx]
                 aux.RESIDUUM[-1] = aux.RESIDUUM[idx]
-                #averaging_kernel = numerical.calc_avk(aux.T_MATRIX[idx])
                 errors = numerical.calc_error(mcp, aux.T_MATRIX[idx])
                 cov_mat = errors[-1]
                 log.write("Best estimation: x_{} = ({}, {}, {}, {})\n".format(loop_count, mcp[0], mcp[1], mcp[2], mcp[3])) 
-                
-                #Perform error estimation using the current step
-                #if not inp.ONLY_OD:
-                #    __run_lbldis_and_derivatives()
-                #    [chi2, residuum, _res, _apr] = __calc_chi_2_and_residuum()
-                #    delta = numerical.iteration(residuum, 0.0, np.zeros((4, len(aux.WAVENUMBER_FTIR))))
-                #    averaging_kernel = numerical.calc_avk(delta[1])
-                #    errors = numerical.calc_error(mcp, delta[1])
+
                 create_nc.create_nc(chi_2=aux.CHI2[idx], avk_matrix=averaging_kernel, errors=errors, index=-1, nc=0, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[idx])               
             else:
                 aux.CONVERGED = True
@@ -243,11 +229,7 @@ def __set_up_retrieval():
     '''Initialise the retrieval and the matrizes
     '''
     aux.RADIANCE_LBLDIS = [[],[],[],[],[],[],[],[],[]]
-    #aux.TOTAL_OPTICAL_DEPTH = [inp.MCP[0]]
-    #aux.ICE_FRACTION = [inp.MCP[1]]
-    #aux.RADIUS_LIQUID = [inp.MCP[2]]
-    #aux.RADIUS_ICE = [inp.MCP[3]]
-    
+
     aux.LBLTP5 = "{}/tp5_{}".format(inp.PATH, aux.TIME_INDEX)
     aux.LBLTMP = '{}'.format(inp.PATH)
     aux.LBLLOG = '{}/lbllog.txt'.format(inp.PATH)
@@ -313,9 +295,6 @@ def __set_up_retrieval():
     [aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR] = aux.average(aux.WAVENUMBER_FTIR[:], aux.RADIANCE_FTIR[:])
     #exit(-1)
     [variance_ra, aux.S_Y_INV_MATRIX] = aux.s_y_inv()
-
-    #aux.RADIANCE_LBLDIS = [[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR],[aux.RADIANCE_FTIR]]
-
     
     log.log_pre_iter(variance_ra)
     return
@@ -473,7 +452,6 @@ def retrieve():
     [lm_param, lm_param_prev] = __initialise_variables()
     cov_matrix = None
     s_n = [0.0, 0.0, 0.0, 0.0]
-    #alpha = 1.0
     for retr_loop in range(aux.MAX_ITER):
 
         if inp.FORWARD:
@@ -488,7 +466,7 @@ def retrieve():
         
         __run_lbldis_and_derivatives()
     
-        [lm_param, cov_matrix, s_n, t_matrix_new] = __retrieve_step(lm_param, retr_loop, s_n)#, aux.CHI2[-1], aux.RESIDUUM[-1])
+        [lm_param, cov_matrix, s_n, t_matrix_new] = __retrieve_step(lm_param, retr_loop, s_n)
 
         conv_test = __conv_diagnostics(retr_loop, cov_matrix)
         converged = __convergence(lm_param*10, retr_loop, conv_test)
