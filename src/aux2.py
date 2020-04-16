@@ -56,7 +56,7 @@ O3_PROFILE = None
 Stepsize for the calculation of the derivative
 '''
 STEPSIZE_TAU = 1e-3#5e-4
-STEPSIZE_RADIUS = 1e-2
+STEPSIZE_RADIUS = 1.0#1e-2
 INCREASE_LM = 4.0
 DECREASE_LM = 2.0
 #STEPSIZE_TT = 1e-3
