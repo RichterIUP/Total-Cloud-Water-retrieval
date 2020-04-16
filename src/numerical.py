@@ -94,7 +94,7 @@ def iteration(res, lm_param, t_matrix):
     s_y_inv_matrix = aux.S_Y_INV_MATRIX[:]
     s_a_inv_matrix = aux.S_A_INV_MATRIX[:]
     apr_vec = inp.MCP_APRIORI[:]
-    dim = 4#len(apr_vec)
+    dim = 4
     jac = jacobian()
     atm_param = np.array([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]])
     
