@@ -231,8 +231,7 @@ def __convergence(lm_param, loop_count, conv_test):
             else:
                 aux.CONVERGED = True
                 log.write("Finished! Final Parameters: x_{} = ({}, {}, {}, {})\n".format(loop_count, mcp[0], mcp[1], mcp[2], mcp[3]))
-                if not inp.ONLY_OD:
-                    create_nc.create_nc(chi_2=aux.CHI2[-1], avk_matrix=averaging_kernel, errors=errors, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[-1])
+                create_nc.create_nc(chi_2=aux.CHI2[-1], avk_matrix=averaging_kernel, errors=errors, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[-1])
 
             
             return True
@@ -276,8 +275,7 @@ def __set_up_retrieval():
     Change the resolution of the spectrum
     '''
     aux.change_resolution()
-    #inp.RESOLUTION = np.mean(np.ediff1d(aux.WAVENUMBER_FTIR))
-
+S
 
     '''
     If the current spectrum is a testcase, convolve is with a boxcar
@@ -440,8 +438,6 @@ def __calc_chi_2_and_residuum(idx=-1):
     Calculate chi^2 = (y - F(x))^T S_y_1 (y - F(x)) + Calculate (x_a - x_i)^T S_a_1 (x_a - x_i)
     '''
     chi2 = np.float_(_res)# + _apr)
-    if inp.SEARCH_INIT:
-        chi2 = np.float(_res)
     
     return [chi2, residuum, _res, _apr]
 

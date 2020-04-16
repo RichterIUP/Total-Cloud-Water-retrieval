@@ -20,13 +20,6 @@ import get_atm
 
 
 def main(cl_param):
-    '''
-    Write the command line parameters to the corresponding variables
-    @param cl_param All the command line parameters: 
-    [PATH_TO_SPECTRUM (str), WINDOW_RANGE (str), MAX_ITER (int), FORWARD (bool), 
-    RESOLUTION (float), MCP (list of float, len=4)
-    @return The retrieved MCP: tt, fi, rl, ri
-    '''
 
     read_input.read_input(cl_param[0])
     if cl_param[1] == "TIR":
@@ -39,38 +32,11 @@ def main(cl_param):
         inp.WINDOWS = inp.FIR_MCP
     elif cl_param[1] == "NIR":
         inp.WINDOWS = inp.NIR
-    #aux.MAX_ITER = cl_param[2]
-    #inp.FORWARD = cl_param[3]
-    #inp.RESOLUTION = cl_param[4]
-    #if inp.FI_FROM_CLOUDS:
-    #    fi = inp.MCP[1]
-    #    inp.MCP = cl_param[5][:]
-    #    inp.MCP[1] = fi
-    #else:
-    #    inp.MCP = cl_param[5][:]
-
-    inp.SEARCH_INIT = False
-    #if int(ONLY_OD) > 0:
-    #    inp.ONLY_OD = True
-    #    inp.NO_OD = False
-    #elif int(ONLY_OD) == 0:
-    #    inp.ONLY_OD = False
-    #    inp.NO_OD = False
-    #else:
-    #    inp.ONLY_OD = False
-    inp.NO_OD = False#True
-    inp.FIXED_FI = True
-    
-    inp.ONLY_OD = False
-    inp.ADJUST_RADII = False
 
     NOW = dt.datetime.now()
     directory = "{}_{}_{}_{}_{}_{}".format(NOW.month, NOW.day, \
       NOW.hour, NOW.minute, NOW.second, NOW.microsecond)
     aux.TIME_INDEX = directory
-    
-    if inp.SEARCH_INIT or inp.ONLY_OD:
-        inp.LM_INIT = 0.0
 
     inp.MCP_APRIORI = inp.MCP[:]
 
@@ -95,12 +61,11 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-
+        '''
         inp.FORWARD = True
 
         tt = [0.2, 1.0, 3.0, 4.0, 6.0]
         rt = [10, 15, 20, 25, 30, 35, 40, 45]
-        rl = [5, 10, 15, 20]
         fi = 0.5
         rad_lbldis = []
         rad_ftir = []
@@ -137,12 +102,10 @@ def main(cl_param):
 
         
         inp.FORWARD = False
-        aux.SLOPE_RETR = False
-        #read_input.read_input(cl_param[0])
-        #inversion.__set_up_retrieval()
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
-        
+        '''
+        inp.MCP = [ 0.001,  1.132, 42.930, 36.914]
         aux.SLOPE_RETR = True
         read_input.read_input(cl_param[0])
         inversion.__set_up_retrieval()

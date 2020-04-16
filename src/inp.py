@@ -167,11 +167,6 @@ VARIANCE_APRIORI = [4.0**(-2), 4.0**(-2), (20.0/SCALE)**(-2), (30.0/SCALE)**(-2)
 WEIGHT_APRIORI = 1.0
 
 '''
-Only retrieve the total optical depth
-'''
-ONLY_OD = False
-
-'''
 Sophisticated adjustment
 '''
 SOPHISTICATED_ADJ = False

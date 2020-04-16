@@ -34,22 +34,15 @@ def jacobian(idx=-1):
     @return The transposed jacobian matrix
     '''
 
-    if inp.ONLY_OD:
-        deriv_r_liq = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
-        deriv_r_ice = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
-        deriv_f_ice = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
-        deriv_tau_total = (np.array(aux.RADIANCE_LBLDIS[1][idx]) \
-                     - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_TAU)
-        
-    else:
-        deriv_r_liq = (np.array(aux.RADIANCE_LBLDIS[1][idx]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_RADIUS)
-        deriv_r_ice = (np.array(aux.RADIANCE_LBLDIS[3][idx]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_RADIUS)
-        deriv_tau_total = (np.array(aux.RADIANCE_LBLDIS[5][idx]) \
-                        - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_TAU)
-        deriv_f_ice = (np.array(aux.RADIANCE_LBLDIS[7][idx]) \
-                       - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_TAU)
+
+    deriv_r_liq = (np.array(aux.RADIANCE_LBLDIS[1][idx]) \
+                   - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_RADIUS)
+    deriv_r_ice = (np.array(aux.RADIANCE_LBLDIS[3][idx]) \
+                   - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_RADIUS)
+    deriv_tau_total = (np.array(aux.RADIANCE_LBLDIS[5][idx]) \
+                    - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_TAU)
+    deriv_f_ice = (np.array(aux.RADIANCE_LBLDIS[7][idx]) \
+                   - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_TAU)
         #deriv_f_ice = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
         #deriv_tau_total = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
 

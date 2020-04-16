@@ -48,10 +48,7 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
     Set up LBLDIS and run LBLRTM/DISORT
     '''
     
-    if inp.SEARCH_INIT:
-        forward = LBLDIS(atm, file_num)
-    else:
-        forward = LBLDIS(atm, int(thread_fact[0]*thread_fact[1]))
+    forward = LBLDIS(atm, int(thread_fact[0]*thread_fact[1]))
     wavenumber, radiance = forward.execute(lblrtm=lblrtm)
     
     '''
