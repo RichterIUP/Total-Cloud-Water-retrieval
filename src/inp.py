@@ -111,7 +111,7 @@ the value from the spectrum file. If a testcase is retrieved, then positive
 values are the standard deviation of the added noise
 '''
 
-STDDEV = 0.0
+STDDEV = 0.2
 
 '''
 Possible values: %, ppmv, g/m3, g/kg
