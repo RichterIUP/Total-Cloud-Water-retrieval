@@ -50,33 +50,10 @@ def jacobian(idx=-1):
                         - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_TAU)
         deriv_f_ice = (np.array(aux.RADIANCE_LBLDIS[7][idx]) \
                        - np.array(aux.RADIANCE_LBLDIS[0][idx]))/(aux.STEPSIZE_TAU)
-        deriv_f_ice = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
-        deriv_tau_total = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
+        #deriv_f_ice = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
+        #deriv_tau_total = np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))])
 
-        '''
-        counter = 0
-        while os.path.exists("deriv_r_liq_{}".format(counter)):
-            counter += 1
-        
-        f = open("deriv_r_liq_{}".format(counter), "w")
-        g = open("deriv_r_ice_{}".format(counter), "w")
-        h = open("deriv_t_tot_{}".format(counter), "w")
-        i = open("deriv_f_ice_{}".format(counter), "w")
-        for ii in range(len(deriv_r_liq)):
-            f.write("{},{},{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[1][-1][ii], aux.RADIANCE_LBLDIS[0][-1][ii], aux.RADIANCE_LBLDIS[1][-1][ii]-aux.RADIANCE_LBLDIS[0][-1][ii]))
-            g.write("{},{},{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[3][-1][ii], aux.RADIANCE_LBLDIS[0][-1][ii], aux.RADIANCE_LBLDIS[3][-1][ii]-aux.RADIANCE_LBLDIS[0][-1][ii]))
-            h.write("{},{},{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[5][-1][ii], aux.RADIANCE_LBLDIS[0][-1][ii], aux.RADIANCE_LBLDIS[5][-1][ii]-aux.RADIANCE_LBLDIS[0][-1][ii]))
-            i.write("{},{},{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_LBLDIS[7][-1][ii], aux.RADIANCE_LBLDIS[0][-1][ii], aux.RADIANCE_LBLDIS[7][-1][ii]-aux.RADIANCE_LBLDIS[0][-1][ii]))
-        f.write("{}\n".format(np.sqrt(np.mean((aux.RADIANCE_LBLDIS[1][-1]-aux.RADIANCE_LBLDIS[0][-1])**2))))
-        g.write("{}\n".format(np.sqrt(np.mean((aux.RADIANCE_LBLDIS[3][-1]-aux.RADIANCE_LBLDIS[0][-1])**2))))
-        h.write("{}\n".format(np.sqrt(np.mean((aux.RADIANCE_LBLDIS[5][-1]-aux.RADIANCE_LBLDIS[0][-1])**2))))
-        i.write("{}\n".format(np.sqrt(np.mean((aux.RADIANCE_LBLDIS[7][-1]-aux.RADIANCE_LBLDIS[0][-1])**2))))
 
-        f.close()
-        g.close()
-        h.close()
-        i.close()
-        '''
     return [deriv_tau_total, deriv_f_ice, deriv_r_liq, deriv_r_ice]
 
 def calc_avk(t_matrix):
@@ -144,7 +121,7 @@ def iteration(res, lm_param, t_matrix):
     '''
     Calculate D
     '''
-    lm_matrix = s_a_inv_matrix#np.identity(dim)
+    lm_matrix = s_a_inv_matrix
 
     '''
     Calculate S_a_1 (x_a - x_i)
@@ -155,7 +132,6 @@ def iteration(res, lm_param, t_matrix):
     Calculate J^T S_y_1 J + S_a_1 + mu**2 D
     '''
     left_side = np.add(np.add(JT_W_J, s_a_inv_matrix), lm_param**2*lm_matrix)
-    #log.write("# Rank J^T S_y_1 J + S_a_1 + mu**2 D = {}\n".format(np.linalg.cond(left_side)))
 
     '''
     Calculate J^T S_y_1 (y-F(x)) + S_a_1 (x_a - x_i)

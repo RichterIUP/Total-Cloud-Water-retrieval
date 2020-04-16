@@ -68,7 +68,6 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     '''
     [chi2, residuum, _res, _apr] = __calc_chi_2_and_residuum()
 
-    # Wenn dann die Sache mit den Kostfunktionen hierhin verschieben und ein bool drauss machen
     '''
     Ueberpruefe, ob die neue Kostenfunktion kleiner ist als die vorherige. Falls die neue 
     Kostenfunktion groesser ist, verwirf die aktuellen Parameter und berechne mit dem vorherigen Parameter
