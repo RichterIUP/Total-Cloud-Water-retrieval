@@ -330,7 +330,7 @@ def average(wavenumber, radiance):
     '''
 
     new_wavenumber = wavenumber[0:2]
-    new_radiance = [new_radiance[0] - new_radiance[11]/(wavenumber[0] - wavenumber[11]), np.sum(new_radiance)]
+    new_radiance = [(new_radiance[0] - new_radiance[11])/(wavenumber[0] - wavenumber[11]), np.sum(new_radiance)]
     return [np.array(new_wavenumber), np.array(new_radiance)]
         
     
