@@ -167,31 +167,5 @@ if __name__ == '__main__':
         cl_param.append(sys.argv[2])
     else:
         cl_param.append("TIR")
-    '''
-    if len(sys.argv) > 3:
-        cl_param.append(int(sys.argv[3]))
-    else:
-        cl_param.append(aux.MAX_ITER)
-        
-    if len(sys.argv) > 4:
-        cl_param.append(bool(int(sys.argv[4])))
-    else:
-        cl_param.append(inp.FORWARD)
-        
-    if len(sys.argv) > 5:
-        if float(sys.argv[5]) < 0.0:
-            cl_param.append(inp.RESOLUTION)
-        else:
-            cl_param.append(float(sys.argv[5]))
-    else:
-        cl_param.append(inp.RESOLUTION)
 
-    if len(sys.argv) > 6:
-        if float(sys.argv[6]) < 0.0:
-            cl_param.append(inp.MCP)
-        else:
-            cl_param.append([float(sys.argv[6]), float(sys.argv[7]), float(sys.argv[8]), float(sys.argv[9])])
-    else:
-        cl_param.append(inp.MCP)
-    '''
-    main(cl_param)#, ONLY_OD=sys.argv[10], SEARCH_INIT=sys.argv[11], DIR=sys.argv[13], ADJUST_RADII=sys.argv[12])
+    main(cl_param)
