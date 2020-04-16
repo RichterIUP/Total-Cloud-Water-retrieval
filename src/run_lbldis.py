@@ -269,6 +269,7 @@ class LBLDIS:
         wavenumber = []
         radiance = []
         wn_interpolated = []
+        wn_out = []
         radiance_interpolated = []
         radiance_out = []
         disort_out = nc.Dataset('{}/.lbldisout_{}.cdf'.format(inp.PATH, self.__thread))
@@ -280,7 +281,9 @@ class LBLDIS:
             #if aux.in_windows(disort_out.variables['wnum'][i], inp.WINDOWS):
             wavenumber.append(disort_out.variables['wnum'][i])
             radiance.append(disort_out.variables['radiance'][i][0])
-
+    
+        if aux.SLOPE_RETR:
+            return radiance, wavenumber
         '''
         Convolve the radiances with a boxcar function
         '''
@@ -300,9 +303,7 @@ class LBLDIS:
         If necessery, interpolate the calculated radiances to the FTIR grid
         '''
         
-        '''
-        Nicht interpolieren, wenn nur slope und rms gesucht werden
-
+        
         for element in aux.WAVENUMBER_FTIR:
             try:
                 if(element > wavenumber[0] and element < wavenumber[-1]):
@@ -311,17 +312,18 @@ class LBLDIS:
             except IndexError:
                 sys.stderr.write("{}\n".format(wavenumber))
                 sys.exit(-1)
-        '''
+
         '''
         Discard all values outside the microwindows
         '''
-        '''
+
         number_of_datapoints = len(wn_interpolated)
         for i in range(number_of_datapoints):
             if aux.in_windows(wn_interpolated[i], inp.WINDOWS):
                 radiance_out.append(radiance_interpolated[i])
-        '''
-        return wavenumber, radiance
+                wn_out.append(wn_interpolated[i])
+
+        return wn_out, radiance_out
 
     ####################################################################################
 
