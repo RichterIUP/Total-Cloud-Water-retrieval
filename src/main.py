@@ -83,7 +83,7 @@ def main(cl_param):
         inp.MCP[0] = tt_best * (1-fi)
         inp.MCP[1] = tt_best * fi        
             
-
+        '''
         slope_lbldis = []
         slope_ftir = []
         rt_y = []
@@ -100,7 +100,7 @@ def main(cl_param):
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
         inp.MCP[2] = rt_best / ((fact-1)*fi+1)
         inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
-
+        '''
         #inp.FORWARD = False
         #inp.MCP_APRIORI = inp.MCP[:]
         #inversion.retrieve()
