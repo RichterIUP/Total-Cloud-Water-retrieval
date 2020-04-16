@@ -172,7 +172,7 @@ MICROWINDOWS[26] = [1142.2, 1148.0]
 MICROWINDOWS[27] = [1155.2, 1163.4]
 '''
 
-MICROWINDOWS = [[] for ii in range(20)]
+MICROWINDOWS = [[] for ii in range(19)]
 MICROWINDOWS[0] = [529.9, 533.0]
 #MICROWINDOWS[1] = [538.0, 539.0]
 #MICROWINDOWS[2] = [542.0, 544.0]
@@ -199,15 +199,15 @@ MICROWINDOWS[11] = [898.2, 904.8]
 #MICROWINDOWS[20] = [914.5, 917.0]
 MICROWINDOWS[12] = [929.6, 939.7]
 MICROWINDOWS[13] = [958.0, 964.3]
-MICROWINDOWS[14] = [985.0, 991.5]
+#MICROWINDOWS[14] = [985.0, 991.5]
 #MICROWINDOWS[22] = [931.5, 932.0]
 #MICROWINDOWS[16] = [1076.6, 1084.8]
-MICROWINDOWS[15] = [1092.2, 1098.1]
+MICROWINDOWS[14] = [1092.2, 1098.1]
 #MICROWINDOWS[24] = [1102.5, 1105.0]
-MICROWINDOWS[16] = [1113.3, 1116.6]
-MICROWINDOWS[17] = [1124.4, 1132.6]
-MICROWINDOWS[18] = [1142.2, 1148.0]
-MICROWINDOWS[19] = [1155.2, 1163.4]
+MICROWINDOWS[15] = [1113.3, 1116.6]
+MICROWINDOWS[16] = [1124.4, 1132.6]
+MICROWINDOWS[17] = [1142.2, 1148.0]
+MICROWINDOWS[18] = [1155.2, 1163.4]
 
 TEMP_OF_CLOUD = 0.0
 ENABLE_LM_DURING_ITER = True
@@ -332,7 +332,7 @@ def average(wavenumber, radiance):
     '''
 
     if SLOPE_RETR: 
-        new_radiance = [(new_radiance[0] - new_radiance[11])/(new_wavenumber[0] - new_wavenumber[11]), (new_radiance[12] - new_radiance[-1])/(new_wavenumber[12] - new_wavenumber[-1]), np.sum(new_radiance[0:12]), np.sum(new_radiance[12:-1])]
+        new_radiance = [(new_radiance[0] - new_radiance[7])/(new_wavenumber[0] - new_wavenumber[7]), (new_radiance[8] - new_radiance[-1])/(new_wavenumber[8] - new_wavenumber[-1]), np.sum(new_radiance[0:8]), np.sum(new_radiance[8:-1])]
         new_wavenumber = wavenumber[0:4]
     else:
         new_radiance = radiance
