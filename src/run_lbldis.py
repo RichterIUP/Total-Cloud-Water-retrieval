@@ -283,7 +283,7 @@ class LBLDIS:
             radiance.append(disort_out.variables['radiance'][i][0])
     
         if aux.SLOPE_RETR:
-            return radiance, wavenumber
+            return wavenumber, radiance
         '''
         Convolve the radiances with a boxcar function
         '''
