@@ -100,7 +100,7 @@ def main(cl_param):
         inp.MCP[2] = rt_best / ((fact-1)*fi+1)
         inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
         '''
-        inp.MCP = [1.110, 0.0, 7.0, 29.0]
+        inp.MCP = [0.0, 1.110, 7.0, 29.0]
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
