@@ -104,7 +104,7 @@ def main(cl_param):
         inversion.retrieve()
         '''
         
-        inp.MCP = [ 0.056,  0.000, 14.990, 75.000]
+        inp.MCP = [ 0.056,  0.000, 11.990, 75.000]
         inp.FORWARD = False
         aux.SLOPE_RETR = True
         read_input.read_input(cl_param[0])
