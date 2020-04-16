@@ -58,8 +58,8 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
     '''
 
     if not lblrtm:
-        aux.RADIANCE_LBLDIS[file_num].append(aux.average(np.array(aux.WAVENUMBER_FTIR), np.array(radiance))[1])
-
+        #aux.RADIANCE_LBLDIS[file_num].append(aux.average(np.array(aux.WAVENUMBER_FTIR), np.array(radiance))[1])
+        aux.RADIANCE_LBLDIS[file_num].append(aux.average(np.array(wavenumber), np.array(radiance))[1])
     return
 
 ####################################################################################

@@ -455,24 +455,9 @@ def __conv_diagnostics(loop, cov_matrix):
     
     @return The convergence value
     '''
-    if loop == 0:#type(cov_matrix) == type(None):
+    if loop == 0:
         return 1e10
-    tt = aux.TOTAL_OPTICAL_DEPTH[-2:]
-    fi = aux.ICE_FRACTION[-2:]
-    rl = aux.RADIUS_LIQUID[-2:]
-    ri = aux.RADIUS_ICE[-2:]
-    parameters_n = np.array([np.float_(tt[1]), np.float_(fi[1]), np.float_(rl[1]), np.float_(ri[1])])
-    parameters_n_1 = np.array([np.float_(tt[0]), np.float_(fi[0]), np.float(rl[0]), np.float(ri[0])])
 
-    '''
-    Calculate (x_n - x_n+1)^T
-    '''
-    x_n_x_n_1 = np.matrix(np.array(parameters_n) - np.array(parameters_n_1))
-
-    '''
-    Calculate (x_n - x_n+1)^T J^T S_y_1 (y-F(x)) + S_a_1 (x_a - x_i)
-    '''
-    #convergence_rodgers = np.abs(np.float_(np.matmul(x_n_x_n_1, cov_matrix)))
     convergence_rodgers = np.abs((aux.CHI2[-1]-aux.CHI2[-2])/aux.CHI2[-1])
     return convergence_rodgers
     
