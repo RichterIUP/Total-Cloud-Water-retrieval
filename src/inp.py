@@ -67,7 +67,7 @@ Resolution of the spectrum in cm-1. FTIR spectral radiances will be interpolated
 to the chosen resolution. If RESOLUTION is a negative number, then no interpolation
 is done. OPD is the Optical path difference of the spectrometer
 '''
-RESOLUTION = 0.15#2.0#0.3
+RESOLUTION = 2.0#0.3
 OPD = 3.0
 
 '''
@@ -138,7 +138,7 @@ OFFSET = 0.0
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
 '''
 SCALE = 1.
-MCP = [0.0, 1.1095654964447, 7, 29]#[1., 1., 10., 30.]
+MCP = [1., 1., 10., 30.]
 
 '''
 If this is set to true, then L-IWP searches for a file containing cloud height
@@ -214,7 +214,7 @@ STANDARD = True
 If this is true, then a forward simulation (after a possible retrieval)
 will be performed
 '''
-FORWARD = True
+FORWARD = False
 
 '''
 If this is true, then the calculated radiances will be written to lbldis.spec
