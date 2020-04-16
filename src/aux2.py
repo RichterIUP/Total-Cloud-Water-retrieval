@@ -292,10 +292,7 @@ def average(wavenumber, radiance):
             if in_windows(wavenumber[loop], [win]):
                 dummy_wn.append(wavenumber[loop])
                 dummy_ra.append(radiance[loop])
-        if SLOPE_RETR:
-            new_radiance.append((dummy_ra[0] - dummy_ra[-1])/(dummy_wn[0]-dummy_wn[-1]))
-        else:
-            new_radiance.append(np.median(dummy_ra))
+        new_radiance.append(np.median(dummy_ra))
         new_wavenumber.append(np.median(dummy_wn))
     
     '''
