@@ -39,8 +39,6 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_ma
         lat.units = "deg"
         lon = outfile.createVariable("lon", "f8", ("const", ))
         lon.units = "deg"
-        #time = outfile.createVariable("time", "f8", ("const", ))
-        #time.units = "dec"
         ctemp = outfile.createVariable("av_ctemp", "f8", ("const", ))
         ctemp.unit = "K"
         
