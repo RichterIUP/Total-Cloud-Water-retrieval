@@ -9,7 +9,7 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/home/phi.richter/TCWret_offset/OUTFOLDER'
+PATH = '/home/phi.richter/TCWret/OUTFOLDER'
 #PATH = '/home/philipp/TCWret/OUTFOLDER'
 
 
@@ -132,7 +132,7 @@ DISTURB_HUMIDITY = 0.0
 '''
 Add an offset to the spectrum (mW/[sr * m2 * cm-1])
 '''
-OFFSET = -2.0
+OFFSET = 0.0
 
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
