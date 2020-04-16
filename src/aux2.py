@@ -398,6 +398,8 @@ def s_y_inv():
 
     if inp.STDDEV < 0.0 and not inp.TESTCASE:
         variance_ra = np.mean(np.array(NOISE_FTIR))**2
+    elif inp.STDDEV == 0.0:
+        variance_ra = 1.0
     else:
         variance_ra = inp.STDDEV**2
     vec_error = np.array([variance_ra for ii in range(len(WAVENUMBER_FTIR))])
