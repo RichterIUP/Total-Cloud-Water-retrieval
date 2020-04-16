@@ -175,8 +175,8 @@ SOPHISTICATED_ADJ = False
 Manual choise of the cloud thresholds. If L-IWP should use the cloud
 thresholds from the file, these have to be set to -1
 '''
-CLOUD_BASE = [200.0]#[197.075, 2972.02]
-CLOUD_TOP = [300.0]#[352.971, 8334.85]
+CLOUD_BASE = [-1]#[197.075, 2972.02]
+CLOUD_TOP = [-1]#[352.971, 8334.85]
 
 '''
 Composition of ice particles. The built in composition is:
