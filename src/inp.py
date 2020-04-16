@@ -94,7 +94,7 @@ NUM_OF_CPU = 5
 If the present spectrum is a testcase of Cox et al. (2016), then this should
 be true. This modifies the cloud boundaries and allows to add noise manually
 '''
-TESTCASE = False
+TESTCASE = True
 
 '''
 Convergence criterion due to Rodgers (2000):
@@ -111,7 +111,7 @@ the value from the spectrum file. If a testcase is retrieved, then positive
 values are the standard deviation of the added noise
 '''
 
-STDDEV = -1.0
+STDDEV = 0.0
 
 '''
 Possible values: %, ppmv, g/m3, g/kg
