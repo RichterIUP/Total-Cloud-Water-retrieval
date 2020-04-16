@@ -129,8 +129,8 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_ma
         wavenumber[:] = aux.WAVENUMBER_FTIR[:]
         ftir_radiance[:] = aux.RADIANCE_FTIR[:]
         lbldis_radiance[:] = aux.RADIANCE_LBLDIS[0][-1][:]
-        residuum[:] = list(aux.RESIDUUM[-1]) 
-        rms[:] = np.sqrt(np.mean(np.array(aux.RESIDUUM[-1])**2))
+        residuum[:] = list(aux.RESIDUUM[index]) 
+        rms[:] = np.sqrt(np.mean(np.array(aux.RESIDUUM[index])**2))
         cbh[:] = aux.CLOUD_BASE[:]
         cth[:] = aux.CLOUD_TOP[:]
         num[:] = len(aux.CLOUD_BASE[:])
