@@ -300,7 +300,7 @@ def average(wavenumber, radiance):
     '''
 
     if SLOPE_RETR: 
-        new_radiance = [(new_radiance[ii] - new_radiance[ii+1])/(new_wavenumber[ii] - new_wavenumber[ii+1]) for ii in range(len(inp.WINDOWS)-1)]#[(new_radiance[0] - new_radiance[7])/(new_wavenumber[0] - new_wavenumber[7]), (new_radiance[8] - new_radiance[-1])/(new_wavenumber[8] - new_wavenumber[-1]), np.sum(new_radiance[0:8]), np.sum(new_radiance[8:-1])]
+        new_radiance = [(new_radiance[ii] - new_radiance[ii+1])/(new_wavenumber[ii] - new_wavenumber[ii+1]) for ii in range(7)]#[(new_radiance[0] - new_radiance[7])/(new_wavenumber[0] - new_wavenumber[7]), (new_radiance[8] - new_radiance[-1])/(new_wavenumber[8] - new_wavenumber[-1]), np.sum(new_radiance[0:8]), np.sum(new_radiance[8:-1])]
         new_wavenumber = range(len(new_radiance))#wavenumber[0:4]
     else:
         new_radiance = radiance
