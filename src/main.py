@@ -103,7 +103,7 @@ def main(cl_param):
                 #rt_y.append(rt[param_num])
                 rt_y.append([rl, ri])
                 with open("radii", "a") as f:
-                    f.write("{} {} {}\n".format(guess_apr[2]-guess_apr[3], guess_apr[0]-guess_apr[1], [rl, ri])
+                    f.write("{} {} {}\n".format(guess_apr[2]-guess_apr[3], guess_apr[0]-guess_apr[1], [rl, ri]))
                 
         exit(-1)
         slope_ftir_av = np.mean(slope_ftir)
