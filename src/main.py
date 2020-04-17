@@ -93,8 +93,8 @@ def main(cl_param):
         for rl in [5, 8, 11, 14, 17, 20]:
             for ri in [10, 20, 30, 40, 50]:
         #for param_num in range(len(rt)):
-                inp.MCP[2] = rt[param_num] / ((fact-1)*fi+1)
-                inp.MCP[3] = rt[param_num] * fact / ((fact-1)*fi+1)
+                inp.MCP[2] = rl#rt[param_num] / ((fact-1)*fi+1)
+                inp.MCP[3] = ri#rt[param_num] * fact / ((fact-1)*fi+1)
                 guess_apr = inversion.retrieve()
                 slope_lbldis.append(guess_apr[2])
                 slope_ftir.append(guess_apr[3])
