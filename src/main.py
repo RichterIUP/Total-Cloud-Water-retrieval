@@ -62,7 +62,7 @@ def main(cl_param):
         Start the iteration using the chosen microwindows
         '''
 
-        '''
+
         inp.FORWARD = True
 
         tt = [0.2, 1.0, 3.0, 4.0, 6.0]
@@ -86,20 +86,31 @@ def main(cl_param):
             
         slope_lbldis = []
         slope_ftir = []
+        rad_lbldis = []
+        rad_ftir = []
         rt_y = []
         fact = 5
-        for param_num in range(len(rt)):
-            inp.MCP[2] = rt[param_num] / ((fact-1)*fi+1)
-            inp.MCP[3] = rt[param_num] * fact / ((fact-1)*fi+1)
-            guess_apr = inversion.retrieve()
-            slope_lbldis.append(guess_apr[2])
-            slope_ftir.append(guess_apr[3])
-            rt_y.append(rt[param_num])
+        for rl in [5, 8, 11, 14, 17, 20]:
+            for ri in [10, 20, 30, 40, 50]:
+        #for param_num in range(len(rt)):
+                inp.MCP[2] = rt[param_num] / ((fact-1)*fi+1)
+                inp.MCP[3] = rt[param_num] * fact / ((fact-1)*fi+1)
+                guess_apr = inversion.retrieve()
+                slope_lbldis.append(guess_apr[2])
+                slope_ftir.append(guess_apr[3])
+                rad_ftir.append(guess_apr[1])
+                rad_lbldis.append(guess_apr[0])
+                #rt_y.append(rt[param_num])
+                rt_y.append([rl, ri])
+                with open("radii", "a") as f:
+                    f.write("{} {} {}\n".format(guess_apr[2]-guess_apr[3], guess_apr[0]-guess_apr[1], [rl, ri])
+                
+        exit(-1)
         slope_ftir_av = np.mean(slope_ftir)
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
         inp.MCP[2] = rt_best / ((fact-1)*fi+1)
         inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
-        '''
+
         inp.MCP = [0.01, 1.110, 7.0, 29.0]
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
