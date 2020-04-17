@@ -68,7 +68,7 @@ def main(cl_param):
         for fi in [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]:
 
             
-            apr_list.append(th.Thread(targed=guess_apr, args=(fi, )))
+            apr_list.append(th.Thread(target=guess_apr, args=(fi, )))
             apr_list[-1].start()
             
         for element in apr_list:
