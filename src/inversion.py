@@ -324,9 +324,9 @@ def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=Fals
     idx=7
     [wavenumber, radiance] = rL.forward_run([tau_liq, tau_ice, reff_liq, reff_ice], [0, 1.0], lblrtm, 0)
     rms = np.sqrt(np.mean((np.array(radiance) - np.array(aux.RADIANCE_FTIR))**2))
-    slope_lbldis = (radiance[0] - radiance[idx])/(wavenumber[0]-wavenumber[idx])
-    slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[idx])#
-    slope_diff = np.abs(slope_lbldis - slope_ftir)
+    #slope_lbldis = (radiance[0] - radiance[idx])/(wavenumber[0]-wavenumber[idx])
+    #slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[idx])#
+    #slope_diff = np.abs(slope_lbldis - slope_ftir)
 
     #slope_2_lbldis = (aux.RADIANCE_LBLDIS[0][-1][idx] - aux.RADIANCE_LBLDIS[0][-1][-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
     #slope_2_ftir = (aux.RADIANCE_FTIR[idx] - aux.RADIANCE_FTIR[-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
@@ -340,7 +340,7 @@ def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=Fals
     #        f.write("{}\n".format(aux.WAVENUMBER_FTIR[ii]))
 
     #rms = np.sqrt(np.mean((np.array(aux.RADIANCE_LBLDIS[0][-1]) - np.array(aux.RADIANCE_FTIR))**2))
-    return [np.sum(radiance[idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), rms, slope_diff]#, slope_lbldis, slope_ftir, rms]#, slope_2_lbldis, slope_2_ftir]
+    return [np.sum(radiance[idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), rms]#, slope_diff]#, slope_lbldis, slope_ftir, rms]#, slope_2_lbldis, slope_2_ftir]
 
 ################################################################################
 

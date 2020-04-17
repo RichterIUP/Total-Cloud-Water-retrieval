@@ -18,7 +18,7 @@ import inversion
 import read_input
 import run_lbldis as rL
 import get_atm
-from guess_apr import guess_apr
+import guess_apr
 
 
 def main(cl_param):
@@ -64,73 +64,24 @@ def main(cl_param):
         Start the iteration using the chosen microwindows
         '''
         
+        inp.FORWARD = True
         apr_list = []
         for fi in [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]:
-            apr_list.append(th.Thread(target=guess_apr, args=(fi, )))
+            apr_list.append(th.Thread(target=guess_apr.guess_apr, args=(fi, )))
             apr_list[-1].start()
             
         for element in apr_list:
             element.join()
-
-        
         inp.FORWARD = False
-        '''
-        inp.FORWARD = True
 
-        tt = [0.2, 1.0, 3.0, 4.0, 6.0]
-        rt = [10, 15, 20, 25, 30, 35, 40, 45]
-        fi = 0.5
-        rad_lbldis = []
-        rad_ftir = []
-        tt_y = []
-        rms = []
-        for fi in [0.0]:
-            for param_num in range(len(tt)):
-                inp.MCP[0] = tt[param_num]*(1-fi)
-                inp.MCP[1] = tt[param_num]*fi
-                guess_apr = inversion.retrieve()
-                #rad_lbldis.append(guess_apr[0])
-                #rad_ftir.append(guess_apr[1])
-                rms.append(guess_apr[4])
-                #tt_y.append(tt[param_num])
-            #rad_ftir_av = np.mean(rad_ftir)
-            tt_best = tt[rms.index(min(rms))]#np.interp(rad_ftir_av, np.array(rad_lbldis), tt_y)
-
-            inp.MCP[0] = tt_best * (1-fi)
-            inp.MCP[1] = tt_best * fi        
-            
-            slope_lbldis = []
-            slope_ftir = []
-            rad_lbldis = []
-            rad_ftir = []
-            rt_y = []
-            fact = 5
-            #for fi in [0.0]:
-            for rl in [5, 8, 11, 14, 17, 20]:
-                for ri in [10, 20, 30, 40, 50]:
-        #for param_num in range(len(rt)):
-                    inp.MCP[2] = rl#rt[param_num] / ((fact-1)*fi+1)
-                    inp.MCP[3] = ri#rt[param_num] * fact / ((fact-1)*fi+1)
-                    inp.MCP[0] = (1-fi)*tt_best
-                    inp.MCP[1] = fi*tt_best
-                    guess_apr = inversion.retrieve()
-                    slope_lbldis.append(guess_apr[2])
-                    slope_ftir.append(guess_apr[3])
-                    rad_ftir.append(guess_apr[1])
-                    rad_lbldis.append(guess_apr[0])
-                    rms = guess_apr[4]
-                    #rt_y.append(rt[param_num])
-                    rt_y.append([rl, ri])
-                    with open("radii_{}".format(fi), "a") as f:
-                        f.write("{} {} {} {}\n".format(fi, tt_best, rms, [rl, ri]))
-        '''
+        print(guess_apr.SEARCH_APR)
         exit(-1)
-        slope_ftir_av = np.mean(slope_ftir)
-        rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
-        inp.MCP[2] = rt_best / ((fact-1)*fi+1)
-        inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
+        #slope_ftir_av = np.mean(slope_ftir)
+        #rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
+        #inp.MCP[2] = rt_best / ((fact-1)*fi+1)
+        #inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
 
-        inp.MCP = [0.01, 1.110, 7.0, 29.0]
+        #inp.MCP = [0.01, 1.110, 7.0, 29.0]
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
