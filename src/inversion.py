@@ -337,8 +337,9 @@ def __only_fwd(lblrtm=False):
     with open("{}/wn.spec".format(inp.PATH), "w") as f:
         for ii in range(len(aux.WAVENUMBER_FTIR)):
             f.write("{}\n".format(aux.WAVENUMBER_FTIR[ii]))
-    
-    return [np.sum(aux.RADIANCE_LBLDIS[0][-1][idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), slope_lbldis, slope_ftir, slope_2_lbldis, slope_2_ftir]
+
+    rms = np.sqrt(np.mean((np.array(aux.RADIANCE_LBLDIS[0][-1]) - np.array(aux.RADIANCE_FTIR))**2))
+    return [np.sum(aux.RADIANCE_LBLDIS[0][-1][idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), slope_lbldis, slope_ftir, rms]#, slope_2_lbldis, slope_2_ftir]
 
 ################################################################################
 

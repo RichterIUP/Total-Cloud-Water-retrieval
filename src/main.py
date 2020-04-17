@@ -90,23 +90,24 @@ def main(cl_param):
         rad_ftir = []
         rt_y = []
         fact = 5
-        for fi in [0.25, 0.75]:
+        for fi in [0.0]:
             for rl in [5, 8, 11, 14, 17, 20]:
                 for ri in [10, 20, 30, 40, 50]:
         #for param_num in range(len(rt)):
                     inp.MCP[2] = rl#rt[param_num] / ((fact-1)*fi+1)
                     inp.MCP[3] = ri#rt[param_num] * fact / ((fact-1)*fi+1)
-                    inp.MCP[1] = (1-fi)*tt_best
-                    inp.MCP[2] = fi*tt_best
+                    inp.MCP[0] = (1-fi)*tt_best
+                    inp.MCP[1] = fi*tt_best
                     guess_apr = inversion.retrieve()
                     slope_lbldis.append(guess_apr[2])
                     slope_ftir.append(guess_apr[3])
                     rad_ftir.append(guess_apr[1])
                     rad_lbldis.append(guess_apr[0])
+                    rms = guess_apr[4]
                     #rt_y.append(rt[param_num])
                     rt_y.append([rl, ri])
-                    with open("radii", "a") as f:
-                        f.write("{} {} {} {} {}\n".format(fi, guess_apr[2]-guess_apr[3], guess_apr[0]-guess_apr[1], (guess_apr[2]-guess_apr[3])*(guess_apr[0]-guess_apr[1]), [rl, ri]))
+                    with open("radii_{}".format(fi), "a") as f:
+                        f.write("{} {} {} {}\n".format(fi, tt_best, rms, [rl, ri]))
                 
         exit(-1)
         slope_ftir_av = np.mean(slope_ftir)
