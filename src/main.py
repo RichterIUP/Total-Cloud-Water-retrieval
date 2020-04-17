@@ -74,11 +74,14 @@ def main(cl_param):
             element.join()
         inp.FORWARD = False
 
-        print(guess_apr.SEARCH_APR_RMS)
-        print(guess_apr.SEARCH_APR_MCP)
+        #print(guess_apr.SEARCH_APR_RMS)
+        #print(guess_apr.SEARCH_APR_MCP)
         idx = guess_apr.SEARCH_APR_RMS.index(min(guess_apr.SEARCH_APR_RMS))
-        print(guess_apr.SEARCH_APR_MCP[idx])
-        [fi, tt, rl, ri] = guess_apr.SEARCH_APR_MCP[idx]
+        #print(guess_apr.SEARCH_APR_MCP[idx])
+        fi = guess_apr.SEARCH_APR_MCP[idx][0]
+        tt = guess_apr.SEARCH_APR_MCP[idx][1]
+        rl = guess_apr.SEARCH_APR_MCP[idx][2]
+        ri = guess_apr.SEARCH_APR_MCP[idx][3]
         inp.MCP[0] = (1-fi)*tt
         inp.MCP[1] = ff*tt
         inp.MCP[2] = rl
