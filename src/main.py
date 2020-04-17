@@ -71,26 +71,29 @@ def main(cl_param):
         rad_lbldis = []
         rad_ftir = []
         tt_y = []
-        for param_num in range(len(tt)):
-            inp.MCP[0] = tt[param_num]*fi
-            inp.MCP[1] = tt[param_num]*fi
-            guess_apr = inversion.retrieve()
-            rad_lbldis.append(guess_apr[0])
-            rad_ftir.append(guess_apr[1])
-            tt_y.append(tt[param_num])
-        rad_ftir_av = np.mean(rad_ftir)
-        tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt_y)
-
-        inp.MCP[0] = tt_best * (1-fi)
-        inp.MCP[1] = tt_best * fi        
-            
-        slope_lbldis = []
-        slope_ftir = []
-        rad_lbldis = []
-        rad_ftir = []
-        rt_y = []
-        fact = 5
+        rms = []
         for fi in [0.0]:
+            for param_num in range(len(tt)):
+                inp.MCP[0] = tt[param_num]*fi
+                inp.MCP[1] = tt[param_num]*fi
+                guess_apr = inversion.retrieve()
+                #rad_lbldis.append(guess_apr[0])
+                #rad_ftir.append(guess_apr[1])
+                rms.append(guess_apr[4])
+                #tt_y.append(tt[param_num])
+            #rad_ftir_av = np.mean(rad_ftir)
+            tt_best = tt.index(min(rms))#np.interp(rad_ftir_av, np.array(rad_lbldis), tt_y)
+
+            inp.MCP[0] = tt_best * (1-fi)
+            inp.MCP[1] = tt_best * fi        
+            
+            slope_lbldis = []
+            slope_ftir = []
+            rad_lbldis = []
+            rad_ftir = []
+            rt_y = []
+            fact = 5
+            #for fi in [0.0]:
             for rl in [5, 8, 11, 14, 17, 20]:
                 for ri in [10, 20, 30, 40, 50]:
         #for param_num in range(len(rt)):
