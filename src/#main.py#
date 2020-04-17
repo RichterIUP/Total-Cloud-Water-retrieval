@@ -111,7 +111,8 @@ def main(cl_param):
                     rt_y.append([rl, ri])
                     with open("radii_{}".format(fi), "a") as f:
                         f.write("{} {} {} {}\n".format(fi, tt_best, rms, [rl, ri]))
-                
+        with open('radii_{}'.format(fi), 'a') as f:
+            f.write("{} {}
         exit(-1)
         slope_ftir_av = np.mean(slope_ftir)
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
