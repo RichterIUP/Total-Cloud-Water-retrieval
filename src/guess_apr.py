@@ -3,6 +3,7 @@
 import numpy as np
 import inversion
 import inp
+import threading
 
 SEARCH_APR = []
 
@@ -43,6 +44,8 @@ def guess_apr(fi):
     with open("radii_{}".format(fi), "a") as f:
         f.write("{} {}\n".format(fi, tt_best, rms[idx], rt_y[idx]))
         
-    Lock.acquire()
+    lock = threading.Lock()
+    
+    lock.acquire()
     SEARCH_APR.append([rms[idx], [fi, tt_best, rt_y[idx][0], rt_y[idx][1]])
-    Lock.release()
+    lock.release()
