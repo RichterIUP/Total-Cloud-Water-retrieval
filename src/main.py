@@ -83,7 +83,7 @@ def main(cl_param):
         rl = guess_apr.SEARCH_APR_MCP[idx][2]
         ri = guess_apr.SEARCH_APR_MCP[idx][3]
         inp.MCP[0] = (1-fi)*tt
-        inp.MCP[1] = ff*tt
+        inp.MCP[1] = fi*tt
         inp.MCP[2] = rl
         inp.MCP[3] = ri
 
