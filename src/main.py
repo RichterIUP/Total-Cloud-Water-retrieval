@@ -63,7 +63,7 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-        
+        '''
         inp.FORWARD = True
         apr_list = []
         for fi in [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]:
@@ -78,26 +78,18 @@ def main(cl_param):
         print(guess_apr.SEARCH_APR_MCP)
         idx = guess_apr.SEARCH_APR_RMS.index(min(guess_apr.SEARCH_APR_RMS))
         print(guess_apr.SEARCH_APR_MCP[idx])
-        exit(-1)
-        #slope_ftir_av = np.mean(slope_ftir)
-        #rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
-        #inp.MCP[2] = rt_best / ((fact-1)*fi+1)
-        #inp.MCP[3] = rt_best * fact / ((fact-1)*fi+1)
+        [fi, tt, rl, ri] = guess_apr.SEARC_APR_MCP[idx]
+        inp.MCP[0] = (1-fi)*tt
+        inp.MCP[1] = ff*tt
+        inp.MCP[2] = rl
+        inp.MCP[3] = ri
+        '''
+        inp.MCP = [0.0, 1.0, 5.0, 20.0]
 
-        #inp.MCP = [0.01, 1.110, 7.0, 29.0]
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
 
-        
-        #inp.MCP = [ 0.056,  0.000, 11.990, 75.000]
-        #inp.FORWARD = False
-        #aux.SLOPE_RETR = True
-        #read_input.read_input(cl_param[0])
-        #inversion.__set_up_retrieval()
-        #inp.MCP_APRIORI = inp.MCP[:]
-        #inversion.retrieve()
-        
 
     else:   
         '''
