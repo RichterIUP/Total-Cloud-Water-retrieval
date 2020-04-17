@@ -9,6 +9,8 @@ def guess_apr(fi):
 
     tt = [0.2, 1.0, 3.0, 4.0, 6.0]
     rt = [10, 15, 20, 25, 30, 35, 40, 45]
+    rl = 10.
+    ri = 30.
 
     rms = []
     rad_lbldis = []
@@ -19,7 +21,7 @@ def guess_apr(fi):
     for param_num in range(len(tt)):
         tl = tt[param_num]*(1-fi)
         ti = tt[param_num]*fi
-        guess_apr = inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=10., reff_ice=30.)
+        guess_apr = inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri)
         rad_lbldis.append(guess_apr[0])
         rad_ftir.append(guess_apr[1])
         tt_y.append(tt[param_num])
@@ -42,5 +44,5 @@ def guess_apr(fi):
         f.write("{} {}\n".format(fi, tt_best, rms[idx], rt_y[idx]))
         
     #inp.FOWARD = False
-    exit(-1)
+    #exit(-1)
 
