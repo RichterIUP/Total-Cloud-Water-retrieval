@@ -11,11 +11,20 @@ def guess_apr(fi):
     rt = [10, 15, 20, 25, 30, 35, 40, 45]
 
     rms = []
+    rad_lbldis = []
+    rad_ftir = []
+    tt_y = []
+    rt_y = []
 
     for param_num in range(len(tt)):
         tl = tt[param_num]*(1-fi)
         ti = tt[param_num]*fi
-        rms.append(inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=10., reff_ice=30.)[4])
+        guess_apr = inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=10., reff_ice=30.)
+        rad_lbldis.append(guess_apr[0])
+        rad_ftir.append(guess_apr[1])
+        tt_y.append(tt[param_num])
+    rad_ftir_av = np.mean(rad_ftir)
+    tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt_y)
  
     tt_best = tt[rms.index(min(rms))]
     rms = []
