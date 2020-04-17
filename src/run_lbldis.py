@@ -62,7 +62,7 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
     if thread_fact[0] == 0 and aux.SLOPE_RETR:
         log.write(log.write(aux.average(np.array(wavenumber), np.array(radiance))[1]))
         log.write(aux.RADIANCE_FTIR)
-    return
+    return aux.average(np.array(wavenumber), np.array(radiance))[1]
 
 ####################################################################################
     

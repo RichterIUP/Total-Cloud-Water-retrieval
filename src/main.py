@@ -17,6 +17,7 @@ import inversion
 import read_input
 import run_lbldis as rL
 import get_atm
+from guess_apr import guess_apr
 
 
 def main(cl_param):
@@ -61,8 +62,9 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-
-
+    
+        guess_apr(fi=1.0)
+        '''
         inp.FORWARD = True
 
         tt = [0.2, 1.0, 3.0, 4.0, 6.0]
@@ -111,7 +113,7 @@ def main(cl_param):
                     rt_y.append([rl, ri])
                     with open("radii_{}".format(fi), "a") as f:
                         f.write("{} {} {} {}\n".format(fi, tt_best, rms, [rl, ri]))
-                
+        '''
         exit(-1)
         slope_ftir_av = np.mean(slope_ftir)
         rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)

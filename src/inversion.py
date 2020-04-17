@@ -315,30 +315,30 @@ def __initialise_variables():
 
 ################################################################################
 
-def __only_fwd(lblrtm=False):
+def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=False):
     '''Execute only one forward run
     
     @param lblrtm If true, also execute lblrtm
     '''
 
     idx=7
-    rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
+    radiance = rL.forward_run([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], [0, 1.0], lblrtm, 0)
+    rms = np.sqrt(np.mean((np.array(radiance) - np.array(aux.RADIANCE_FTIR))**2))
+    #slope_lbldis = (aux.RADIANCE_LBLDIS[0][-1][0] - aux.RADIANCE_LBLDIS[0][-1][idx])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[idx])
+    #slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[idx])#
 
-    slope_lbldis = (aux.RADIANCE_LBLDIS[0][-1][0] - aux.RADIANCE_LBLDIS[0][-1][idx])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[idx])
-    slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[idx])
-
-    slope_2_lbldis = (aux.RADIANCE_LBLDIS[0][-1][idx] - aux.RADIANCE_LBLDIS[0][-1][-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
-    slope_2_ftir = (aux.RADIANCE_FTIR[idx] - aux.RADIANCE_FTIR[-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
+    #slope_2_lbldis = (aux.RADIANCE_LBLDIS[0][-1][idx] - aux.RADIANCE_LBLDIS[0][-1][-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
+    #slope_2_ftir = (aux.RADIANCE_FTIR[idx] - aux.RADIANCE_FTIR[-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
     
-    with open("{}/lbldis.spec".format(inp.PATH), "w") as f:
-        for ii in range(len(aux.RADIANCE_LBLDIS[0][-1])):
-            f.write("{}\n".format(aux.RADIANCE_LBLDIS[0][-1][ii]))
+    #with open("{}/lbldis.spec".format(inp.PATH), "w") as f:
+    #    for ii in range(len(aux.RADIANCE_LBLDIS[0][-1])):
+    #        f.write("{}\n".format(aux.RADIANCE_LBLDIS[0][-1][ii]))
             
-    with open("{}/wn.spec".format(inp.PATH), "w") as f:
-        for ii in range(len(aux.WAVENUMBER_FTIR)):
-            f.write("{}\n".format(aux.WAVENUMBER_FTIR[ii]))
+    #with open("{}/wn.spec".format(inp.PATH), "w") as f:
+    #    for ii in range(len(aux.WAVENUMBER_FTIR)):
+    #        f.write("{}\n".format(aux.WAVENUMBER_FTIR[ii]))
 
-    rms = np.sqrt(np.mean((np.array(aux.RADIANCE_LBLDIS[0][-1]) - np.array(aux.RADIANCE_FTIR))**2))
+    #rms = np.sqrt(np.mean((np.array(aux.RADIANCE_LBLDIS[0][-1]) - np.array(aux.RADIANCE_FTIR))**2))
     return [np.sum(aux.RADIANCE_LBLDIS[0][-1][idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), slope_lbldis, slope_ftir, rms]#, slope_2_lbldis, slope_2_ftir]
 
 ################################################################################
@@ -467,7 +467,10 @@ def retrieve():
     for retr_loop in range(aux.MAX_ITER):
 
         if inp.FORWARD:
-            return __only_fwd()
+            return __only_fwd(tau_liq=aux.TOTAL_OPTICAL_DEPTH[-1], \
+                                tau_ice=aux.ICE_FRACTION[-1], \
+                                reff_liq=aux.RADIUS_LIQUID[-1], \
+                                reff_ice=aux.RADIUS_ICE[-1])
             
             
         log.write("# Iteration: {}".format(retr_loop))
