@@ -24,7 +24,7 @@ def guess_apr(fi):
 
     for rl in [5, 8, 11, 14, 17, 20]:
         for ri in [10, 20, 30, 40, 50]:
-            rms.append(inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri)[4])
+            rms.append(inversion.__only_fwd(tau_liq=tl_best, tau_ice=ti_best, reff_liq=rl, reff_ice=ri)[4])
             rt_y.append([rl, ri])
             with open("radii_{}".format(fi), "a") as f:
                 f.write("{} {} {} {}\n".format(fi, tt_best, rms[-1], [rl, ri]))
