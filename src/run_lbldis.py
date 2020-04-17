@@ -34,17 +34,16 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
     dri = thread_fact[1] * np.array([0.0, 0.0, aux.STEPSIZE_RADIUS, 0.0, 0.0])
     dtl = thread_fact[1] * np.array([0.0, 0.0, 0.0, aux.STEPSIZE_TAU,    0.0])
     dti = thread_fact[1] * np.array([0.0, 0.0, 0.0, 0.0, aux.STEPSIZE_TAU])
-    if inp.FORWARD:
-        drl = 0.0
-        dri = 0.0
-        dtl = 0.0
-        dti = 0.0
 
     atm = [0.0, 0.0, 0.0, 0.0]
-    atm[0] = atmospheric_param[0]+dtl[thread_fact[0]]
-    atm[1] = atmospheric_param[1]+dti[thread_fact[0]]
-    atm[2] = atmospheric_param[2]+drl[thread_fact[0]]
-    atm[3] = atmospheric_param[3]+dri[thread_fact[0]]
+    if inp.FORWARD:
+        for ii in range(4):
+            atm[ii] = atmospheric_param[ii]
+    else:
+        atm[0] = atmospheric_param[0]+dtl[thread_fact[0]]
+        atm[1] = atmospheric_param[1]+dti[thread_fact[0]]
+        atm[2] = atmospheric_param[2]+drl[thread_fact[0]]
+        atm[3] = atmospheric_param[3]+dri[thread_fact[0]]
 
     if thread_fact[1] < 0.0:
         aux.RADIANCE_LBLDIS[file_num].append(np.array([0.0 for ii in range(len(aux.WAVENUMBER_FTIR))]))
