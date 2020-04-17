@@ -102,22 +102,22 @@ def read_testcase(fname):
         if aux.SOLAR_ZENITH_ANGLE > 90.0:
             aux.SOLAR_ZENITH_ANGLE = -1.0
             
-        aux.WAVENUMBER_FTIR = []
-        aux.RADIANCE_FTIR = []
-        with open("/home/phi.richter/TCWret/OUTFOLDER/simulation_2012042117_cld1_0003_ch2_singleLayer.nc/4_16_23_6_57_792271/wn.spec") as f:
-            cont = f.readlines()
-            for ii in cont:
-                aux.WAVENUMBER_FTIR.append(float(ii))
-        aux.WAVENUMBER_FTIR = np.array(aux.WAVENUMBER_FTIR)
+        #aux.WAVENUMBER_FTIR = []
+        #aux.RADIANCE_FTIR = []
+        #with open("/home/phi.richter/TCWret/OUTFOLDER/simulation_2012042117_cld1_0003_ch2_singleLayer.nc/4_16_23_6_57_792271/wn.spec") as f:
+        #    cont = f.readlines()
+        #    for ii in cont:
+        #        aux.WAVENUMBER_FTIR.append(float(ii))
+        #aux.WAVENUMBER_FTIR = np.array(aux.WAVENUMBER_FTIR)
         
-        with open("/home/phi.richter/TCWret/OUTFOLDER/simulation_2012042117_cld1_0003_ch2_singleLayer.nc/4_16_23_6_57_792271/lbldis.spec") as f:
-            cont = f.readlines()
-            for ii in cont:
-                aux.RADIANCE_FTIR.append(float(ii))
-        aux.WAVENUMBER_FTIR = np.array(aux.WAVENUMBER_FTIR)
-        aux.RADIANCE_FTIR = np.array(aux.RADIANCE_FTIR)
-        #aux.WAVENUMBER_FTIR = np.array(dataset.variables['nu_cld'][:])
-        #aux.RADIANCE_FTIR = np.array(dataset.variables['rad_cld_down'][:])+inp.OFFSET
+        #with open("/home/phi.richter/TCWret/OUTFOLDER/simulation_2012042117_cld1_0003_ch2_singleLayer.nc/4_16_23_6_57_792271/lbldis.spec") as f:
+        #    cont = f.readlines()
+        #    for ii in cont:
+        #        aux.RADIANCE_FTIR.append(float(ii))
+        #aux.WAVENUMBER_FTIR = np.array(aux.WAVENUMBER_FTIR)
+        #aux.RADIANCE_FTIR = np.array(aux.RADIANCE_FTIR)
+        aux.WAVENUMBER_FTIR = np.array(dataset.variables['nu_cld'][:])
+        aux.RADIANCE_FTIR = np.array(dataset.variables['rad_cld_down'][:])+inp.OFFSET
         #plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR)
         #plt.show()
         aux.NOISE_FTIR = np.array([0.0 for ii in range(len(aux.RADIANCE_FTIR))])

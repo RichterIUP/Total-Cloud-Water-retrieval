@@ -41,12 +41,12 @@ def guess_apr(fi):
             rt_y.append([rl, ri])
 
     idx = rms.index(min(rms))
-    with open("radii_{}".format(fi), "a") as f:
-        f.write("{} {} {} {}\n".format(fi, tt_best, rms[idx], rt_y[idx]))
+
         
-    lock = threading.Lock()
-    
+    lock = threading.Lock()    
     lock.acquire()
     SEARCH_APR_RMS.append(rms[idx])
     SEARCH_APR_MCP.append([fi, tt_best, rt_y[idx][0], rt_y[idx][1]])
     lock.release()
+
+    return

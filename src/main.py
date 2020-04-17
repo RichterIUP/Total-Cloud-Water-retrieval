@@ -63,10 +63,10 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-        '''
+
         inp.FORWARD = True
         apr_list = []
-        for fi in [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]:
+        for fi in [0.05, 0.2, 0.4, 0.5, 0.6, 0.8, 0.95]:
             apr_list.append(th.Thread(target=guess_apr.guess_apr, args=(fi, )))
             apr_list[-1].start()
             
@@ -83,8 +83,8 @@ def main(cl_param):
         inp.MCP[1] = ff*tt
         inp.MCP[2] = rl
         inp.MCP[3] = ri
-        '''
-        inp.MCP = [0.0, 1.0, 5.0, 20.0]
+
+        #inp.MCP = [0.0, 1.0, 5.0, 20.0]
 
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
