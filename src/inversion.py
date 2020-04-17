@@ -315,14 +315,14 @@ def __initialise_variables():
 
 ################################################################################
 
-def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=False):
+def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=False, filenum=0):
     '''Execute only one forward run
     
     @param lblrtm If true, also execute lblrtm
     '''
 
     idx=7
-    [wavenumber, radiance] = rL.forward_run([tau_liq, tau_ice, reff_liq, reff_ice], [0, 1.0], lblrtm, 0)
+    [wavenumber, radiance] = rL.forward_run([tau_liq, tau_ice, reff_liq, reff_ice], [filenum, 1.0], lblrtm, 0)
     rms = np.sqrt(np.mean((np.array(radiance) - np.array(aux.RADIANCE_FTIR))**2))
     #slope_lbldis = (radiance[0] - radiance[idx])/(wavenumber[0]-wavenumber[idx])
     #slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[idx])#

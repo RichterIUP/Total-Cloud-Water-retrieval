@@ -34,6 +34,11 @@ def forward_run(atmospheric_param, thread_fact, lblrtm, file_num):
     dri = thread_fact[1] * np.array([0.0, 0.0, aux.STEPSIZE_RADIUS, 0.0, 0.0])
     dtl = thread_fact[1] * np.array([0.0, 0.0, 0.0, aux.STEPSIZE_TAU,    0.0])
     dti = thread_fact[1] * np.array([0.0, 0.0, 0.0, 0.0, aux.STEPSIZE_TAU])
+    if inp.FORWARD:
+        drl = 0.0
+        dri = 0.0
+        dtl = 0.0
+        dti = 0.0
 
     atm = [0.0, 0.0, 0.0, 0.0]
     atm[0] = atmospheric_param[0]+dtl[thread_fact[0]]
