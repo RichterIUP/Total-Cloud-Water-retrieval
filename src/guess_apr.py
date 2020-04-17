@@ -12,7 +12,7 @@ def guess_apr(fi):
 
     global SEARCH_APR
     
-    tt = [0.2, 0.5]#, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 6.0]
+    tt = [0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 6.0]
     rl = 10.
     ri = 30.
 
@@ -35,8 +35,8 @@ def guess_apr(fi):
     tl_best = tt_best * (1-fi)
     ti_best = tt_best * fi        
 
-    for rl in [5, 8]:#, 11, 14, 17, 20]:
-        for ri in [10, 20]:#, 30, 40, 50]:
+    for rl in [5, 8, 11, 14, 17, 20]:
+        for ri in [10, 20, 30, 40, 50]:
             rms.append(inversion.__only_fwd(tau_liq=tl_best, tau_ice=ti_best, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-1])
             rt_y.append([rl, ri])
 
