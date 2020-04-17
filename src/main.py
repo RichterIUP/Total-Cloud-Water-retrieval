@@ -6,6 +6,7 @@ Entrance point for L-IWP. Prepare the data and call the iteration
 import sys
 import os
 import datetime as dt
+import threading as th
 
 sys.path.append("./src")
 
@@ -62,8 +63,36 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-    
-        guess_apr(fi=1.0)
+        
+        apr_list = []
+        for fi in [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]:
+            fact_num = iter_list[counter]
+            '''
+            Run LBLDIS
+            '''
+            
+            apr_list.append(th.Thread(targed=guess_apr, args=(fi, )))
+            apr_list[-1].start()
+            
+        for element in apr_list:
+            element.join()
+            #if inp.MODELFRAMEWORK == "LBLDIS":
+            #    lbldis_run.append(th.Thread(target=rL.forward_run, \
+            #                                args=([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], fact_num, \
+            #                                      lblrtm, fnum)))
+            #elif inp.MODELFRAMEWORK == "CLARRA":
+            #    lbldis_run.append(th.Thread(target=rD.forward_run, \
+            #                            args=([aux.TOTAL_OPTICAL_DEPTH[-1], aux.ICE_FRACTION[-1], aux.RADIUS_LIQUID[-1], aux.RADIUS_ICE[-1]], fact_num, \
+            #                                  lblrtm, fnum)))
+            #lbldis_run[-1].start()
+            #fnum = fnum + 1
+            #if (counter+1)%inp.NUM_OF_CPU == 0:
+            #    for element in lbldis_run:
+            #        element.join()
+            #    lbldis_run = []
+        #guess_apr(fi=1.0)
+        
+        inp.FORWARD = False
         '''
         inp.FORWARD = True
 
