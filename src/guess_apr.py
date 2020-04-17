@@ -5,7 +5,8 @@ import inversion
 import inp
 import threading
 
-SEARCH_APR = []
+SEARCH_APR_RMS = []
+SEARCH_APR_MCP = []
 
 def guess_apr(fi):
 
@@ -42,10 +43,11 @@ def guess_apr(fi):
             #    f.write("{} {} {} {}\n".format(fi, tt_best, rms[-1], rt_y[-1]))
     idx = rms.index(min(rms))
     with open("radii_{}".format(fi), "a") as f:
-        f.write("{} {}\n".format(fi, tt_best, rms[idx], rt_y[idx]))
+        f.write("{} {} {} {}\n".format(fi, tt_best, rms[idx], rt_y[idx]))
         
     lock = threading.Lock()
     
     lock.acquire()
-    SEARCH_APR.append([rms[idx], [fi, tt_best, rt_y[idx][0], rt_y[idx][1]]])
+    SEARCH_APR_RMS.append(rms[idx])
+    SEARCH_APR_MCP.append([fi, tt_best, rt_y[idx][0], rt_y[idx][1]])
     lock.release()

@@ -74,7 +74,10 @@ def main(cl_param):
             element.join()
         inp.FORWARD = False
 
-        print(guess_apr.SEARCH_APR)
+        print(guess_apr.SEARCH_APR_RMS)
+        print(guess_apr.SEARCH_APR_MCP)
+        idx = guess_apr.SEARCH_APR_RMS.index(min(guess_apr.SEARCH_APR_RMS))
+        print(guess_apr.SEARCH_APR_MCP[idx])
         exit(-1)
         #slope_ftir_av = np.mean(slope_ftir)
         #rt_best = np.interp(slope_ftir_av, np.array(slope_lbldis), rt_y)
