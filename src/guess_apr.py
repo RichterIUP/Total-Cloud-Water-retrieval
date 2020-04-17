@@ -35,8 +35,8 @@ def guess_apr(fi):
     tl_best = tt_best * (1-fi)
     ti_best = tt_best * fi        
 
-    for rl in [5, 8, 11, 14, 17, 20]:
-        for ri in [10, 15, 20, 25, 30, 35, 40, 45, 50]:
+    for rl in [5, 10, 15, 20]:
+        for ri in [20, 25, 30, 35, 40, 45, 50]:
             rms.append(inversion.__only_fwd(tau_liq=tl_best, tau_ice=ti_best, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-1])
             rt_y.append([rl, ri])
 
