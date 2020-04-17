@@ -26,7 +26,7 @@ def guess_apr(fi):
     rad_ftir_av = np.mean(rad_ftir)
     tt_best = np.interp(rad_ftir_av, np.array(rad_lbldis), tt_y)
  
-    tt_best = tt[rms.index(min(rms))]
+    #tt_best = tt[rms.index(min(rms))]
     rms = []
     tl_best = tt_best * (1-fi)
     ti_best = tt_best * fi        
