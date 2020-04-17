@@ -47,5 +47,5 @@ def guess_apr(fi):
     lock = threading.Lock()
     
     lock.acquire()
-    SEARCH_APR.append([rms[idx], [fi, tt_best, rt_y[idx][0], rt_y[idx][1]])
+    SEARCH_APR.append([rms[idx], [fi, tt_best, rt_y[idx][0], rt_y[idx][1]]])
     lock.release()
