@@ -13,7 +13,7 @@ import inp
 import aux2 as aux
 
 
-def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_matrix=None, transfer_matrix=None, , errors_res=None):
+def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_matrix=None, transfer_matrix=None, errors_res=None):
     '''
     Create the netCDF file
     
