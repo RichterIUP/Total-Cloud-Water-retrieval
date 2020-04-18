@@ -21,10 +21,10 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_ma
     @param avk_matrix Averaging kernel matrix
     @param errors Standard deviations of MCP
     '''
-    if not os.path.exists("RESULTS"):
-        os.mkdir("RESULTS")
+    if not os.path.exists(inp.RESULTS):
+        os.mkdir(inp.RESULTS)
         
-    nc_fname = "RESULTS/results_{}.nc".format(aux.FTIR.split("/")[-1])
+    nc_fname = "{}/results_{}.nc".format(inp.RESULTS, aux.FTIR.split("/")[-1])
     with sio.netcdf_file(nc_fname, "w") as outfile:
         outfile.createDimension("const", 1)
         outfile.createDimension("num_of_clouds", len(aux.CLOUD_BASE))
