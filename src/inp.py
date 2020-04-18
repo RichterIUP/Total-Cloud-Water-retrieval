@@ -11,8 +11,8 @@ Path to the output of TCWret
 '''
 #PATH = '/home/phi.richter/TCWret/OUTFOLDER'
 #PATH = '/home/philipp/TCWret/OUTFOLDER'
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_undisturbed'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_undisturbed'
 '''
 Path to the binary of LBLRTM
 '''

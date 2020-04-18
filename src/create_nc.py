@@ -13,7 +13,7 @@ import inp
 import aux2 as aux
 
 
-def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_matrix=None, transfer_matrix=None):
+def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_matrix=None, transfer_matrix=None, , errors_res=None):
     '''
     Create the netCDF file
     
@@ -30,6 +30,7 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_ma
         outfile.createDimension("num_of_clouds", len(aux.CLOUD_BASE))
         outfile.createDimension("mcp", 4)
         outfile.createDimension("mcp_err", 2)
+        outfile.createDimension("wp", 3)
         outfile.createDimension("level", len(aux.ATMOSPHERIC_GRID[0]))
         outfile.createDimension("wavenumber", len(aux.WAVENUMBER_FTIR))
         
@@ -88,37 +89,54 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_ma
                 
         t_mat = outfile.createVariable("transfer matrix", "f8", ("mcp", "wavenumber"))
         t_mat.units = "1"    
-        tt = outfile.createVariable("tl", "f8", ("const", ))
-        tt.units = "1"
-        fi = outfile.createVariable("ti", "f8", ("const", ))
-        fi.units = "1"
-        rl = outfile.createVariable("rl", "f8", ("const", ))
-        rl.units = "um"
-        ri = outfile.createVariable("ri", "f8", ("const", ))
-        ri.units = "um"
-        iwp = outfile.createVariable("iwp", "f8", ("const", ))
-        iwp.units = "g/m2"
-        lwp = outfile.createVariable("lwp", "f8", ("const", ))
-        lwp.units = "g/m2"
-        twp = outfile.createVariable("twp", "f8", ("const", ))
-        twp.units = "g/m2"
+        #tt = outfile.createVariable("tl", "f8", ("const", ))
+        #tt.units = "1"
+        #fi = outfile.createVariable("ti", "f8", ("const", ))
+        #fi.units = "1"
+        #rl = outfile.createVariable("rl", "f8", ("const", ))
+        #rl.units = "um"
+        #ri = outfile.createVariable("ri", "f8", ("const", ))
+        #ri.units = "um"
+        #iwp = outfile.createVariable("iwp", "f8", ("const", ))
+        #iwp.units = "g/m2"
+        #lwp = outfile.createVariable("lwp", "f8", ("const", ))
+        #lwp.units = "g/m2"
+        #twp = outfile.createVariable("twp", "f8", ("const", ))
+        #twp.units = "g/m2"
+        
+        x_ret = outfile.createVariable('x_ret', 'f8', ('mcp', ))
+        x_ret.units = '1'
+        x_ret_err = outfile.createVariable('x_ret_err', 'f8', ('mcp', ))
+        x_ret_err.units = '1'
+        x_err_res = outfile.createVariable('x_err_res', 'f8', ('mcp', ))
+        x_err_res.units = '1'
+        
+        wp_ret = outfile.createVariable('wp_ret', 'f8', ('wp', ))
+        wp_ret.units = 'g/m2'
+        wp_ret_err = outfile.createVariable('wp_ret_err', 'f8', ('wp', ))
+        wp_ret_err.units = 'g/m2'
+        wp_err_res = outfile.createVariable('wp_err_res', 'f8', ('wp', ))
+        wp_err_res.units = 'g/m2'
+                
         x_a = outfile.createVariable("x_a", "f8", ("mcp", ))
         x_a.units = "1"
+        x_a_err = outfile.createVariable('x_a_err', 'f8', ('mcp', ))
+        x_a_err.units = '1'
         
-        dtt = outfile.createVariable("dtl", "f8", ("const", ))
-        dtt.units = "1"
-        dfi = outfile.createVariable("dti", "f8", ("const", ))
-        dfi.units = "1"
-        drl = outfile.createVariable("drl", "f8", ("const", ))
-        drl.units = "um"
-        dri = outfile.createVariable("dri", "f8", ("const", ))
-        dri.units = "um"
-        diwp = outfile.createVariable("diwp", "f8", ("const", ))
-        diwp.units = "g/m2"
-        dlwp = outfile.createVariable("dlwp", "f8", ("const", ))
-        dlwp.units = "g/m2"
-        dtwp = outfile.createVariable("dtwp", "f8", ("const", ))
-        dtwp.units = "g/m2"
+        #dtt = outfile.createVariable("dtl", "f8", ("const", ))
+        #dtt.units = "1"
+        #dfi = outfile.createVariable("dti", "f8", ("const", ))
+        #dfi.units = "1"
+        #drl = outfile.createVariable("drl", "f8", ("const", ))
+        #drl.units = "um"
+        #dri = outfile.createVariable("dri", "f8", ("const", ))
+        #dri.units = "um"
+        #diwp = outfile.createVariable("diwp", "f8", ("const", ))
+        #diwp.units = "g/m2"
+        #dlwp = outfile.createVariable("dlwp", "f8", ("const", ))
+        #dlwp.units = "g/m2"
+        #dtwp = outfile.createVariable("dtwp", "f8", ("const", ))
+        #dtwp.units = "g/m2"
     
         '''
         Write data
@@ -153,27 +171,59 @@ def create_nc(chi_2, index=-1, avk_matrix=None, errors=None, nc=1, covariance_ma
         if type(transfer_matrix) != type(None):
             t_mat[:] = transfer_matrix[:]
         
-        tt[:] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1])
-        fi[:] = np.float_(aux.ICE_FRACTION[-1])
-        rl[:] = np.float_(aux.RADIUS_LIQUID[-1])
-        ri[:] = np.float_(aux.RADIUS_ICE[-1])
+        #tt[:] = np.float_(aux.TOTAL_OPTICAL_DEPTH[-1])
+        #fi[:] = np.float_(aux.ICE_FRACTION[-1])
+        #rl[:] = np.float_(aux.RADIUS_LIQUID[-1])
+        #ri[:] = np.float_(aux.RADIUS_ICE[-1])
         
         x_a[:] = np.array([np.float_(aux.TOTAL_OPTICAL_DEPTH[0]), np.float_(aux.ICE_FRACTION[0]), np.float_(aux.RADIUS_LIQUID[0]), np.float_(aux.RADIUS_ICE[0])])
+        x_ret[:] = np.array([np.float_(aux.TOTAL_OPTICAL_DEPTH[-1]), np.float_(aux.ICE_FRACTION[-1]), np.float_(aux.RADIUS_LIQUID[-1]), np.float_(aux.RADIUS_ICE[-1])])
         
+        #x_a_0 = 1.0/inp.VARIANCE_APRIORI[0]
+        
+        x_a_err[:] = inp.WEIGHT_APRIORI * np.sqrt(np.reciprocal(np.array(inp.VARIANCE_APRIORI)))
+    
         if type(errors) != type(None):
-            dtt[:] = np.float_(errors[0])
+            dtl = np.float_(errors[0])
+            dti = np.float_(errors[1])
+            drl = np.float_(errors[2])
+            dri = np.float_(errors[3])
+            x_ret_err[:] = np.array([dtl, dti, drl, dri])
+            
+            dtl_res = np.float_(errors_res[0])
+            dti_res = np.float_(errors_res[1])
+            drl_res = np.float_(errors_res[2])
+            dri_res = np.float_(errors_res[3])
+            x_err_res[:] = np.array([dtl_res, dti_res, drl_res, dri_res])
+            
+            lwp = np.float_(errors[4])
+            iwp = np.float_(errors[6])
+            twp = iwp+lwp            
+            wp_ret[:] = np.array([lwp, iwp, twp])
+            
+            dlwp = np.float_(errors[5])
+            diwp = np.float_(errors[7])
+            dtwp = dlwp+diwp
+            wp_ret_err[:] = np.array([dlwp, diwp, dtwp])
+            
+            dlwp_res = np.float(errors_res[5])
+            diwp_res = np.float(errors_res[7])
+            dtwp_res = dlwp_res+diwp_res
+            wp_err_res[:] = np.array([dlwp_res, diwp_res, dtwp_res])
+        
+            #dtt[:] = np.float_(errors[0])
 
-            dfi[:] = np.float_(errors[1])
+            #dfi[:] = np.float_(errors[1])
 
-            drl[:] = np.float_(errors[2])
+            #drl[:] = np.float_(errors[2])
 
-            dri[:] = np.float_(errors[3])
+            #dri[:] = np.float_(errors[3])
 
-            lwp[:] = np.float_(errors[4])
-            dlwp[:] = np.float_(errors[5])
-            iwp[:] = np.float_(errors[6])
-            diwp[:] = np.float_(errors[7])
-            twp[:] = np.float_(errors[4])+np.float_(errors[6])
-            dtwp[:] = np.float_(errors[5])+np.float_(errors[7])    
+            #lwp[:] = np.float_(errors[4])
+            #dlwp[:] = np.float_(errors[5])
+            #iwp[:] = np.float_(errors[6])
+            #diwp[:] = np.float_(errors[7])
+            #twp[:] = np.float_(errors[4])+np.float_(errors[6])
+            #dtwp[:] = np.float_(errors[5])+np.float_(errors[7])    
         
     return

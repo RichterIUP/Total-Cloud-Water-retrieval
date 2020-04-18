@@ -202,7 +202,12 @@ def __convergence(lm_param, loop_count, conv_test):
                     np.float_(aux.RADIUS_LIQUID[-1]), np.float_(aux.RADIUS_ICE[-1])]
 
             averaging_kernel = numerical.calc_avk(aux.T_MATRIX[-1])
-            errors = numerical.calc_error(mcp, aux.T_MATRIX[-1])
+            errors = numerical.calc_error(mcp, aux.T_MATRIX[-1], variance_matrix=aux.S_Y_INV_MATRIX)
+    
+            res_error = np.array([np.max(np.abs(aux.RESIDUUM[-1])) for ii in range(len(aux.WAVENUMBER_FTIR))])
+            s_res_inv_matrix = np.reciprocal(res_error) * np.identity(len(vec_error))
+            errors_res = numerical.calc_error(mcp, aux.T_MATRIX[-1], variance_matrix=s_res_inv_matrix)
+            
             cov_mat = errors[-1]
             log.write("# Final change of parameters: {}\n".format(conv_test))
             if  loop_count == aux.MAX_ITER-1:
@@ -215,15 +220,20 @@ def __convergence(lm_param, loop_count, conv_test):
                 aux.RADIUS_LIQUID[-1] = aux.RADIUS_LIQUID[idx]
                 aux.RADIUS_ICE[-1] = aux.RADIUS_ICE[idx]
                 aux.RESIDUUM[-1] = aux.RESIDUUM[idx]
-                errors = numerical.calc_error(mcp, aux.T_MATRIX[idx])
+                errors = numerical.calc_error(mcp, aux.T_MATRIX[idx], variance_matrix=aux.S_Y_INV_MATRIX)
+                
+                res_error = np.array([np.max(np.abs(aux.RESIDUUM[-1])) for ii in range(len(aux.WAVENUMBER_FTIR))])
+                s_res_inv_matrix = np.reciprocal(res_error) * np.identity(len(vec_error))
+                errors_res = numerical.calc_error(mcp, aux.T_MATRIX[idx], variance_matrix=aux.S_Y_INV_MATRIX)
+
                 cov_mat = errors[-1]
                 log.write("Best estimation: x_{} = ({}, {}, {}, {})\n".format(loop_count, mcp[0], mcp[1], mcp[2], mcp[3])) 
 
-                create_nc.create_nc(chi_2=aux.CHI2[idx], avk_matrix=averaging_kernel, errors=errors, index=-1, nc=0, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[idx])               
+                create_nc.create_nc(chi_2=aux.CHI2[idx], avk_matrix=averaging_kernel, errors=errors, index=-1, nc=0, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[idx], errors_res=errors_res)               
             else:
                 aux.CONVERGED = True
                 log.write("Finished! Final Parameters: x_{} = ({}, {}, {}, {})\n".format(loop_count, mcp[0], mcp[1], mcp[2], mcp[3]))
-                create_nc.create_nc(chi_2=aux.CHI2[-1], avk_matrix=averaging_kernel, errors=errors, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[-1])
+                create_nc.create_nc(chi_2=aux.CHI2[-1], avk_matrix=averaging_kernel, errors=errors, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[-1], , errors_res=errors_res)
 
             inp.MCP = mcp
             return True
@@ -328,23 +338,8 @@ def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=Fals
     idx=7
     [wavenumber, radiance] = rL.forward_run([tau_liq, tau_ice, reff_liq, reff_ice], [filenum, 1.0], lblrtm, 0)
     rms = np.sqrt(np.mean((np.array(radiance) - np.array(aux.RADIANCE_FTIR))**2))
-    #slope_lbldis = (radiance[0] - radiance[idx])/(wavenumber[0]-wavenumber[idx])
-    #slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0]-aux.WAVENUMBER_FTIR[idx])#
-    #slope_diff = np.abs(slope_lbldis - slope_ftir)
-
-    #slope_2_lbldis = (aux.RADIANCE_LBLDIS[0][-1][idx] - aux.RADIANCE_LBLDIS[0][-1][-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
-    #slope_2_ftir = (aux.RADIANCE_FTIR[idx] - aux.RADIANCE_FTIR[-1])/(aux.WAVENUMBER_FTIR[idx]-aux.WAVENUMBER_FTIR[-1])
     
-    #with open("{}/lbldis.spec".format(inp.PATH), "w") as f:
-    #    for ii in range(len(aux.RADIANCE_LBLDIS[0][-1])):
-    #        f.write("{}\n".format(aux.RADIANCE_LBLDIS[0][-1][ii]))
-            
-    #with open("{}/wn.spec".format(inp.PATH), "w") as f:
-    #    for ii in range(len(aux.WAVENUMBER_FTIR)):
-    #        f.write("{}\n".format(aux.WAVENUMBER_FTIR[ii]))
-
-    #rms = np.sqrt(np.mean((np.array(aux.RADIANCE_LBLDIS[0][-1]) - np.array(aux.RADIANCE_FTIR))**2))
-    return [np.sum(radiance[idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), rms]#, slope_diff]#, slope_lbldis, slope_ftir, rms]#, slope_2_lbldis, slope_2_ftir]
+    return [np.sum(radiance[idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), rms]
 
 ################################################################################
 
@@ -364,9 +359,7 @@ def __run_lbldis_and_derivatives():
     3 -> Derivative wrt tau total
     4 -> Derivative wrt f ice
     '''
-    #if inp.ONLY_OD:
-    #    iter_list = [[0, 1.0], [3, 1.0]]
-    #else:
+
     iter_list = [[0, 1.0], [1, 1.0], [1, -1.0], [2, 1.0], [2, -1.0], [3, 1.0], [3, -1.0], [4, 1.0], [4, -1.0]]
         
     '''

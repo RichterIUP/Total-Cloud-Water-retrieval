@@ -58,7 +58,7 @@ def calc_avk(t_matrix):
     averaging_kernel = np.matmul(t_matrix, jacobian_matrix)
     return averaging_kernel
 
-def calc_vcm(t_matrix):
+def calc_vcm(t_matrix, variance_matrix):
     '''Calculation of the variance-covariance matrix
     
     @param t_matrix The transfer matrix (Ceccherini/Ridolfi 2010)
@@ -149,7 +149,7 @@ def iteration(res, lm_param, t_matrix):
     
     return [s_n, T_new, right_side, jacobian_matrix]
 
-def calc_error(atmospheric_param, t_matrix):
+def calc_error(atmospheric_param, t_matrix, variance_matrix):
     '''Perform error propagation
     
     @param atmospheric_param The MCP
@@ -162,7 +162,7 @@ def calc_error(atmospheric_param, t_matrix):
     tau_ice = atmospheric_param[1]
     reff_liq = atmospheric_param[2]
     reff_ice = atmospheric_param[3]
-    cov = calc_vcm(t_matrix)
+    cov = calc_vcm(t_matrix, variance_matrix=variance_matrix)
     tau_l_var = np.sqrt(cov.item((0, 0)))
     tau_i_var = np.sqrt(cov.item((1, 1)))
     ref_l_var = np.sqrt(cov.item((2, 2)))

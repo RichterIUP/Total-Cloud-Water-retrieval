@@ -24,7 +24,6 @@ def read_csv(fname):
         pwv = f.variables['pwv'][:].copy()
         cloud = np.array([np.float_(f.variables['cloud_base'][:]), np.float_(f.variables['cloud_top'][:])])
         
-        slope = 0.0#(res[0] - res[11]) / (wn[0] - wn[11])
         
         print("Results:")
         print("Filename: {}".format(fname))
@@ -43,7 +42,7 @@ def read_csv(fname):
         print("Ice Water Path (g/m2): ({} +- {})".format(np.float_(iwp[0]), np.float_(iwp[1])))
         print("Total Water Path (g/m2): ({} +- {})".format(np.float_(twp[0]), np.float_(twp[1])))
 
-    return [tt, fi, rl, ri, lwp, iwp, twp, rms, ctemp, pwv, conv, cloud, slope, wn, res]
+    return [tt, fi, rl, ri, lwp, iwp, twp, rms, ctemp, pwv, conv, cloud]
 
 if __name__ == '__main__':
     fname = sys.argv[1]
@@ -52,7 +51,7 @@ if __name__ == '__main__':
     else:
         files = sorted(os.listdir(fname))
         f = open("out.csv", "w")
-        f.write("fname,date,tt,dtt,fi,dfi,rl,drl,ri,dri,lwp,dlwp,iwp,diwp,twp,dtwp,rms,ctemp,pwv,conv,cbase,ctop,rms_slope\n")
+        f.write("fname,date,tt,dtt,fi,dfi,rl,drl,ri,dri,lwp,dlwp,iwp,diwp,twp,dtwp,rms,ctemp,pwv,conv,cbase,ctop\n")
         for element in files:
             #try:
             if True:
@@ -81,8 +80,7 @@ if __name__ == '__main__':
                 conv = out[10][0]
                 cbase = out[11][0]
                 ctop = out[11][1]
-                rms_slope = out[12]
-                f.write("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n".format(element, date, tt, dtt, fi, dfi, rl, drl, ri, dri, lwp, dlwp, iwp, diwp, twp, dtwp, rms, ctemp, pwv, conv, cbase, ctop, rms_slope))
+                f.write("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n".format(element, date, tt, dtt, fi, dfi, rl, drl, ri, dri, lwp, dlwp, iwp, diwp, twp, dtwp, rms, ctemp, pwv, conv, cbase, ctop))
             #except Exception:
             #    pass
         f.close()
