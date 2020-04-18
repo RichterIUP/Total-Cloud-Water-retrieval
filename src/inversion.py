@@ -233,7 +233,7 @@ def __convergence(lm_param, loop_count, conv_test):
             else:
                 aux.CONVERGED = True
                 log.write("Finished! Final Parameters: x_{} = ({}, {}, {}, {})\n".format(loop_count, mcp[0], mcp[1], mcp[2], mcp[3]))
-                create_nc.create_nc(chi_2=aux.CHI2[-1], avk_matrix=averaging_kernel, errors=errors, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[-1], , errors_res=errors_res)
+                create_nc.create_nc(chi_2=aux.CHI2[-1], avk_matrix=averaging_kernel, errors=errors, covariance_matrix=cov_mat, transfer_matrix=aux.T_MATRIX[-1], errors_res=errors_res)
 
             inp.MCP = mcp
             return True
