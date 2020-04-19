@@ -127,4 +127,4 @@ if __name__ == '__main__':
     #else:
     #    cl_param.append("TIR")
 
-    main(cl_param)
+    #main(cl_param)
