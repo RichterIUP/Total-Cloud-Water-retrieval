@@ -15,13 +15,4 @@ module load Python
 module load matplotlib
 module load netcdf4-python
 
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0003_ch2_R000HBR.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0003_ch2_R000P.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0003_ch2_R000SC.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0003_ch2_R050P.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0003_ch2_R050SC.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0006_ch2_singleLayer.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021705_cld1_0007_ch2_singleLayer.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021817_cld1_0001_ch2_singleLayer.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021817_cld1_0002_ch2_singleLayer.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012021817_cld1_0003_ch2_singleLayer.nc TIR
+python3 TCWret.py batch_testcases/inputs_01

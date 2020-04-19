@@ -14,13 +14,5 @@ module use /home/eb/modules/_legacy/all
 module load Python
 module load matplotlib
 module load netcdf4-python
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012101705_cld1_0007_ch2_singleLayer.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012102322_cld1_0001_ch2_liqTopped.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012102322_cld1_0001_ch2_multiLayer.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012102322_cld1_0001_ch2_singleLayer.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012102322_cld1_0001_ch2_thinBoundaries.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012102322_cld1_0002_ch2_liqTopped.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012102322_cld1_0002_ch2_multiLayer.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012102322_cld1_0002_ch2_singleLayer.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012102322_cld1_0002_ch2_thinBoundaries.nc TIR
-python3 TCWret.py /home/phi.richter/TESTCASES_nc/simulation_2012102322_cld1_0003_ch2_multiLayer.nc TIR
+
+python3 TCWret.py batch_testcases/inputs_22

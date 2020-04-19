@@ -117,14 +117,4 @@ if __name__ == '__main__':
         cont = f.readlines()
         for element in cont:
             cl_param = [element.rstrip(), "TIR"]
-            print(cl_param)
-    #cl_param = []
-
-    #cl_param.append(sys.argv[1])#Name of the spectrum
-    
-    #if len(sys.argv) > 2:
-    #    cl_param.append(sys.argv[2])
-    #else:
-    #    cl_param.append("TIR")
-
-    #main(cl_param)
+            main(cl_param)
