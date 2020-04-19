@@ -205,7 +205,7 @@ def __convergence(lm_param, loop_count, conv_test):
             errors = numerical.calc_error(mcp, aux.T_MATRIX[-1], variance_matrix=aux.S_Y_INV_MATRIX)
     
             res_error = np.array([np.max(np.abs(aux.RESIDUUM[-1])) for ii in range(len(aux.WAVENUMBER_FTIR))])
-            s_res_inv_matrix = np.reciprocal(res_error) * np.identity(len(vec_error))
+            s_res_inv_matrix = np.reciprocal(res_error) * np.identity(len(res_error))
             errors_res = numerical.calc_error(mcp, aux.T_MATRIX[-1], variance_matrix=s_res_inv_matrix)
             
             cov_mat = errors[-1]
@@ -223,7 +223,7 @@ def __convergence(lm_param, loop_count, conv_test):
                 errors = numerical.calc_error(mcp, aux.T_MATRIX[idx], variance_matrix=aux.S_Y_INV_MATRIX)
                 
                 res_error = np.array([np.max(np.abs(aux.RESIDUUM[-1])) for ii in range(len(aux.WAVENUMBER_FTIR))])
-                s_res_inv_matrix = np.reciprocal(res_error) * np.identity(len(vec_error))
+                s_res_inv_matrix = np.reciprocal(res_error) * np.identity(len(res_error))
                 errors_res = numerical.calc_error(mcp, aux.T_MATRIX[idx], variance_matrix=aux.S_Y_INV_MATRIX)
 
                 cov_mat = errors[-1]
