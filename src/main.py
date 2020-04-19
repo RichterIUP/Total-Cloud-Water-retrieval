@@ -113,7 +113,7 @@ def main(cl_param):
     
 if __name__ == '__main__':
     
-    with open("batch_testcases/inputs_{:02d}".format(sys.argv[1]), "r") as f:
+    with open("batch_testcases/inputs_{:02d}".format(int(sys.argv[1])), "r") as f:
         cont = f.readlines()
         for element in cont:
             cl_param = [element, "TIR"]
