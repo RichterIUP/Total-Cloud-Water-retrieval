@@ -66,16 +66,17 @@ def main(cl_param):
 
         inp.FORWARD = True
         apr_list = []
-        fnum = 0 
+        counter = 0 
         for fi in [0.05, 0.2, 0.4, 0.5, 0.6, 0.8, 0.95]:
             
             apr_list.append(th.Thread(target=guess_apr.guess_apr, args=(fi, )))
             apr_list[-1].start()
-            fnum = fnum + 1
+            counter = counter + 1
             if (counter+1)%inp.NUM_OF_CPU == 0:
                 for element in apr_list:
                     element.join()
                 apr_list = []
+                counter = 0
                 
         for element in apr_list:
             element.join()
