@@ -15,4 +15,4 @@ module load Python
 module load matplotlib
 module load netcdf4-python
 
-python3 TCWret batch_singlelayer/inputs_09
+python3 TCWret.py batch_singlelayer/inputs_09
