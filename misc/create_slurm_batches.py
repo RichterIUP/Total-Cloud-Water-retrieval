@@ -56,4 +56,4 @@ def create_slurm_batches(path, fname, spec_per_files=10):
         
 if __name__ == '__main__':
     x = 15
-    create_slurm_batches("batch_singlelayer", "LIWP_singlelayer", x)
+    create_slurm_batches("batch_testcases", "LIWP_singlelayer", x)

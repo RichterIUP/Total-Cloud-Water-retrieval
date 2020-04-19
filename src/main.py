@@ -112,13 +112,19 @@ def main(cl_param):
     return
     
 if __name__ == '__main__':
-    cl_param = []
-
-    cl_param.append(sys.argv[1])#Name of the spectrum
     
-    if len(sys.argv) > 2:
-        cl_param.append(sys.argv[2])
-    else:
-        cl_param.append("TIR")
+    with open("batch_testcases/inputs_{:02d}".format(sys.argv[1]), "r") as f:
+        cont = f.readlines()
+        for element in cont:
+            cl_param = [element, "TIR"]
+            print(cl_param)
+    #cl_param = []
+
+    #cl_param.append(sys.argv[1])#Name of the spectrum
+    
+    #if len(sys.argv) > 2:
+    #    cl_param.append(sys.argv[2])
+    #else:
+    #    cl_param.append("TIR")
 
     main(cl_param)
