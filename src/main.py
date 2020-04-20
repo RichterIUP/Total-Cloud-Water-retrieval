@@ -85,14 +85,11 @@ def main(cl_param):
 
 
         idx = guess_apr.SEARCH_APR_RMS.index(min(guess_apr.SEARCH_APR_RMS))
-        fi = guess_apr.SEARCH_APR_MCP[idx][0]
-        tt = guess_apr.SEARCH_APR_MCP[idx][1]
-        rl = guess_apr.SEARCH_APR_MCP[idx][2]
-        ri = guess_apr.SEARCH_APR_MCP[idx][3]
-        inp.MCP[0] = (1-fi)*tt
-        inp.MCP[1] = fi*tt
-        inp.MCP[2] = rl
-        inp.MCP[3] = ri
+        inp.MCP[0] = guess_apr.SEARCH_APR_MCP[idx][0]
+        inp.MCP[1] = guess_apr.SEARCH_APR_MCP[idx][1]
+        inp.MCP[2] = guess_apr.SEARCH_APR_MCP[idx][2]
+        inp.MCP[3] = guess_apr.SEARCH_APR_MCP[idx][3]
+
         print(inp.MCP)
         exit(-1)
 
