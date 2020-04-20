@@ -295,8 +295,8 @@ def average(wavenumber, radiance):
     '''
     Nicht mitteln
     '''
-    new_wavenumber = wavenumber
-    new_radiance = radiance
+    #new_wavenumber = wavenumber
+    #new_radiance = radiance
         
     return [np.array(new_wavenumber), np.array(new_radiance)]
         
