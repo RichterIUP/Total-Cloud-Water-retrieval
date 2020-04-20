@@ -74,7 +74,7 @@ Initial parameter mu for the Levenberg-Marquardt-Algorithm. The inversion follow
 The matrix D is D = np.diag(JT_W_J) * np.identity(len(MCP)
 If LM_INIT equals 0.0, then the iteration changes over to Gauss-Newton
 '''
-LM_INIT = 1e5
+LM_INIT = 3.0517578125#1e5
 
 '''
 Minimum value for mu. The parameter won't go below this value.
@@ -136,7 +136,7 @@ OFFSET = 0.0
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
 '''
 SCALE = 1.
-MCP = [1., 1., 10., 30.]
+MCP = [ 0.317,  0.336,  6.850, 21.384]#[1., 1., 10., 30.]
 
 '''
 If this is set to true, then L-IWP searches for a file containing cloud height
