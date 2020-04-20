@@ -23,11 +23,11 @@ def guess_apr(tt):
 
     tl = tt*(1-fi)
     ti = tt*fi
-    rms.append(inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(10*ri))[-2])
-    tt_y.append(tt)
+    rms = inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(10*ri))[-2]
+    #tt_y.append(tt)
             
-    idx = rms.index(min(rms))
-    tt_best = tt_y[idx]
+    #idx = rms.index(min(rms))
+    tt_best = tt#tt_y[idx]
 
     #rms = []
     tl_best = tl_best = tt_best * (1-fi)
@@ -43,8 +43,8 @@ def guess_apr(tt):
     lock = threading.Lock()    
     lock.acquire()
         
-    log.write("{} {}".format(rms[idx], [tl_best, ti_best, rl, ri]))
-    SEARCH_APR_RMS.append(rms[idx])
+    log.write("{} {}".format(rms, [tl_best, ti_best, rl, ri]))
+    SEARCH_APR_RMS.append(rms)
     SEARCH_APR_MCP.append([tl_best, ti_best])
     lock.release()
 
