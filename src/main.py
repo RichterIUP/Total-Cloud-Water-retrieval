@@ -67,7 +67,7 @@ def main(cl_param):
         inp.FORWARD = True
         apr_list = []
         counter = 0 
-        for fi in [0.05, 0.2, 0.4, 0.5, 0.6, 0.8, 0.95]:
+        for fi in [0.05, 0.2, 0.4, 0.6, 0.8, 0.95]:
             
             apr_list.append(th.Thread(target=guess_apr.guess_apr, args=(fi, )))
             apr_list[-1].start()
@@ -82,10 +82,8 @@ def main(cl_param):
             element.join()
         inp.FORWARD = False
 
-        #print(guess_apr.SEARCH_APR_RMS)
-        #print(guess_apr.SEARCH_APR_MCP)
+
         idx = guess_apr.SEARCH_APR_RMS.index(min(guess_apr.SEARCH_APR_RMS))
-        #print(guess_apr.SEARCH_APR_MCP[idx])
         fi = guess_apr.SEARCH_APR_MCP[idx][0]
         tt = guess_apr.SEARCH_APR_MCP[idx][1]
         rl = guess_apr.SEARCH_APR_MCP[idx][2]
@@ -95,7 +93,6 @@ def main(cl_param):
         inp.MCP[2] = rl
         inp.MCP[3] = ri
 
-        #inp.MCP = [0.0, 1.0, 5.0, 20.0]
 
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
@@ -113,10 +110,11 @@ def main(cl_param):
     
 if __name__ == '__main__':
     
-    main(["/home/phi.richter/TESTCASES_nc/simulation_2012021818_cld2_0001_ch2_singleLayer.nc", "TIR"])
-    exit(-1)
+    #main(["/home/phi.richter/TESTCASES_nc/simulation_2012021818_cld2_0001_ch2_singleLayer.nc", "TIR"])
+    #exit(-1)
     with open(sys.argv[1], "r") as f:
         cont = f.readlines()
-        for element in cont:
-            cl_param = [element.rstrip(), "TIR"]
-            main(cl_param)
+    for element in cont:
+        cl_param = [element.rstrip(), "TIR"]
+        print(cl_param)
+        main(cl_param)

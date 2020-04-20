@@ -9,8 +9,6 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-#PATH = '/home/phi.richter/TCWret/OUTFOLDER'
-#PATH = '/home/philipp/TCWret/OUTFOLDER'
 PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER'
 RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS'
 '''
@@ -88,7 +86,7 @@ Number of CPU which shall be used for the calculation of the derivatives.
 This number will be decreased automatically, if less than NUM_OF_CPU
 are needed
 '''
-NUM_OF_CPU = 9
+NUM_OF_CPU = 3
 
 '''
 If the present spectrum is a testcase of Cox et al. (2016), then this should

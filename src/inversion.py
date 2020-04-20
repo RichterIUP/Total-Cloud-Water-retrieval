@@ -201,7 +201,7 @@ def __convergence(lm_param, loop_count, conv_test):
             mcp = [np.float_(aux.TOTAL_OPTICAL_DEPTH[-1]), np.float_(aux.ICE_FRACTION[-1]), \
                     np.float_(aux.RADIUS_LIQUID[-1]), np.float_(aux.RADIUS_ICE[-1])]
 
-            averaging_kernel = numerical.calc_avk(aux.T_MATRIX[-1])
+            averaging_kernel = numerical.calc_avk(aux.T_MATRIX[-1], idx=-1)
             errors = numerical.calc_error(mcp, aux.T_MATRIX[-1], variance_matrix=aux.S_Y_INV_MATRIX)
     
             res_error = np.array([np.max(np.abs(aux.RESIDUUM[-1])) for ii in range(len(aux.WAVENUMBER_FTIR))])
@@ -220,6 +220,7 @@ def __convergence(lm_param, loop_count, conv_test):
                 aux.RADIUS_LIQUID[-1] = aux.RADIUS_LIQUID[idx]
                 aux.RADIUS_ICE[-1] = aux.RADIUS_ICE[idx]
                 aux.RESIDUUM[-1] = aux.RESIDUUM[idx]
+                averaging_kernel = numerical.calc_avk(aux.T_MATRIX[idx], idx=idx)
                 errors = numerical.calc_error(mcp, aux.T_MATRIX[idx], variance_matrix=aux.S_Y_INV_MATRIX)
                 
                 res_error = np.array([np.max(np.abs(aux.RESIDUUM[-1])) for ii in range(len(aux.WAVENUMBER_FTIR))])

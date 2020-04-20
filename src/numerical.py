@@ -47,13 +47,13 @@ def jacobian(idx=-1):
 
     return [deriv_tau_total, deriv_f_ice, deriv_r_liq, deriv_r_ice]
 
-def calc_avk(t_matrix):
+def calc_avk(t_matrix, idx=-1):
     '''Calculation of the averaging kernel matrix
     
     @param t_matrix The transfer matrix (Ceccherini/Ridolfi 2010)
     @return The averaging kernel matrix
     '''
-    jacobian_matrix_transposed = np.matrix(jacobian())
+    jacobian_matrix_transposed = np.matrix(jacobian(idx))
     jacobian_matrix = np.transpose(jacobian_matrix_transposed)
     averaging_kernel = np.matmul(t_matrix, jacobian_matrix)
     return averaging_kernel
