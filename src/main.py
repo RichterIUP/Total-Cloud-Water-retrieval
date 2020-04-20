@@ -114,5 +114,5 @@ def main(cl_param):
     
 if __name__ == '__main__':
 
-    cl_param = [sys,argv[1], sys.argv[2]]
+    cl_param = [sys.argv[1], sys.argv[2]]
     main(cl_param)
