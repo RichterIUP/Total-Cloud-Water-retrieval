@@ -161,7 +161,7 @@ MCP_APRIORI = np.array(MCP[:])
 The variance of the a priori and its weighting. This will be converted
 to the S_A matrix (watch comment of LM_INIT)
 '''
-VARIANCE_APRIORI = [5.0**(-2), 5.0**(-2), (100.0)**(-2), (100.0)**(-2)]
+VARIANCE_APRIORI = [5.0**(-2), 5.0**(-2), (150.0)**(-2), (50.0)**(-2)]
 WEIGHT_APRIORI = 1.0
 
 '''
