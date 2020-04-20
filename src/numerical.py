@@ -134,6 +134,8 @@ def iteration(res, lm_param, t_matrix):
     Solve the equation
     '''
     s_n = np.linalg.solve(left_side, right_side)
+    log.write("cond(left_side) = {:.2e}\n".format(np.linalg.cond(left_side)))
+    log.write("cond(right_side) = {:.2e}\n".format(np.linalg.cond(right_side)))
 
     '''
     Calculate the transfer matrix
