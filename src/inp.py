@@ -11,8 +11,8 @@ Path to the output of TCWret
 '''
 #PATH = '/home/phi.richter/TCWret/OUTFOLDER'
 #PATH = '/home/philipp/TCWret/OUTFOLDER'
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_polarstern'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_polarstern'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS'
 '''
 Path to the binary of LBLRTM
 '''
@@ -88,13 +88,13 @@ Number of CPU which shall be used for the calculation of the derivatives.
 This number will be decreased automatically, if less than NUM_OF_CPU
 are needed
 '''
-NUM_OF_CPU = 3#6
+NUM_OF_CPU = 6
 
 '''
 If the present spectrum is a testcase of Cox et al. (2016), then this should
 be true. This modifies the cloud boundaries and allows to add noise manually
 '''
-TESTCASE = False
+TESTCASE = True
 
 '''
 Convergence criterion due to Rodgers (2000):
@@ -111,7 +111,7 @@ the value from the spectrum file. If a testcase is retrieved, then positive
 values are the standard deviation of the added noise
 '''
 
-STDDEV = -1.0
+STDDEV = 0.0
 
 '''
 Possible values: %, ppmv, g/m3, g/kg

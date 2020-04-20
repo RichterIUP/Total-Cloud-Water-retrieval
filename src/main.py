@@ -60,7 +60,7 @@ def main(cl_param):
     inversion.__set_up_retrieval()
     
     if not inp.FORWARD:
-        '''
+        '''simulation_2012102322_cld1_0005_ch2_multiLayer.nc
         Start the iteration using the chosen microwindows
         '''
 
@@ -113,6 +113,8 @@ def main(cl_param):
     
 if __name__ == '__main__':
     
+    main(["/home/phi.richter/TESTCASES_nc/simulation_2012102322_cld1_0005_ch2_multiLayer.nc", "TIR"])
+    exit(-1)
     with open(sys.argv[1], "r") as f:
         cont = f.readlines()
         for element in cont:

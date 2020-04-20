@@ -224,7 +224,7 @@ def __convergence(lm_param, loop_count, conv_test):
                 
                 res_error = np.array([np.max(np.abs(aux.RESIDUUM[-1])) for ii in range(len(aux.WAVENUMBER_FTIR))])
                 s_res_inv_matrix = np.reciprocal(res_error) * np.identity(len(res_error))
-                errors_res = numerical.calc_error(mcp, aux.T_MATRIX[idx], variance_matrix=aux.S_Y_INV_MATRIX)
+                errors_res = numerical.calc_error(mcp, aux.T_MATRIX[idx], variance_matrix=s_res_inv_matrix)
 
                 cov_mat = errors[-1]
                 log.write("Best estimation: x_{} = ({}, {}, {}, {})\n".format(loop_count, mcp[0], mcp[1], mcp[2], mcp[3])) 
