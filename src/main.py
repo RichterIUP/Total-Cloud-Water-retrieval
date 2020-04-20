@@ -69,7 +69,7 @@ def main(cl_param):
         inp.FORWARD = True
         apr_list = []
         counter = 0 
-        for fi in [0.05, 0.2, 0.4, 0.6, 0.8, 0.95]:
+        for ri in [20., 25., 30., 35., 40., 45.]:
             
             apr_list.append(th.Thread(target=guess_apr.guess_apr, args=(fi, )))
             apr_list[-1].start()
@@ -94,7 +94,8 @@ def main(cl_param):
         print(inp.MCP)
         exit(-1)
         '''
-        #inp.MCP = [0.025, 0.475, 15., 20.]
+        inp.MCP = [ 0.203,  0.187,  9.770, 30.164]
+        inp.LM_INIT = 0.0
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()

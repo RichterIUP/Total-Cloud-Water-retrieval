@@ -8,16 +8,13 @@ import threading
 SEARCH_APR_RMS = []
 SEARCH_APR_MCP = []
 
-def guess_apr(fi):
+def guess_apr(ri):
 
     global SEARCH_APR
 
     rl = 10.
-    ri = 30.
-
+    fi = 0.5
     rms = []
-    rad_lbldis = []
-    rad_ftir = []
     tt_y = []
     rt_y = []
 
@@ -33,26 +30,13 @@ def guess_apr(fi):
     rms = []
     tl_best = tl_best = tt_best * (1-fi)
     ti_best = ti_best = tt_best * fi        
-    tt_best = tl_best + ti_best
-    for rl in [5, 10, 15]:
-        for ri in [20, 25, 30, 35, 40]:
-            rms.append(inversion.__only_fwd(tau_liq=tl_best, tau_ice=ti_best, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-2])
-            rt_y.append([rl, ri])
+    
+    for rl in [5, 10, 15, 20]:
+        rms.append(inversion.__only_fwd(tau_liq=tl_best, tau_ice=ti_best, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-2])
+        rt_y.append([rl, ri])
 
     idx = rms.index(min(slope))
-    rl = rt_y[idx][0]
-    ri = rt_y[idx][1]
-    
-    rms = []
-    for tt in [tt_best*0.9, tt_best, tt_best*1.1]:
-        tl = tt*(1-fi)
-        ti = tt*fi
-        rms.append(inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-2])
-        tt_y.append(tt)
-            
-    idx = rms.index(min(rms))
-    tt_best = tt_y[idx]
-
+    ri = rt_y[idx]
         
     lock = threading.Lock()    
     lock.acquire()
