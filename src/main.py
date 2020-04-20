@@ -113,12 +113,6 @@ def main(cl_param):
     return
     
 if __name__ == '__main__':
-    
-    #main(["/home/phi.richter/TESTCASES_nc/simulation_2012021818_cld2_0001_ch2_singleLayer.nc", "TIR"])
-    #exit(-1)
-    with open(sys.argv[1], "r") as f:
-        cont = f.readlines()
-    for element in cont:
-        cl_param = [element.rstrip(), "TIR"]
-        #print(cl_param)
-        main(cl_param)
+
+    cl_param = [sys,argv[1], sys.argv[2]]
+    main(cl_param)
