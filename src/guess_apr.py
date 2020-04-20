@@ -14,8 +14,8 @@ def guess_apr(ri):
 
     global SEARCH_APR
 
-    rl = 10.
-    fi = 0.5
+    rl = 5.
+    fi = 0.66
     rms = []
     tt_y = []
     rt_y = []
