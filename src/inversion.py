@@ -75,9 +75,9 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     if loop_count > 0:
         log.write("# Prev X^2: {}".format(aux.CHI2[-1])) 
     if loop_count == 0 or chi2 <= aux.CHI2[-1]:
-        eps = 0.5
-        if loop_count >= 1:
-            eps = calculate_epsilon(chi2, s_n)
+        eps = 0.8
+        #if loop_count >= 1:
+        #    eps = calculate_epsilon(chi2, s_n)
         aux.CHI2.append(chi2)
         aux.RESIDUUM.append(residuum)
         if eps < 0.25:
