@@ -329,7 +329,6 @@ def __initialise_variables():
     return [inp.LM_INIT, inp.LM_INIT * 2.0]
 
 ################################################################################
-ValueError: On entry to DLASCL parameter number 5 had an illegal value
 
 def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=False, filenum=0):
     '''Execute only one forward run
