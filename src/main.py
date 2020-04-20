@@ -65,7 +65,7 @@ def main(cl_param):
         Start the iteration using the chosen microwindows
         '''
         
-        '''
+
         inp.FORWARD = True
         apr_list = []
         counter = 0 
@@ -91,11 +91,7 @@ def main(cl_param):
         inp.MCP[2] = guess_apr.SEARCH_APR_MCP[idx][2]
         inp.MCP[3] = guess_apr.SEARCH_APR_MCP[idx][3]
 
-        print(inp.MCP)
-        exit(-1)
-        '''
-        inp.MCP = [ 0.203,  0.187,  9.770, 30.164]
-        inp.LM_INIT = 0.0
+
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()

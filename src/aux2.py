@@ -57,8 +57,8 @@ Stepsize for the calculation of the derivative
 '''
 STEPSIZE_TAU = 1e-3#5e-4
 STEPSIZE_RADIUS = 1e-3
-INCREASE_LM = 4.0
-DECREASE_LM = 2.0
+INCREASE_LM = 40.0
+DECREASE_LM = 20.0
 
 
 '''

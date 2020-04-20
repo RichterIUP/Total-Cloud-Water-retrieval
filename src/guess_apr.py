@@ -27,16 +27,16 @@ def guess_apr(ri):
     idx = rms.index(min(rms))
     tt_best = tt_y[idx]
 
-    rms = []
+    #rms = []
     tl_best = tl_best = tt_best * (1-fi)
     ti_best = ti_best = tt_best * fi        
     
-    for rl in [5, 10, 15, 20]:
-        rms.append(inversion.__only_fwd(tau_liq=tl_best, tau_ice=ti_best, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-2])
-        rt_y.append([rl, ri])
+    #for rl in [5, 10, 15, 20]:
+    #    rms.append(inversion.__only_fwd(tau_liq=tl_best, tau_ice=ti_best, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-2])
+    #    rt_y.append([rl, ri])
 
-    idx = rms.index(min(slope))
-    ri = rt_y[idx]
+    #idx = rms.index(min(slope))
+    #ri = rt_y[idx]
         
     lock = threading.Lock()    
     lock.acquire()
