@@ -66,7 +66,7 @@ def main(cl_param):
         '''
         
 
-        '''
+
         inp.FORWARD = True
         apr_list = []
         counter = 0 
@@ -91,7 +91,7 @@ def main(cl_param):
         inp.MCP[1] = guess_apr.SEARCH_APR_MCP[idx][1]
         inp.MCP[2] = guess_apr.SEARCH_APR_MCP[idx][2]
         inp.MCP[3] = guess_apr.SEARCH_APR_MCP[idx][3]
-        '''
+
         #inp.MCP = [0.25, 0.25, 10, 45.]
 
         inp.FORWARD = False
