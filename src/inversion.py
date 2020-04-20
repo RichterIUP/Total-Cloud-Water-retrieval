@@ -69,7 +69,7 @@ def __retrieve_step(lm_param, loop_count, s_n):#, chi2, residuum):
     und einem hoeheren Levenberg-Marquardt-Parameter den neuen Vektor s_n. Ansonsten berechne die Anpassung
     von den aktuellen Werten ausgehend und verringere den Levenberg-Marquardt-Parameter
     '''
-    log.write("# Current X^2: {} + {} = {}".format(_res, _apr, chi2))
+    log.write("# Current X^2: {}".format(chi2))
     #if loop_count > 0:
     #    eps = calculate_epsilon(chi2, s_n)
     if loop_count > 0:
@@ -329,6 +329,7 @@ def __initialise_variables():
     return [inp.LM_INIT, inp.LM_INIT * 2.0]
 
 ################################################################################
+ValueError: On entry to DLASCL parameter number 5 had an illegal value
 
 def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=False, filenum=0):
     '''Execute only one forward run
