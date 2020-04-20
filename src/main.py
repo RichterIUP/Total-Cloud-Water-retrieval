@@ -64,7 +64,8 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-
+        
+        '''
         inp.FORWARD = True
         apr_list = []
         counter = 0 
@@ -92,7 +93,8 @@ def main(cl_param):
 
         print(inp.MCP)
         exit(-1)
-
+        '''
+        inp.MCP = [0.025, 0.475, 15., 20.]
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
