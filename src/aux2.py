@@ -57,8 +57,8 @@ Stepsize for the calculation of the derivative
 '''
 STEPSIZE_TAU = 1e-3#5e-4
 STEPSIZE_RADIUS = 1e-3
-INCREASE_LM = 40.0
-DECREASE_LM = 20.0
+INCREASE_LM = 4.0
+DECREASE_LM = 2.0
 
 
 '''
@@ -176,7 +176,7 @@ MICROWINDOWS[32] = [1155.2, 1163.4]
 
 TEMP_OF_CLOUD = 0.0
 ENABLE_LM_DURING_ITER = True
-TEST_STARTPARAM = []
+TEST_STARTPARAM = []ValueError: On entry to  parameter number 5 had an illegal value
 CHI_ADJ = 10000000.0
 CHI = 1e20
 PRECIPITABLE_WATER_VAPOUR = 0.0
