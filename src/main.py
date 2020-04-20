@@ -48,18 +48,15 @@ def main(cl_param):
     '''
     Create all the necessary folders
     '''
-    print(inp.PATH)
     if not os.path.exists("{}".format(inp.PATH)):
         os.mkdir("{}".format(inp.PATH))
-    print("{}/{}".format(inp.PATH, aux.FTIR.split("/")[-1]))
     if not os.path.exists("{}/{}".format(inp.PATH, aux.FTIR.split("/")[-1])):
         os.mkdir("{}/{}".format(inp.PATH, aux.FTIR.split("/")[-1]))
     inp.PATH = "{}/{}/{}".format(inp.PATH, aux.FTIR.split("/")[-1], aux.TIME_INDEX)
-    print(inp.PATH)
     if not os.path.exists("{}".format(inp.PATH)):
         os.mkdir("{}".format(inp.PATH))
 
-    return 
+
     aux.SLOPE_RETR = False
     inversion.__set_up_retrieval()
     
