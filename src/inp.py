@@ -40,8 +40,8 @@ thermal-infrared windows. TIR only uses the thermal-infrared windows and FIR onl
 uses the far-infrared windows. FIR_MCP incorporates the thermal-infrared and the 
 nearest far-infrared window
 '''
-FIR_TIR = range(19)
-TIR = range(4, 19)
+FIR_TIR = range(35)
+TIR = range(7, 35)
 
 '''
 Microwindows which are used by L-IWP. This can be either one of the predefined
