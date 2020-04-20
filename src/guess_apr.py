@@ -21,7 +21,7 @@ def guess_apr(fi):
     rad_ftir = []
     tt_y = []
     rt_y = []
-    '''
+
     for tt in [0.05, 0.1, 0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 6.0]:
         tl = tt*(1-fi)
         ti = tt*fi
@@ -30,7 +30,7 @@ def guess_apr(fi):
             
     idx = rms.index(min(rms))
     tt_best = tt_y[idx]
-    '''
+
     rms = []
     tl_best = tl_best = tt_best * (1-fi)
     ti_best = ti_best = tt_best * fi        
