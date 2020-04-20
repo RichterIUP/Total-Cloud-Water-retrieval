@@ -71,7 +71,7 @@ def main(cl_param):
         counter = 0 
         for ri in [20., 25., 30., 35., 40., 45.]:
             
-            apr_list.append(th.Thread(target=guess_apr.guess_apr, args=(fi, )))
+            apr_list.append(th.Thread(target=guess_apr.guess_apr, args=(ri, )))
             apr_list[-1].start()
             counter = counter + 1
             if (counter+1)%inp.NUM_OF_CPU == 0:

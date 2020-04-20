@@ -21,7 +21,7 @@ def guess_apr(ri):
     for tt in [0.05, 0.1, 0.2, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0]:
         tl = tt*(1-fi)
         ti = tt*fi
-        rms.append(inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-2])
+        rms.append(inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(10*ri))[-2])
         tt_y.append(tt)
             
     idx = rms.index(min(rms))
