@@ -94,7 +94,7 @@ def main(cl_param):
         print(inp.MCP)
         exit(-1)
         '''
-        #inp.MCP = [0.025, 0.475, 15., 20.]
+        inp.MCP = [0.025, 0.475, 15., 20.]
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
