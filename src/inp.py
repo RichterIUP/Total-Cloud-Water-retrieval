@@ -11,8 +11,8 @@ Path to the output of TCWret
 '''
 #PATH = '/home/phi.richter/TCWret/OUTFOLDER'
 #PATH = '/home/philipp/TCWret/OUTFOLDER'
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_undisturbed'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_undisturbed'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_polarstern'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_polarstern'
 '''
 Path to the binary of LBLRTM
 '''
@@ -94,7 +94,7 @@ NUM_OF_CPU = 3#6
 If the present spectrum is a testcase of Cox et al. (2016), then this should
 be true. This modifies the cloud boundaries and allows to add noise manually
 '''
-TESTCASE = True
+TESTCASE = False
 
 '''
 Convergence criterion due to Rodgers (2000):
@@ -111,7 +111,7 @@ the value from the spectrum file. If a testcase is retrieved, then positive
 values are the standard deviation of the added noise
 '''
 
-STDDEV = 0.0
+STDDEV = -1.0
 
 '''
 Possible values: %, ppmv, g/m3, g/kg
