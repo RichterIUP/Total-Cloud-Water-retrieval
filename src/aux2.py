@@ -64,7 +64,7 @@ DECREASE_LM = 2.0
 '''
 Maximum number of iteration
 '''
-MAX_ITER = 150
+MAX_ITER = 20
 
 '''
 Wildcards for atmospheric grid and cloud grid
