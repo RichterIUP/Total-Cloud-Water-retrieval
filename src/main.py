@@ -56,6 +56,7 @@ def main(cl_param):
     if not os.path.exists("{}".format(inp.PATH)):
         os.mkdir("{}".format(inp.PATH))
 
+    return 
     aux.SLOPE_RETR = False
     inversion.__set_up_retrieval()
     
