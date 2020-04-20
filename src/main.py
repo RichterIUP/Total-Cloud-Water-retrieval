@@ -87,8 +87,7 @@ def main(cl_param):
         inp.FORWARD = False
 
 
-        idx = guess_apr.SEARCH_APR_RMS.indexpython3 TCWret.py batch_testcases/inputs_00
-(min(guess_apr.SEARCH_APR_RMS))
+        idx = guess_apr.SEARCH_APR_RMS.index(min(guess_apr.SEARCH_APR_RMS))
         fi = guess_apr.SEARCH_APR_MCP[idx][0]
         tt = guess_apr.SEARCH_APR_MCP[idx][1]
         rl = guess_apr.SEARCH_APR_MCP[idx][2]
