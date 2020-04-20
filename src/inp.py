@@ -74,7 +74,7 @@ Initial parameter mu for the Levenberg-Marquardt-Algorithm. The inversion follow
 The matrix D is D = np.diag(JT_W_J) * np.identity(len(MCP)
 If LM_INIT equals 0.0, then the iteration changes over to Gauss-Newton
 '''
-LM_INIT = 1e2
+LM_INIT = 1e5
 
 '''
 Minimum value for mu. The parameter won't go below this value.
