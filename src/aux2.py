@@ -176,7 +176,7 @@ MICROWINDOWS[32] = [1155.2, 1163.4]
 
 TEMP_OF_CLOUD = 0.0
 ENABLE_LM_DURING_ITER = True
-TEST_STARTPARAM = []ValueError: On entry to  parameter number 5 had an illegal value
+TEST_STARTPARAM = []
 CHI_ADJ = 10000000.0
 CHI = 1e20
 PRECIPITABLE_WATER_VAPOUR = 0.0
