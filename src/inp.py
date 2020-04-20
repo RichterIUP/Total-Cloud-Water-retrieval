@@ -40,8 +40,8 @@ thermal-infrared windows. TIR only uses the thermal-infrared windows and FIR onl
 uses the far-infrared windows. FIR_MCP incorporates the thermal-infrared and the 
 nearest far-infrared window
 '''
-FIR_TIR = range(28)
-TIR = range(7, 28)
+FIR_TIR = range(27)
+TIR = range(7, 27)
 
 '''
 Microwindows which are used by L-IWP. This can be either one of the predefined
@@ -146,7 +146,7 @@ the data from the radiance file or from these config file will be used.
 USE_CLOUD_FILES = False
 
 '''
-Calculate the ice fraction from the cloud files. This should be only set
+Calculate the ice fraction from the cl[ 0.250,  0.250, 10.000, 30.000]oud files. This should be only set
 to true, if the cloud height files contain the lwc and iwc. 
 '''
 FI_FROM_CLOUDS =  False

@@ -137,7 +137,7 @@ CONVERGED = False
 Microwindows in cm-1
 '''
 
-MICROWINDOWS = [[] for ii in range(26)]
+MICROWINDOWS = [[] for ii in range(27)]
 MICROWINDOWS[0] =  [529.9, 533.0]
 MICROWINDOWS[1] =  [538.0, 539.0]
 MICROWINDOWS[2] =  [542.0, 544.0]
