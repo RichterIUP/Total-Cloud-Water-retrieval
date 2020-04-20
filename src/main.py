@@ -48,11 +48,14 @@ def main(cl_param):
     '''
     Create all the necessary folders
     '''
+    print(inp.PATH)
     if not os.path.exists("{}".format(inp.PATH)):
         os.mkdir("{}".format(inp.PATH))
+    print("{}/{}".format(inp.PATH, aux.FTIR.split("/")[-1]))
     if not os.path.exists("{}/{}".format(inp.PATH, aux.FTIR.split("/")[-1])):
         os.mkdir("{}/{}".format(inp.PATH, aux.FTIR.split("/")[-1]))
     inp.PATH = "{}/{}/{}".format(inp.PATH, aux.FTIR.split("/")[-1], aux.TIME_INDEX)
+    print(inp.PATH)
     if not os.path.exists("{}".format(inp.PATH)):
         os.mkdir("{}".format(inp.PATH))
 
@@ -84,7 +87,8 @@ def main(cl_param):
         inp.FORWARD = False
 
 
-        idx = guess_apr.SEARCH_APR_RMS.index(min(guess_apr.SEARCH_APR_RMS))
+        idx = guess_apr.SEARCH_APR_RMS.indexpython3 TCWret.py batch_testcases/inputs_00
+(min(guess_apr.SEARCH_APR_RMS))
         fi = guess_apr.SEARCH_APR_MCP[idx][0]
         tt = guess_apr.SEARCH_APR_MCP[idx][1]
         rl = guess_apr.SEARCH_APR_MCP[idx][2]
@@ -117,5 +121,5 @@ if __name__ == '__main__':
         cont = f.readlines()
     for element in cont:
         cl_param = [element.rstrip(), "TIR"]
-        print(cl_param)
+        #print(cl_param)
         main(cl_param)
