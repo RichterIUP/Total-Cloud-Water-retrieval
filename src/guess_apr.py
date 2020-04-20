@@ -11,7 +11,7 @@ SEARCH_APR_MCP = []
 def guess_apr(fi):
 
     global SEARCH_APR
-    
+
     tt = [0.05, 0.1, 0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 6.0]
     rl = 10.
     ri = 30.
@@ -21,7 +21,7 @@ def guess_apr(fi):
     rad_ftir = []
     tt_y = []
     rt_y = []
-
+    '''
     for tt in [0.05, 0.1, 0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 6.0]:
         tl = tt*(1-fi)
         ti = tt*fi
@@ -30,11 +30,11 @@ def guess_apr(fi):
             
     idx = rms.index(min(rms))
     tt_best = tt_y[idx]
-
+    '''
     slope = []
-    tl_best = tt_best * (1-fi)
-    ti_best = tt_best * fi        
-
+    tl_best = 0.066#tl_best = tt_best * (1-fi)
+    ti_best = 0.519#ti_best = tt_best * fi        
+    tt_best = tl_best + ti_best
     for rl in [5, 10, 15, 20]:
         for ri in [20, 25, 30, 35, 40, 45, 50]:
             slope.append(inversion.__only_fwd(tau_liq=tl_best, tau_ice=ti_best, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-1])

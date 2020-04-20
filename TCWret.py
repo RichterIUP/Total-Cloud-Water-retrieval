@@ -8,8 +8,10 @@ import subprocess
 
 if __name__ == '__main__':
 
-    with open(sys.argv[1], "r") as f:
-        cont = f.readlines()
+    #with open(sys.argv[1], "r") as f:
+    #    cont = f.readlines()
+    cont = ["/home/phi.richter/TESTCASES_nc/simulation_2012110917_cld1_0002_ch2_singleLayer.nc"]
+
     for element in cont:
         subprocess.call(["python3", "src/main.py", "{}".format(element.rstrip()), "TIR"])
 

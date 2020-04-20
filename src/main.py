@@ -93,7 +93,8 @@ def main(cl_param):
         inp.MCP[1] = fi*tt
         inp.MCP[2] = rl
         inp.MCP[3] = ri
-
+        print(inp.MCP)
+        exit(-1)
 
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
