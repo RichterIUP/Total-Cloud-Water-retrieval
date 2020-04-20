@@ -291,14 +291,10 @@ def average(wavenumber, radiance):
                 dummy_ra.append(radiance[loop])
         new_radiance.append(np.median(dummy_ra))
         new_wavenumber.append(np.median(dummy_wn))
-    
-    '''
-    Speichere nur den Slope und den RMS ab
-    '''
 
-    #if SLOPE_RETR: 
-    #    new_radiance = [(new_radiance[0] - new_radiance[7])/(new_wavenumber[0] - new_wavenumber[7]), (new_radiance[8] - new_radiance[-1])/(new_wavenumber[8] - new_wavenumber[-1]), np.sum(new_radiance[0:8]), np.sum(new_radiance[8:-1])]
-    #    new_wavenumber = range(len(new_radiance))
+    '''
+    Nicht mitteln
+    '''
     new_wavenumber = wavenumber
     new_radiance = radiance
         
