@@ -66,12 +66,12 @@ def main(cl_param):
         '''
         
 
-        '''
+
         inp.FORWARD = True
         apr_list = []
         counter = 0 
-        for ri in [20., 25., 30., 35., 40., 45.]:
-            apr_list.append(th.Thread(target=guess_apr.guess_apr, args=(ri, )))
+        for tt in [0.05, 0.1, 0.2, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0]:
+            apr_list.append(th.Thread(target=guess_apr.guess_apr, args=(tt )))
             apr_list[-1].start()
             counter = counter + 1
             if (counter)%inp.NUM_OF_CPU == 0:
@@ -88,8 +88,6 @@ def main(cl_param):
         idx = guess_apr.SEARCH_APR_RMS.index(min(guess_apr.SEARCH_APR_RMS))
         inp.MCP[0] = guess_apr.SEARCH_APR_MCP[idx][0]
         inp.MCP[1] = guess_apr.SEARCH_APR_MCP[idx][1]
-        inp.MCP[2] = guess_apr.SEARCH_APR_MCP[idx][2]
-        inp.MCP[3] = guess_apr.SEARCH_APR_MCP[idx][3]
 
         #inp.MCP = [0.25, 0.25, 10, 45.]
         '''

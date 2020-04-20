@@ -10,21 +10,21 @@ import log
 SEARCH_APR_RMS = []
 SEARCH_APR_MCP = []
 
-def guess_apr(ri):
+def guess_apr(tt):
 
     global SEARCH_APR
 
-    rl = 5.
-    fi = 0.66
+    ri = inp.MCP[2]
+    rl = inp.MCP[3]
+    fi = 0.5
     rms = []
     tt_y = []
     rt_y = []
 
-    for tt in [0.05, 0.1, 0.2, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0]:
-        tl = tt*(1-fi)
-        ti = tt*fi
-        rms.append(inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(10*ri))[-2])
-        tt_y.append(tt)
+    tl = tt*(1-fi)
+    ti = tt*fi
+    rms.append(inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(10*ri))[-2])
+    tt_y.append(tt)
             
     idx = rms.index(min(rms))
     tt_best = tt_y[idx]
@@ -45,7 +45,7 @@ def guess_apr(ri):
         
     log.write("{} {}".format(rms[idx], [tl_best, ti_best, rl, ri]))
     SEARCH_APR_RMS.append(rms[idx])
-    SEARCH_APR_MCP.append([tl_best, ti_best, rl, ri])
+    SEARCH_APR_MCP.append([tl_best, ti_best])
     lock.release()
 
     return
