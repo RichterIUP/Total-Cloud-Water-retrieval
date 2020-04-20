@@ -64,9 +64,7 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-        
-
-
+        '''
         inp.FORWARD = True
         apr_list = []
         counter = 0 
@@ -88,8 +86,8 @@ def main(cl_param):
         idx = guess_apr.SEARCH_APR_RMS.index(min(guess_apr.SEARCH_APR_RMS))
         inp.MCP[0] = guess_apr.SEARCH_APR_MCP[idx][0]
         inp.MCP[1] = guess_apr.SEARCH_APR_MCP[idx][1]
-
-        #inp.MCP = [0.25, 0.25, 10, 45.]
+        '''
+        inp.MCP = [0.25, 0.25, 10, 30.]
 
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
