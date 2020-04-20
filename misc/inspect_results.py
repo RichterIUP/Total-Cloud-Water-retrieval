@@ -44,7 +44,7 @@ def read_csv(fname):
         print("Ice Water Path (g/m2): ({} +- {})".format(np.float_(iwp[0]), np.float_(iwp[1])))
         print("Total Water Path (g/m2): ({} +- {})".format(np.float_(twp[0]), np.float_(twp[1])))
 
-    return [tt, fi, rl, ri, lwp, iwp, twp, rms, ctemp, pwv, conv, cloud, x_a, x_a_err]
+    return [tt, fi, rl, ri, lwp, iwp, twp, rms, ctemp, pwv, conv, cloud, x_a, x_a_err, wn, res]
 
 if __name__ == '__main__':
     fname = sys.argv[1]
