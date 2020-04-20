@@ -23,7 +23,7 @@ def guess_apr(tt):
 
     tl = tt*(1-fi)
     ti = tt*fi
-    rms = inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(10*ri))[-2]
+    rms = inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(100*tt))[-2]
     #tt_y.append(tt)
             
     #idx = rms.index(min(rms))
