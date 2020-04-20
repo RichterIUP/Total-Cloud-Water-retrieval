@@ -5,6 +5,8 @@ import inversion
 import inp
 import threading
 
+import log
+
 SEARCH_APR_RMS = []
 SEARCH_APR_MCP = []
 
@@ -37,9 +39,11 @@ def guess_apr(ri):
 
     #idx = rms.index(min(slope))
     #ri = rt_y[idx]
-        
+    
     lock = threading.Lock()    
     lock.acquire()
+        
+    log.write("{} {}".format(rms[idx], [tl_best, ti_best, rl, ri]))
     SEARCH_APR_RMS.append(rms[idx])
     SEARCH_APR_MCP.append([tl_best, ti_best, rl, ri])
     lock.release()
