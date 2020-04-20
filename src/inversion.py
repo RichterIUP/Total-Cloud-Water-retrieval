@@ -339,8 +339,11 @@ def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=Fals
     idx=7
     [wavenumber, radiance] = rL.forward_run([tau_liq, tau_ice, reff_liq, reff_ice], [filenum, 1.0], lblrtm, 0)
     rms = np.sqrt(np.mean((np.array(radiance) - np.array(aux.RADIANCE_FTIR))**2))
+    slope_lbldis = (radiance[0] - radiance[idx])/(wavenumber[0] - wavenumber[idx])
+    slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0] - aux.WAVENUMBER_FTIR[idx])
+    slope = np.abs(slope_lbldis - slope_ftir)
     
-    return [np.sum(radiance[idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), rms]
+    return [np.sum(radiance[idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), rms, slope]
 
 ################################################################################
 

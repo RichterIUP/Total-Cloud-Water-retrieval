@@ -22,25 +22,25 @@ def guess_apr(fi):
     tt_y = []
     rt_y = []
 
-    for param_num in range(len(tt)):
-        tl = tt[param_num]*(1-fi)
-        ti = tt[param_num]*fi
-        rms.append(inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-1])
-        tt_y.append(tt[param_num])
+    for tt in [0.05, 0.1, 0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 6.0]:
+        tl = tt*(1-fi)
+        ti = tt*fi
+        rms.append(inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-2])
+        tt_y.append(tt)
             
     idx = rms.index(min(rms))
     tt_best = tt_y[idx]
 
-    rms = []
+    slope = []
     tl_best = tt_best * (1-fi)
     ti_best = tt_best * fi        
 
     for rl in [5, 10, 15, 20]:
         for ri in [20, 25, 30, 35, 40, 45, 50]:
-            rms.append(inversion.__only_fwd(tau_liq=tl_best, tau_ice=ti_best, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-1])
+            slope.append(inversion.__only_fwd(tau_liq=tl_best, tau_ice=ti_best, reff_liq=rl, reff_ice=ri, filenum=int(10*fi))[-1])
             rt_y.append([rl, ri])
 
-    idx = rms.index(min(rms))
+    idx = slope.index(min(slope))
 
         
     lock = threading.Lock()    
