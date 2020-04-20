@@ -162,7 +162,7 @@ The variance of the a priori and its weighting. This will be converted
 to the S_A matrix (watch comment of LM_INIT)
 '''
 VARIANCE_APRIORI = [0.5**(-2), 0.5**(-2), (20.0/SCALE)**(-2), (30.0/SCALE)**(-2)]
-WEIGHT_APRIORI = 1.0
+WEIGHT_APRIORI = 0.0#1.0
 
 '''
 Sophisticated adjustment
