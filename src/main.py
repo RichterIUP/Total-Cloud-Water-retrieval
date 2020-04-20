@@ -66,7 +66,7 @@ def main(cl_param):
         '''
         
 
-
+        '''
         inp.FORWARD = True
         apr_list = []
         counter = 0 
@@ -92,7 +92,7 @@ def main(cl_param):
         inp.MCP[3] = guess_apr.SEARCH_APR_MCP[idx][3]
 
         #inp.MCP = [0.25, 0.25, 10, 45.]
-
+        '''
         inp.FORWARD = False
         inp.MCP_APRIORI = inp.MCP[:]
         inversion.retrieve()
