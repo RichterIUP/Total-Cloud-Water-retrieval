@@ -9,8 +9,8 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_offset'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_offset'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_noise'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_noise'
 '''
 Path to the binary of LBLRTM
 '''
@@ -109,7 +109,7 @@ the value from the spectrum file. If a testcase is retrieved, then positive
 values are the standard deviation of the added noise
 '''
 
-STDDEV = 0.0
+STDDEV = 0.2
 
 '''
 Possible values: %, ppmv, g/m3, g/kg
@@ -130,7 +130,7 @@ DISTURB_HUMIDITY = 0.0
 '''
 Add an offset to the spectrum (mW/[sr * m2 * cm-1])
 '''
-OFFSET = -2.0
+OFFSET = 0.0
 
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
