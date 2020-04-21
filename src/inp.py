@@ -9,8 +9,8 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_noise'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_noise'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS'
 '''
 Path to the binary of LBLRTM
 '''
@@ -109,7 +109,7 @@ the value from the spectrum file. If a testcase is retrieved, then positive
 values are the standard deviation of the added noise
 '''
 
-STDDEV = 0.2
+STDDEV = 0.0
 
 '''
 Possible values: %, ppmv, g/m3, g/kg
@@ -120,7 +120,7 @@ HUMIDITY = 'g/kg'
 '''
 Disturb the temperature, absolute value (K)
 '''
-DISTURB_TEMPERATURE = 0.0
+DISTURB_TEMPERATURE = 5.0
 
 '''
 Disturb the humidity relative to the value from the radiosonde
