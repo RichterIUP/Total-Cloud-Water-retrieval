@@ -53,7 +53,7 @@ if __name__ == '__main__':
     else:
         files = sorted(os.listdir(fname))
         f = open("out.csv", "w")
-        f.write("fname,date,tt,dtt,fi,dfi,rl,drl,ri,dri,lwp,dlwp,iwp,diwp,twp,dtwp,rms,ctemp,pwv,conv,cbase,ctop\n")
+        f.write("fname,date,tl,dtl,dtl_res,ti,dti,dti_res,rl,drl,drl_res,ri,dri,dri_res,lwp,dlwp,dlwp_res,iwp,diwp,diwp_res,twp,dtwp,dtwp_res,rms,ctemp,pwv,conv,cbase,ctop\n")
         for element in files:
             #try:
             if True:
