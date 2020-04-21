@@ -9,8 +9,8 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_offset'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_offset'
 '''
 Path to the binary of LBLRTM
 '''
@@ -86,7 +86,7 @@ Number of CPU which shall be used for the calculation of the derivatives.
 This number will be decreased automatically, if less than NUM_OF_CPU
 are needed
 '''
-NUM_OF_CPU = 6
+NUM_OF_CPU = 3
 
 '''
 If the present spectrum is a testcase of Cox et al. (2016), then this should
@@ -120,7 +120,7 @@ HUMIDITY = 'g/kg'
 '''
 Disturb the temperature, absolute value (K)
 '''
-DISTURB_TEMPERATURE = 5.0
+DISTURB_TEMPERATURE = 0.0
 
 '''
 Disturb the humidity relative to the value from the radiosonde
@@ -130,7 +130,7 @@ DISTURB_HUMIDITY = 0.0
 '''
 Add an offset to the spectrum (mW/[sr * m2 * cm-1])
 '''
-OFFSET = 0.0
+OFFSET = -2.0
 
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice

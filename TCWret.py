@@ -13,5 +13,6 @@ if __name__ == '__main__':
     #cont = ["/home/phi.richter/TESTCASES_nc/simulation_2012101705_cld1_0006_ch2_singleLayer.nc"]
 
     for element in cont:
+        #element = element.split("//")[-1]
         subprocess.call(["python3", "src/main.py", "{}".format(element.rstrip()), "TIR"])
 
