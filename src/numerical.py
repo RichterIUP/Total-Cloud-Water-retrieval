@@ -64,7 +64,7 @@ def calc_vcm(t_matrix, variance_matrix):
     @param t_matrix The transfer matrix (Ceccherini/Ridolfi 2010)
     @return The variance-covariance matrix
     '''
-    s_y_matrix = np.linalg.inv(aux.S_Y_INV_MATRIX)
+    s_y_matrix = np.linalg.inv(variance_matrix)
     cov = np.matmul(t_matrix, s_y_matrix)
     cov = np.matmul(cov, np.transpose(t_matrix))
     return cov
