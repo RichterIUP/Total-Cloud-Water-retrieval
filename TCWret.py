@@ -8,12 +8,20 @@ import subprocess
 
 if __name__ == '__main__':
 
-    with open(sys.argv[1], "r") as f:
-        cont = f.readlines()
-    #cont = ["/home/phi.richter/TESTCASES_nc/simulation_2012101705_cld1_0006_ch2_singleLayer.nc"]
+    #with open(sys.argv[1], "r") as f:
+    #    cont = f.readlines()
 
-    for element in cont:
-        element = element.split("//")[-1]
-        print(element)
-        subprocess.call(["python3", "src/main.py", "/{}".format(element.rstrip()), "TIR"])
+    #for element in cont:
+    #    element = element.split("//")[-1]
+    #    print(element)
 
+    #    subprocess.call(["python3", "src/main.py", "/{}".format(element.rstrip()), "TIR"])
+    
+    spec = "/home/phi.richter/Emission_Data/PS.20170616_211900.nc"
+    tl = 0.5
+    ti = 0.5
+    for rl in [5, 10, 15, 20, 30, 40]:
+        for ri in [10, 20, 30, 40, 50, 60, 70]:
+            with open("log", "a") as f:
+                f.write("{} {}\n".format(rl, ri))
+                subprocess.call(["python3", "src/main.py", "/{}".format(element.rstrip()), "TIR", tl, ti, rl, ri])

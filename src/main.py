@@ -40,6 +40,7 @@ def main(cl_param):
       NOW.hour, NOW.minute, NOW.second, NOW.microsecond)
     aux.TIME_INDEX = directory
 
+    inp.MCP = [cl_param[2], cl_param[3], cl_param[4], cl_param[5]]
     inp.MCP_APRIORI = inp.MCP[:]
 
     aux.MICROWINDOWS.append([aux.MICROWINDOWS[inp.WINDOWS[0]][0], \
@@ -105,5 +106,5 @@ def main(cl_param):
     
 if __name__ == '__main__':
 
-    cl_param = [sys.argv[1], sys.argv[2]]
+    cl_param = [sys.argv[1], sys.argv[2], float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6])]
     main(cl_param)

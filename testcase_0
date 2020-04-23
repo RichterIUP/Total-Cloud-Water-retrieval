@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=TWCret
-#SBATCH -n 9
+#SBATCH -n 1
 #SBATCH -N 1
 #SBATCH -t 4320
 #SBATCH -p all
