@@ -14,5 +14,6 @@ if __name__ == '__main__':
 
     for element in cont:
         element = element.split("//")[-1]
-        subprocess.call(["python3", "src/main.py", "{}".format(element.rstrip()), "TIR"])
+        print(element)
+        subprocess.call(["python3", "src/main.py", "/{}".format(element.rstrip()), "TIR"])
 
