@@ -9,8 +9,8 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_fwd'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_fwd'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_FIR'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_FIR'
 '''
 Path to the binary of LBLRTM
 '''
@@ -92,7 +92,7 @@ NUM_OF_CPU = 1
 If the present spectrum is a testcase of Cox et al. (2016), then this should
 be true. This modifies the cloud boundaries and allows to add noise manually
 '''
-TESTCASE = False
+TESTCASE = True
 
 '''
 Convergence criterion due to Rodgers (2000):
@@ -109,7 +109,7 @@ the value from the spectrum file. If a testcase is retrieved, then positive
 values are the standard deviation of the added noise
 '''
 
-STDDEV = -1.0
+STDDEV = 0.0
 
 '''
 Possible values: %, ppmv, g/m3, g/kg
@@ -173,8 +173,8 @@ SOPHISTICATED_ADJ = False
 Manual choise of the cloud thresholds. If L-IWP should use the cloud
 thresholds from the file, these have to be set to -1
 '''
-CLOUD_BASE = [-1]#[197.075, 2972.02]
-CLOUD_TOP = [-1]#[352.971, 8334.85]
+CLOUD_BASE = [-1]
+CLOUD_TOP = [-1]
 
 '''
 Composition of ice particles. The built in composition is:

@@ -159,24 +159,19 @@ def calc_lwp(reff_liq, dreff_liq, tau_liq, dtau_liq):
 if __name__ == '__main__':
     [liq, ice] = read_databases("../ssp/ssp_db.mie_wat.gamma_sigma_0p100", \
     "../ssp/ssp_db.mie_ice.gamma_sigma_0p100")
-    print(get_entry(db_liq, "Qext", 900.0, ))
 
-    t_i = 1.0
-    r_i_arr = np.array([ii*1.0+10.0 for ii in range(60)])
+    t_i = 2.5
+    t_l = 2.5
+    r_i = 1.5
+    r_l = 1.5
     dtl = 0.0
     dti = 0.0
     drl = 0.0
     dri = 0.0
-    #t_l = 3.66 * (1-0.34)
-    #t_i = 3.66 * 0.34
-    t_t = [8.4] 
-    f_i = [0.91]
-    r_l = 2.678
-    r_i = 17.25
-    for jj in range(1):
-        lwp = calc_lwp(r_l, drl, t_t[jj]*(1-f_i[jj]), dtl)
-        iwp = calc_iwp(t_t[jj]*f_i[jj], dti, r_i, dri, ice)
-        print(iwp[0], lwp[0])
+
+    lwp = calc_lwp(r_l, drl, t_l, dtl)
+    iwp = calc_iwp(t_i, dti, r_i, dri, ice)
+    print(iwp[0]+lwp[0])
     #01.521		 00.418		 11.959		 42.294
     #IWP = []
     #for r_i in np.array([(ii*1.0+10.0) for ii in range(60)]):
