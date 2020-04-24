@@ -342,7 +342,12 @@ def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=Fals
     slope_lbldis = (radiance[0] - radiance[idx])/(wavenumber[0] - wavenumber[idx])
     slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0] - aux.WAVENUMBER_FTIR[idx])
     slope = np.abs(slope_lbldis - slope_ftir)
-    
+
+    f = open("{}/lbldis.spec".format(inp.PATH), "w")
+    for ii in range(len(wavenumber)):
+        f.write("{},{}\n".format(wavenumber[ii], radiance[ii]))
+
+    f.close()
     return [np.sum(radiance[idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), rms, slope]
 
 ################################################################################
