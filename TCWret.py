@@ -8,11 +8,11 @@ import subprocess
 
 if __name__ == '__main__':
 
-    with open(sys.argv[1], "r") as f:
+    with open("../{}".format(sys.argv[1]), "r") as f:
         cont = f.readlines()
 
     for element in cont:
-        subprocess.call(["python3", "src/main.py", "/{}".format(element.rstrip()), "FIR"])
+        subprocess.call(["python3", "src/main.py", "/{}".format(element.rstrip()), "FIR", '1', '1', '10', '30'])
     
     #spec = "/home/phi.richter/Emission_Data/PS.20170616_211900.nc"
     #tl = '0.5'
