@@ -86,7 +86,7 @@ Number of CPU which shall be used for the calculation of the derivatives.
 This number will be decreased automatically, if less than NUM_OF_CPU
 are needed
 '''
-NUM_OF_CPU = 1
+NUM_OF_CPU = 6
 
 '''
 If the present spectrum is a testcase of Cox et al. (2016), then this should
