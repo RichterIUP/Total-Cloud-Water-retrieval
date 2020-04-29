@@ -346,7 +346,10 @@ def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=Fals
     f = open("{}/lbldis.spec".format(inp.PATH), "w")
     for ii in range(len(wavenumber)):
         f.write("{},{}\n".format(wavenumber[ii], radiance[ii]))
-
+    f.close()
+    f = open("{}/ftir.spec".format(inp.PATH), "w")
+    for ii in range(len(aux.WAVENUMBER_FTIR)):
+        f.write("{},{}\n".format(aux.WAVENUMBER_FTIR[ii], aux.RADIANCE_FTIR[ii]))
     f.close()
     return [np.sum(radiance[idx:-1]), np.sum(aux.RADIANCE_FTIR[idx:-1]), rms, slope]
 

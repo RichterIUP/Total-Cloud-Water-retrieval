@@ -92,7 +92,7 @@ NUM_OF_CPU = 6
 If the present spectrum is a testcase of Cox et al. (2016), then this should
 be true. This modifies the cloud boundaries and allows to add noise manually
 '''
-TESTCASE = True
+TESTCASE = False
 
 '''
 Convergence criterion due to Rodgers (2000):
