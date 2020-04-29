@@ -80,7 +80,7 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
         
     #Scaling factors (Default)
     h2o_sf = [1.0, 0]
-    co2_sf = [1.0, 0]#[400, 1]
+    co2_sf = [400.0, 0]#[1.0, 0]#[400, 1]
     o3_sf = [1.0, 0]
     co_sf = [1.0, 0]
     ch4_sf = [1.,0]
