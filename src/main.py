@@ -99,7 +99,8 @@ def main(cl_param):
         '''
         Calculate the spectral radiance for the entire spectral range
         '''
-        inp.WINDOWS = [-1]
+        inp.WINDOWS = [0]
+        aux.MICROWINDOWS = [[770., 1200.]]
         inversion.retrieve()
         
     return
