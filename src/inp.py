@@ -9,8 +9,8 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_FIR'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_FIR'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS'
 '''
 Path to the binary of LBLRTM
 '''
@@ -212,7 +212,7 @@ STANDARD = True
 If this is true, then a forward simulation (after a possible retrieval)
 will be performed
 '''
-FORWARD = False
+FORWARD = True
 
 '''
 If this is true, then the calculated radiances will be written to lbldis.spec

@@ -8,11 +8,14 @@ import subprocess
 
 if __name__ == '__main__':
 
-    with open("../{}".format(sys.argv[1]), "r") as f:
-        cont = f.readlines()
+    subprocess.call(["python3", "src/main.py", "/home/phi.richter/Emission_Data/PS.20170611_101300.nc", "TIR", '2.72837164186526', '2.76870101249429', '12.1290834835814', '18.0511472203171'])
+    subprocess.call(["python3", "src/main.py", "/home/phi.richter/Emission_Data/PS.20170611_230800.nc", "TIR", '0.199296723737648', '0.20770093300956', '12.896146494604', '29.4004446180573'])
 
-    for element in cont:
-        subprocess.call(["python3", "src/main.py", "/{}".format(element.rstrip()), "FIR", '1', '1', '10', '30'])
+    #with open("../{}".format(sys.argv[1]), "r") as f:
+    #    cont = f.readlines()
+
+    #for element in cont:
+    #    subprocess.call(["python3", "src/main.py", "/{}".format(element.rstrip()), "FIR", '1', '1', '10', '30'])
     
     #spec = "/home/phi.richter/Emission_Data/PS.20170616_211900.nc"
     #tl = '0.5'

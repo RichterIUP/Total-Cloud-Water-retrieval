@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import os
 import scipy.interpolate as scp
 import numpy             as np
 import matplotlib.pyplot as plt
@@ -160,18 +161,56 @@ if __name__ == '__main__':
     [liq, ice] = read_databases("../ssp/ssp_db.mie_wat.gamma_sigma_0p100", \
     "../ssp/ssp_db.mie_ice.gamma_sigma_0p100")
 
-    t_i = 2.5
-    t_l = 2.5
-    r_i = 1.5
-    r_l = 1.5
+    t_i = 2.0
+    t_l = 2.0
+    #r_i = np.linspace(1, 100, 101)
+    #r_l = np.linspace(1, 100, 101)
     dtl = 0.0
     dti = 0.0
     drl = 0.0
     dri = 0.0
 
-    lwp = calc_lwp(r_l, drl, t_l, dtl)
-    iwp = calc_iwp(t_i, dti, r_i, dri, ice)
-    print(iwp[0]+lwp[0])
+    lwp = []
+    iwp = []
+    ext = []
+    Vol = []
+    
+    #print(calc_lwp(70, drl, 0, dtl)[0]+calc_iwp(2.5, dti, 30, dri, ice)[0])
+    #print(calc_lwp(30, drl, 0, dtl)[0]+calc_iwp(2.5, dti, 70, dri, ice)[0])
+    #exit(-1)
+    radii = np.linspace(2, 99, 300)
+    for r in radii:
+        #print(r)
+        Vol.append(get_entry(ice, "Vol (um3)", 900.0, r)**(1.0/3.0))
+        ext.append(get_entry(ice, "ext (um2)", 900.0, r)**(1.0/2.0))
+        lwp.append(calc_lwp(r, drl, t_l, dtl)[0])
+        iwp.append(calc_iwp(t_i, dti, r, dri, ice)[0])
+        
+    fact = 3
+    dpi = 100
+    fs = 8
+    fs = fact * fs
+    num = 3
+    a_Vol = (Vol[-1]-Vol[0])/(radii[-1]-radii[0])
+    a_ext = (ext[-1]-ext[0])/(radii[-1]-radii[0])
+    print(a_Vol**3/a_ext**2)
+    exit(-1)
+    fig = plt.figure(figsize=(fact*3, fact*3))
+    plt.plot(radii, a_Vol**3*radii**3, label="a*r**3", linewidth=5)
+    plt.plot(radii, Vol, label="Vol", linewidth=5)
+    #plt.plot(radii, ext, label="Ext", linewidth=5)
+    #plt.plot(radii, lwp, label="Liquid Water Path", linewidth=5)
+    plt.xlabel(r"Radius $(\mathrm{\mu m})$", fontsize=fs)
+    #plt.ylabel(r"Water Path $(\mathrm{g \cdot m^{-2}})$", fontsize=fs)
+    #plt.tick_params(labelsize=fs)
+    plt.legend(fontsize=fs)
+
+    plt.tick_params(labelsize=fs)
+    plt.grid(True)
+    plt.show()
+    #os.chdir("/home/philipp/Seafile/PhD/Home_Office/Datenpaper")
+    #plt.savefig("lwp_iwp.png")
+    #print(iwp[0]+lwp[0])
     #01.521		 00.418		 11.959		 42.294
     #IWP = []
     #for r_i in np.array([(ii*1.0+10.0) for ii in range(60)]):
