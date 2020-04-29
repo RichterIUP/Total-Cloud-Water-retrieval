@@ -34,7 +34,6 @@ def main(cl_param):
         inp.WINDOWS = inp.FIR_MCP
     elif cl_param[1] == "NIR":
         inp.WINDOWS = inp.NIR
-
     NOW = dt.datetime.now()
     directory = "{}_{}_{}_{}_{}_{}".format(NOW.month, NOW.day, \
       NOW.hour, NOW.minute, NOW.second, NOW.microsecond)
@@ -46,6 +45,9 @@ def main(cl_param):
     aux.MICROWINDOWS.append([aux.MICROWINDOWS[inp.WINDOWS[0]][0], \
                 aux.MICROWINDOWS[inp.WINDOWS[-1]][-1]])
 
+    if inp.FORWARD:
+        inp.WINDOWS = [0]
+        aux.MICROWINDOWS = [[770., 1200.]]
     '''
     Create all the necessary folders
     '''
