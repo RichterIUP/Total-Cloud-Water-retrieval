@@ -158,66 +158,43 @@ def calc_lwp(reff_liq, dreff_liq, tau_liq, dtau_liq):
     return [liquid_water_path, dliquid_water_path]
 
 if __name__ == '__main__':
-    [liq, ice] = read_databases("../ssp/ssp_db.mie_wat.gamma_sigma_0p100", \
-    "../ssp/ssp_db.mie_ice.gamma_sigma_0p100")
+    ice_db = ["ssp_db.Aggregate.gamma.0p100", \
+            "ssp_db.BulletRosette.gamma.0p100", \
+            "ssp_db.Droxtal.gamma.0p100", \
+            "ssp_db.HollowCol.gamma.0p100", \
+            "ssp_db.mie_ice.gamma_sigma_0p100", \
+            "ssp_db.Plate.gamma.0p100", \
+            "ssp_db.SolidCol.gamma.0p100", \
+            "ssp_db.Spheroid.gamma.0p100"]
+    for database in ice_db:
+        [liq, ice] = read_databases("../ssp/ssp_db.mie_wat.gamma_sigma_0p100", "../ssp/{}".format(database))
 
-    t_i = 2.0
-    t_l = 2.0
-    #r_i = np.linspace(1, 100, 101)
-    #r_l = np.linspace(1, 100, 101)
-    dtl = 0.0
-    dti = 0.0
-    drl = 0.0
-    dri = 0.0
+        ext = []
+        Vol = []
 
-    lwp = []
-    iwp = []
-    ext = []
-    Vol = []
-    
-    #print(calc_lwp(70, drl, 0, dtl)[0]+calc_iwp(2.5, dti, 30, dri, ice)[0])
-    #print(calc_lwp(30, drl, 0, dtl)[0]+calc_iwp(2.5, dti, 70, dri, ice)[0])
-    #exit(-1)
-    radii = np.linspace(2, 99, 300)
-    for r in radii:
-        #print(r)
-        Vol.append(get_entry(ice, "Vol (um3)", 900.0, r)**(1.0/3.0))
-        ext.append(get_entry(ice, "ext (um2)", 900.0, r)**(1.0/2.0))
-        lwp.append(calc_lwp(r, drl, t_l, dtl)[0])
-        iwp.append(calc_iwp(t_i, dti, r, dri, ice)[0])
-        
-    fact = 3
-    dpi = 100
-    fs = 8
-    fs = fact * fs
-    num = 3
-    a_Vol = (Vol[-1]-Vol[0])/(radii[-1]-radii[0])
-    a_ext = (ext[-1]-ext[0])/(radii[-1]-radii[0])
-    print(a_Vol**3/a_ext**2)
-    exit(-1)
-    fig = plt.figure(figsize=(fact*3, fact*3))
-    plt.plot(radii, a_Vol**3*radii**3, label="a*r**3", linewidth=5)
-    plt.plot(radii, Vol, label="Vol", linewidth=5)
-    #plt.plot(radii, ext, label="Ext", linewidth=5)
-    #plt.plot(radii, lwp, label="Liquid Water Path", linewidth=5)
-    plt.xlabel(r"Radius $(\mathrm{\mu m})$", fontsize=fs)
-    #plt.ylabel(r"Water Path $(\mathrm{g \cdot m^{-2}})$", fontsize=fs)
-    #plt.tick_params(labelsize=fs)
-    plt.legend(fontsize=fs)
+        radii = np.linspace(2, 99, 300)
+        for r in radii:
+            Vol.append(get_entry(ice, "Vol (um3)", 900.0, r)**(1.0/3.0))
+            ext.append(get_entry(ice, "ext (um2)", 900.0, r)**(1.0/2.0))
+            
+        fact = 3
+        dpi = 100
+        fs = 8
+        fs = fact * fs
+        num = 3
+        a_Vol = np.float((Vol[-1]-Vol[0])/(radii[-1]-radii[0]))
+        a_ext = np.float((ext[-1]-ext[0])/(radii[-1]-radii[0]))
 
-    plt.tick_params(labelsize=fs)
-    plt.grid(True)
-    plt.show()
-    #os.chdir("/home/philipp/Seafile/PhD/Home_Office/Datenpaper")
-    #plt.savefig("lwp_iwp.png")
-    #print(iwp[0]+lwp[0])
-    #01.521		 00.418		 11.959		 42.294
-    #IWP = []
-    #for r_i in np.array([(ii*1.0+10.0) for ii in range(60)]):
-    #    IWP.append(calc_iwp(t_i, dt_i, r_i, dr_i, ice)[0])#
+        print(np.float(a_Vol), np.float(a_ext))
+        fig = plt.figure(figsize=(fact*3, fact*3))
+        plt.plot(radii, Vol, label="Vol, a = {:02f}".format(a_Vol), linewidth=5)
+        plt.plot(radii, ext, label="Ext, a = {:02f}".format(a_ext), linewidth=5)
+        plt.xlabel(r"Radius $(\mathrm{\mu m})$", fontsize=fs)
+        plt.legend(fontsize=fs)
 
-    #plt.plot(r_i_arr, IWP)
-    #plt.xlabel("r_i")
-    #plt.ylabel("IWP")
-    #plt.grid(True)
-    #plt.show()
+        plt.tick_params(labelsize=fs)
+        plt.grid(True)
+        plt.savefig("/home/philipp/Seafile/PhD/Home_Office/Datenpaper/{}.png".format(database))
+        plt.close()
+        plt.clf()
+
