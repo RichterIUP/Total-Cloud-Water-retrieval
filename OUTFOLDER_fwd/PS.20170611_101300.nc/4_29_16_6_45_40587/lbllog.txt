@@ -1,0 +1,16 @@
+
+Adapted from: lblrun,v 1.12 1999/04/15 13:53:45 paulv Exp $
+
+
+     Using TAPE3 file tape3.data
+     Using LBL_HOME: /home/phi.richter/radiative_transfer/lblrtm
+     Using TAPE5 file /home/phi.richter/TCWret/OUTFOLDER_fwd/PS.20170611_101300.nc/4_29_16_6_45_40587/tp5_4_29_16_6_45_40587
+
+ lblrtm running.
+ Begin date: 20200429
+ Begin time: 160645CEST
+
+    Using Shippert mod
+
+ Saving LBLRTM products (usage(total=47998417502208, used=3257284952064, free=44741132550144) kB total) in /home/phi.richter/TCWret/OUTFOLDER_fwd/PS.20170611_101300.nc/4_29_16_6_45_40587/lblout_PS.20170611_101300.nc....
+
