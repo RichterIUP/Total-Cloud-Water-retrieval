@@ -12,4 +12,4 @@ if __name__ == '__main__':
         cont = f.readlines()
 
     for element in cont:
-        subprocess.call(["python3", "src/main.py", "/{}".format(element.rstrip()), "TIR", '1', '1', '10', '30'])
+        subprocess.call(["python3", "src/main.py", "/{}".format(element.rstrip()), "FIR", '1', '1', '10', '30'])

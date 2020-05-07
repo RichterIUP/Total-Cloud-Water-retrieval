@@ -10,13 +10,12 @@ import log
 SEARCH_APR_RMS = []
 SEARCH_APR_MCP = []
 
-def guess_apr(tt):
+def guess_apr(tt, fi):
 
     global SEARCH_APR
-
     ri = inp.MCP[2]
     rl = inp.MCP[3]
-    fi = 0.5
+    #fi = 0.5
     rms = []
     tt_y = []
     rt_y = []
