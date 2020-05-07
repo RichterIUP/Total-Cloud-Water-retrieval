@@ -184,15 +184,18 @@ if __name__ == '__main__':
         num = 3
         a_Vol = np.float((Vol[-1]-Vol[0])/(radii[-1]-radii[0]))
         a_ext = np.float((ext[-1]-ext[0])/(radii[-1]-radii[0]))
-
-        print(np.float(a_Vol), np.float(a_ext))
+        Vol = np.array(Vol)
+        ext = np.array(ext)
+        print(database, np.float(a_Vol)**3/np.float(a_ext)**2)
         fig = plt.figure(figsize=(fact*3, fact*3))
-        plt.plot(radii, Vol, label="Vol, a = {:02f}".format(a_Vol), linewidth=5)
-        plt.plot(radii, ext, label="Ext, a = {:02f}".format(a_ext), linewidth=5)
+        plt.plot(radii, Vol, label="Vol".format(a_Vol), linewidth=5)
+        plt.plot(radii, ext, label="Ext".format(a_ext), linewidth=5)
+        plt.plot(radii, (a_ext*radii), label="Ext = ({:02f} * r)".format(a_ext), linewidth=5)
+        plt.plot(radii, (a_Vol*radii), label="Vol = ({:02f} * r)".format(a_Vol), linewidth=5)        
         plt.xlabel(r"Radius $(\mathrm{\mu m})$", fontsize=fs)
         plt.legend(fontsize=fs)
 
-        plt.tick_params(labelsize=fs)
+        #plt.tick_params(labelsize=fs)
         plt.grid(True)
         plt.savefig("/home/philipp/Seafile/PhD/Home_Office/Datenpaper/{}.png".format(database))
         plt.close()
