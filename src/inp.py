@@ -9,8 +9,8 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/home/phi.richter/TCWret/OUTFOLDER_fwd'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_FIR'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_FIR'
 '''
 Path to the binary of LBLRTM
 '''
