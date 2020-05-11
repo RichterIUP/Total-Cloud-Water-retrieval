@@ -44,6 +44,8 @@ LBLTP5 = ''
 LBLTMP = ''
 LBLDIR = ''
 LBLLOG = ''
+ATM_PROF = ''
+CLOUD_FILE = ''
 
 '''
 Wildcards for trace gas profiles

@@ -23,7 +23,7 @@ import guess_apr
 
 def main(cl_param):
 
-    read_input.read_input(cl_param[0])
+    read_input.read_input(cl_param[0], cl_param[1], cl_param[2])
     if cl_param[1] == "TIR":
         inp.WINDOWS = inp.TIR
     elif cl_param[1] == "FIR":
@@ -39,7 +39,7 @@ def main(cl_param):
       NOW.hour, NOW.minute, NOW.second, NOW.microsecond)
     aux.TIME_INDEX = directory
 
-    inp.MCP = [cl_param[2], cl_param[3], cl_param[4], cl_param[5]]
+    #inp.MCP = [cl_param[2], cl_param[3], cl_param[4], cl_param[5]]
     inp.MCP_APRIORI = inp.MCP[:]
 
     aux.MICROWINDOWS.append([aux.MICROWINDOWS[inp.WINDOWS[0]][0], \
@@ -137,5 +137,6 @@ def main(cl_param):
     
 if __name__ == '__main__':
 
-    cl_param = [sys.argv[1], sys.argv[2], float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6])]
+    cl_param = [sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]]
+    
     main(cl_param)
