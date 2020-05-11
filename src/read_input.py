@@ -143,7 +143,7 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
     Read the cloud height
     '''
     with nc.Dataset(fname_clouds, "r") as dataset:
-        layers_cloud = np.array(dataset.variables['layers_liq'][:], dtype=bool)
+        layers_cloud = np.array(dataset.variables['layers_cloud'][:], dtype=bool)
         levels_cloud = np.array(dataset.variables['levels'][:])
 
     aux.CLOUD_BASE = min(levels_cloud[layers_cloud])
