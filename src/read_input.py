@@ -146,8 +146,8 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
         layers_cloud = np.array(dataset.variables['layers_cloud'][:], dtype=bool)
         levels_cloud = np.array(dataset.variables['levels'][:])
 
-    aux.CLOUD_BASE = min(levels_cloud[layers_cloud])
-    aux.CLOUD_TOP =  max(levels_cloud[layers_cloud])
+    aux.CLOUD_BASE = [min(levels_cloud[layers_cloud])]
+    aux.CLOUD_TOP =  [max(levels_cloud[layers_cloud])]
 
     
     if inp.CLOUD_BASE[0] != -1:
