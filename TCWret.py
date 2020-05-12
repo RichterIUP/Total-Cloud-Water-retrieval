@@ -12,7 +12,7 @@ if __name__ == '__main__':
     #    cont = f.readlines()
 
     #for element in cont:
-    radiances_files = "radiances/PS.20200506_184033.nc"#element.split(" ")[0]
+    radiances_files = "radiances/nyem.20200506_184033.nc"#element.split(" ")[0]
     atmospheric_prof = "atm_prof/prof20200506_184033.nc"#element.split(" ")[1]
     cloud_file = "cloud_files/CLOUDS.20200506.184033.nc"#element.split(" ")[2].rstrip()
     subprocess.call(["python3", "src/main.py", "{}".format(radiances_files), "{}".format(atmospheric_prof), "{}".format(cloud_file), "TIR"])

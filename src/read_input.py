@@ -173,7 +173,7 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
         aux.ATMOSPHERIC_GRID[2] = np.array(dataset.variables['T'][:])+inp.DISTURB_TEMPERATURE
         humidity = np.array(dataset.variables[key_humd][:])
         aux.CO2_PROFILE = np.array(dataset.variables['co2'][:])
-        aux.O3_PROFILE = np.array(dataset.variables['o3'][:])
+        #aux.O3_PROFILE = np.array(dataset.variables['o3'][:])
 
 
     if inp.HUMIDITY == "%":

@@ -173,7 +173,9 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
         o3_unit = "C"
     else:
         o3_unit = inp.PREDEF_ATM
-    co2_unit = 'A'
+    co2_unit = inp.PREDEF_ATM
+    o3_unit = inp.PREDEF_ATM
+    #co2_unit = 'A'
     JCHAR  = '{}{}{}4444'.format(hmd_unit, co2_unit, o3_unit)#'A444444'#Klimatologie fuer alles ausser Wasser
     #Ansosten: A -> ppmv, B -> cm-3, C -> g/kg, D -> g/m3 (so kann man retrievte Spurengase verwenden)
     zz = z
@@ -182,7 +184,7 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
     ww = w
     #co2_man = 200.0
     co2 = [co2_man for i in range(len(pp))]#[co2_ppm[i] for i in range(len(pp))]#[co2_ppm[i] for i in range(len(pp))]#[0.0 for i in range(len(pp))]
-    oo3 = [o3_ppm[i] for i in range(len(pp))]#[o3_ppm[i] for i in range(len(pp))]
+    oo3 = [0.0 for i in range(len(pp))]#[o3_ppm[i] for i in range(len(pp))]#[o3_ppm[i] for i in range(len(pp))]
     pp_sorted = []
     for element in sorted(pp):
         pp_sorted.append(element)
@@ -210,7 +212,7 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
     zz = [z[i] for i in index]
     tt = [t[i] for i in index]
     ww = [w[i] for i in index]
-    oo3 = [o3_ppm[i] for i in index]
+    oo3 = [0.0 for i in index]#[o3_ppm[i] for i in index]
     co2 = [co2_man for i in index]#[co2_ppm[i] for i in index]    
     
     inlayers = len(zz)
