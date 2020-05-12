@@ -129,7 +129,7 @@ class LBLDIS:
         print("[{}] Run LBLRTM...".format(dt.datetime.now()))
         lblrun.lblrun(aux.LBLTP5, aux.LBLDIR, aux.LBLLOG, lbl_home=inp.PATH_TO_LBLRTM)
         print("[{}] LBLRTM finished...".format(dt.datetime.now()))
-
+        exit(-1)
         return
 
     ####################################################################################
