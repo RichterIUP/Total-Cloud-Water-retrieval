@@ -207,13 +207,14 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
         else:
             index.append(ii)
     index.append(len(p)-1)
-    
+
     pp = [p[i] for i in index]
     zz = [z[i] for i in index]
     tt = [t[i] for i in index]
     ww = [w[i] for i in index]
     oo3 = [0.0 for i in index]#[o3_ppm[i] for i in index]
-    co2 = [co2_man for i in index]#[co2_ppm[i] for i in index]    
+    co2 = [co2_man for i in index]#[co2_ppm[i] for i in index]
+    print(zz)
     
     inlayers = len(zz)
     p_comment = "User supplied profile"
@@ -235,7 +236,7 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
     f.write("-1.\n")
     f.write("%%%\n")
     f.close()
-
+    exit(-1)
     return True
 
 if __name__ == "__main__":
