@@ -88,7 +88,7 @@ def interpolate_to_altitude_grid(atm):
             alt_high = element
             break
     #alt_grid = atm[1]
-    alt_grid = alt_grid[np.where(alt_grid <= inp.MAX_ALT)[0]])
+    alt_grid = alt_grid[np.where(alt_grid <= inp.MAX_ALT)[0]]
 
     '''
     The first layer is the ground layer
