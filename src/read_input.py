@@ -181,14 +181,18 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
                                                     ["-p", aux.ATMOSPHERIC_GRID[0]])[1]*1000.0)
         inp.HUMIDITY = "g/kg"
     aux.ATMOSPHERIC_GRID[3] = humidity+inp.DISTURB_HUMIDITY*humidity
-    #aux.ATMOSPHERIC_GRID[1][0] = 0.018
-    print(np.unique(aux.ATMOSPHERIC_GRID[0]))
-    print(aux.ATMOSPHERIC_GRID[0])
+    idx_unique_pressure = np.array(sorted(np.unique(aux.ATMOSPHERIC_GRID[0], return_index=True)[1]))
+
+    '''
+    Remove layers with identical pressure
+    '''
+    for i in range(4):
+        aux.ATMOSPHERIC_GRID[i] = aux.ATMOSPHERIC_GRID[i][idx_unique_pressure]
     
     return
     
 if __name__ == '__main__':
     inp.TESTCASE = False
-    read_input("/home/philipp/Seafile/PhD/Home_Office/create_spectra_files_from_nya/radiances/NyA_20100101_0000.nc", \
-                "/home/philipp/Seafile/PhD/Home_Office/create_spectra_files_from_nya/atm_prof/prof20170620_0842.nc", \
-                "/home/philipp/Seafile/PhD/Home_Office/create_spectra_files_from_nya/cloud_files/CLOUDS.20170620.084200.nc")
+    read_input("radiances/nyem.20200506_184033.nc", \
+                "atm_prof/prof20200506_184033.nc", \
+                "cloud_files/CLOUDS.20200506.184033.nc")
