@@ -343,18 +343,18 @@ def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=Fals
     #slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0] - aux.WAVENUMBER_FTIR[idx])
     #slope = np.abs(slope_lbldis - slope_ftir)
 
-    #f = open("{}/wavenumber.csv".format(inp.PATH), "w")
-    #for ii in range(len(wavenumber)):
-    #    f.write("{}\n".format(wavenumber[ii]))
-    #f.close()
-    #f = open("{}/lbldis.csv".format(inp.PATH), "w")
-    #for ii in range(len(wavenumber)):
-    #    f.write("{}\n".format(radiance[ii]))
-    #f.close()
-    #f = open("{}/ftir.csv".format(inp.PATH), "w")
-    #for ii in range(len(aux.WAVENUMBER_FTIR)):
-    #    f.write("{}\n".format(aux.RADIANCE_FTIR[ii]))
-    #f.close()
+    f = open("{}/wavenumber.csv".format(inp.PATH), "w")
+    for ii in range(len(wavenumber)):
+        f.write("{}\n".format(wavenumber[ii]))
+    f.close()
+    f = open("{}/lbldis.csv".format(inp.PATH), "w")
+    for ii in range(len(wavenumber)):
+        f.write("{}\n".format(radiance[ii]))
+    f.close()
+    f = open("{}/ftir.csv".format(inp.PATH), "w")
+    for ii in range(len(aux.WAVENUMBER_FTIR)):
+        f.write("{}\n".format(aux.RADIANCE_FTIR[ii]))
+    f.close()
     return rms
 
 ################################################################################
