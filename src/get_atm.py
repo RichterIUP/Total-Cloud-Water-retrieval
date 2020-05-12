@@ -83,11 +83,11 @@ def interpolate_to_altitude_grid(atm):
     '''
     Set the maximum to 30km
     '''
-    for element in atm[1]:
-        if element >= inp.MAX_ALT:
-            alt_high = element
-            break
-    #alt_grid = atm[1]
+    #for element in atm[1]:
+    #    if element >= inp.MAX_ALT:
+    #        alt_high = element
+    #        break
+    alt_grid = atm[1]
     alt_grid = alt_grid[np.where(alt_grid <= inp.MAX_ALT)[0]]
 
     '''
