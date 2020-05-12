@@ -61,7 +61,7 @@ def main(cl_param):
 
     aux.SLOPE_RETR = False
     inversion.__set_up_retrieval()
-    
+    print(inp.FORWARD)
     if not inp.FORWARD:
         '''
         Start the iteration using the chosen microwindows
