@@ -201,6 +201,7 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
     #Entferne doppelte Drucklevel
     pp = [i for i in reversed(sorted(set(pp)))]
     index = []
+    print(p)
     for ii in range(len(p)-1):
         if(p[ii] == p[ii+1]):
             continue
