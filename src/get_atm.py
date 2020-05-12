@@ -115,7 +115,7 @@ def interpolate_to_altitude_grid(atm):
     atm_out['TMP'] = np.interp(np.array(alt_grid), np.array(atm[1]), np.array(atm[TEMP]))
     atm_out['HMD'] = np.interp(np.array(alt_grid), np.array(atm[1]), np.array(atm[HUM]))
     atm_out['ALT'] = alt_grid
-
+    print(alt_grid)
     return atm_out
     
 def get_atm():

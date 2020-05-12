@@ -148,8 +148,6 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
 
     aux.CLOUD_BASE = [min(levels_cloud[layers_cloud])]
     aux.CLOUD_TOP =  [max(levels_cloud[layers_cloud])]
-    print(aux.CLOUD_BASE)
-    print(aux.CLOUD_TOP)
     
     if inp.CLOUD_BASE[0] != -1:
         aux.CLOUD_BASE = inp.CLOUD_BASE
