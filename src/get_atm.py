@@ -89,6 +89,7 @@ def interpolate_to_altitude_grid(atm):
     #        break
     alt_grid = atm[1]
     alt_grid = alt_grid[np.where(alt_grid <= inp.MAX_ALT)[0]]
+    alt_high = alt_grid[-1]
 
     '''
     The first layer is the ground layer
@@ -96,7 +97,7 @@ def interpolate_to_altitude_grid(atm):
     alt_low = atm[1][0]
     if alt_low == 0.0:
         alt_low = 0.05
-    print(alt_low, alt_high, nlayer)
+    #print(alt_low, alt_high, nlayer)
     #alt_grid = atm[1]
     #alt_grid = np.geomspace(alt_low, alt_high, nlayer)
     
