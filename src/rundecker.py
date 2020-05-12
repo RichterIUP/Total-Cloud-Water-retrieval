@@ -201,7 +201,6 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
     #Entferne doppelte Drucklevel
     pp = [i for i in reversed(sorted(set(pp)))]
     index = []
-    print(p)
     for ii in range(len(p)-1):
         if(p[ii] == p[ii+1]):
             continue
@@ -215,7 +214,6 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
     ww = [w[i] for i in index]
     oo3 = [0.0 for i in index]#[o3_ppm[i] for i in index]
     co2 = [co2_man for i in index]#[co2_ppm[i] for i in index]
-    print(zz)
     
     inlayers = len(zz)
     p_comment = "User supplied profile"
@@ -237,7 +235,7 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
     f.write("-1.\n")
     f.write("%%%\n")
     f.close()
-    exit(-1)
+
     return True
 
 if __name__ == "__main__":
