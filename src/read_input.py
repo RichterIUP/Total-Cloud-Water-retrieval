@@ -183,7 +183,6 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
     aux.ATMOSPHERIC_GRID[3] = humidity+inp.DISTURB_HUMIDITY*humidity
     aux.ATMOSPHERIC_GRID[1][0] = 0.018
     print(aux.ATMOSPHERIC_GRID[1])
-    exit(-1)
     
     return
     
