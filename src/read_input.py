@@ -181,7 +181,8 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
                                                     ["-p", aux.ATMOSPHERIC_GRID[0]])[1]*1000.0)
         inp.HUMIDITY = "g/kg"
     aux.ATMOSPHERIC_GRID[3] = humidity+inp.DISTURB_HUMIDITY*humidity
-    aux.ATMOSPHERIC_GRID[1][0] = 0.018
+    #aux.ATMOSPHERIC_GRID[1][0] = 0.018
+    print(np.unique(aux.ATMOSPHERIC_GRID[0]))
     print(aux.ATMOSPHERIC_GRID[0])
     
     return
