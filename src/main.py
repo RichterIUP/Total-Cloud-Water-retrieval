@@ -60,6 +60,7 @@ def main(cl_param):
 
 
     aux.SLOPE_RETR = False
+    print("inversion.__set_up_retrieval()")
     inversion.__set_up_retrieval()
     print(inp.FORWARD)
     if not inp.FORWARD:
