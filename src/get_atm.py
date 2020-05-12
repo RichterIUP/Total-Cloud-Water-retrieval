@@ -133,7 +133,7 @@ def get_atm():
     '''
     Interpolate the profiles to the desired altitude grid
     '''
-    
+    print(len(aux.CLOUD_LAYERS))
     if len(aux.CLOUD_LAYERS) == 0:
         atm_interpolated = interpolate_to_altitude_grid([pres, alt, temp, humd])
         
