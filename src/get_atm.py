@@ -87,7 +87,7 @@ def interpolate_to_altitude_grid(atm):
         if element >= inp.MAX_ALT:
             alt_high = element
             break
-
+    alt_grid = atm[1]
     print(alt_grid[np.where(alt_grid >= inp.MAX_ALT)[0]])
 
     '''
