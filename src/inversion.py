@@ -297,7 +297,6 @@ def __set_up_retrieval():
     '''
     #if not os.path.exists(aux.LBLDIR):
     if inp.MODELFRAMEWORK == "LBLDIS":
-        print("rL.forward_run")
         rL.forward_run(inp.MCP, [0, 1.0], True, 0)
     
     '''
