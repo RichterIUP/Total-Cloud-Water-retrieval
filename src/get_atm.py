@@ -119,7 +119,6 @@ def interpolate_to_altitude_grid(atm):
     atm_out['TMP'] = np.interp(np.array(alt_grid), np.array(atm[1]), np.array(atm[TEMP]))
     atm_out['HMD'] = np.interp(np.array(alt_grid), np.array(atm[1]), np.array(atm[HUM]))
     atm_out['ALT'] = alt_grid
-    print(alt_grid)
     return atm_out
     
 def get_atm():
@@ -137,7 +136,6 @@ def get_atm():
     '''
     Interpolate the profiles to the desired altitude grid
     '''
-    print(len(aux.CLOUD_LAYERS))
     if len(aux.CLOUD_LAYERS) == 0:
         atm_interpolated = interpolate_to_altitude_grid([pres, alt, temp, humd])
         
