@@ -100,9 +100,11 @@ def interpolate_to_altitude_grid(atm):
     print(alt_low, alt_high, nlayer)
     #alt_grid = atm[1]
     print(len(alt_grid), nlayer)
-    exit(-1)
+    #exit(-1)
     if len(alt_grid) > nlayer:
         alt_grid = np.geomspace(alt_low, alt_high, nlayer)
+    print(len(alt_grid))
+    exit(-1)
     
     '''
     Insert the cloud boundaries into the new altitude grid
