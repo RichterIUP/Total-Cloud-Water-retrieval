@@ -220,7 +220,7 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
     f.write("{:5d} {}\n".format(inlayers, p_comment))
     
     for i in range(inlayers): 
-        f.write("{:10.4f}{:10.4f}{:10.3E}     {}{}   {}\n".format(zz[i], pp[i], tt[i], JCHARP, JCHART, JCHAR))
+        f.write("{:10.3f}{:10.3f}{:10.3E}     {}{}   {}\n".format(zz[i], pp[i], tt[i], JCHARP, JCHART, JCHAR))
         f.write("{:10.3E}{:10.3E}{:10.3E}{:10.3E}{:10.3E}{:10.3E}{:10.3E}\n".format(\
                 ww[i], co2[i], oo3[i], 0, 0, 0, 0))
         
