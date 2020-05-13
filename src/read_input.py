@@ -191,7 +191,7 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
         aux.ATMOSPHERIC_GRID[i] = aux.ATMOSPHERIC_GRID[i][idx_unique_pressure]
     
     if len(height) > 70:
-        aux.ATMOSPHERIC_GRID[1] = np.geomspace(height[0], height[-1], 69)
+        aux.ATMOSPHERIC_GRID[1] = np.geomspace(0.05, height[-1], 69)
         aux.ATMOSPHERIC_GRID[0] = np.interp(aux.ATMOSPHERIC_GRID[1], height, aux.ATMOSPHERIC_GRID[0])
         aux.ATMOSPHERIC_GRID[2] = np.interp(aux.ATMOSPHERIC_GRID[1], height, aux.ATMOSPHERIC_GRID[2])
         aux.ATMOSPHERIC_GRID[3] = np.interp(aux.ATMOSPHERIC_GRID[1], height, aux.ATMOSPHERIC_GRID[3])
