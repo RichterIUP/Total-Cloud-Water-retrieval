@@ -99,7 +99,7 @@ def interpolate_to_altitude_grid(atm):
         alt_low = 0.05
     print(alt_low, alt_high, nlayer)
     #alt_grid = atm[1]
-    print(len(alt_grid))
+    print(len(alt_grid), nlayer)
     exit(-1)
     if len(alt_grid) > nlayer:
         alt_grid = np.geomspace(alt_low, alt_high, nlayer)
