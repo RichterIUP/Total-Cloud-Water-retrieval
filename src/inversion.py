@@ -8,7 +8,7 @@ import sys
 import datetime as dt
 import shutil
 sys.path.append("./src")
-sys.path.append("./src/prowe/clarragroup-run_lblrtm_disort")
+#sys.path.append("./src/prowe/clarragroup-run_lblrtm_disort")
 import numpy as np
 import scipy.signal      as sig
 import numerical

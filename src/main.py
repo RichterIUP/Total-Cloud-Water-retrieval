@@ -23,7 +23,6 @@ import guess_apr
 
 def main(cl_param):
 
-    print("Main()")
     read_input.read_input(cl_param[0], cl_param[1], cl_param[2])
     if cl_param[1] == "TIR":
         inp.WINDOWS = inp.TIR
