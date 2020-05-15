@@ -9,8 +9,8 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_15052020'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_15052020'
 '''
 Path to the binary of LBLRTM
 '''
@@ -161,7 +161,7 @@ MCP_APRIORI = np.array(MCP[:])
 The variance of the a priori and its weighting. This will be converted
 to the S_A matrix (watch comment of LM_INIT)
 '''
-VARIANCE_APRIORI = [5.0**(-2), 5.0**(-2), (500.0)**(-2), (1000.0)**(-2)]
+VARIANCE_APRIORI = [5.0**(-2), 5.0**(-2), (100.0)**(-2), (100.0)**(-2)]
 WEIGHT_APRIORI = 1.0
 
 '''

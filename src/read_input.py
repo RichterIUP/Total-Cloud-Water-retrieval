@@ -111,11 +111,118 @@ def read_testcase(fname):
         aux.O3_PROFILE = np.interp(altitude, ALT_GRID, O3_PROFILE)
     return
     
-def read_input(fname_radiances, fname_atm, fname_clouds):
+
+def read_input(fname):
     '''Read the data from the netCDF4-file
     
-    @param fname_radiances The name of the netCDF4 file
+    @param fname The name of the netCDF4 file
     '''
+    
+    #TODO: AUS DEM FILENAMEN DAS CLOUDFILE UND DAS ATMOSPHAERISCHE PROFIL SUCHEN
+    if inp.TESTCASE:
+        read_testcase(fname)
+        return 
+        
+    dataset = nc.Dataset(fname)
+    aux.FTIR = fname.split("/")[-1]
+    aux.MONTH = aux.FTIR[7:9]
+    aux.DAY = aux.FTIR[9:11]
+    aux.YEAR = aux.FTIR[3:7]
+    aux.HOUR = aux.FTIR[12:14]
+    aux.MINUTE = aux.FTIR[14:16]
+    aux.LAT = dataset.variables['lat'][0]
+    aux.LON = dataset.variables['lon'][0]
+    #f = open("/home/phi.richter/SAMPLES/samples_dship/{}{}{}_{}{}/case_{}{}{}_{}{}.0", "r")
+    #cont = f.readlines()
+    #f.close()
+    #aux.SOLAR_ZENITH_ANGLE = float(90) - float(cont[4].split(":")[-1])
+    aux.SOLAR_ZENITH_ANGLE = dataset.variables['sza'][0]
+    aux.WAVENUMBER_FTIR = np.array(dataset.variables['wavenumber'][:])
+    aux.RADIANCE_FTIR = np.array(dataset.variables['radiance'][:])+inp.OFFSET
+    aux.NOISE_FTIR = aux.calc_noise()#np.array(dataset.variables['stdDev'][:])
+
+    '''
+    Test if there is an additional file with cloud height informations 
+    from cloud radar
+    '''
+    path = ""
+    for element in fname.split("/")[1:-1]:
+        path = path + "/" + element
+    print(path)
+    for file_ in os.listdir(path):
+        if inp.USE_CLOUD_FILES and ("CLOUD" in file_ and "{}{}{}.{}{}".format(aux.YEAR, aux.MONTH, aux.DAY, aux.HOUR, aux.MINUTE) in file_):
+            aux.CLOUD_LAYERS = []
+            cloudfile_= nc.Dataset("{}/{}".format(path, file_))
+            levels = cloudfile_.variables['levels'][:]
+            dz = np.mean(np.ediff1d(levels))
+
+            lwc_lay = cloudfile_.variables['layers_liq'][:]
+            iwc_lay = cloudfile_.variables['layers_ice'][:]
+            lwp = np.sum(lwc_lay) * dz
+            iwp = np.sum(iwc_lay) * dz
+
+            if inp.FI_FROM_CLOUDS:
+                inp.MCP[1] = iwp / (lwp+iwp)
+                inp.MICROPHYSICAL_CLOUD_PARAMETERS = [inp.MCP[:], inp.MCP[:]]
+                inp.MCP_APRIORI = np.array(inp.MCP[:])
+
+            aux.CLOUD_LAYERS_ICE = levels[np.where(iwc_lay > 0.0)[0]]
+            aux.CLOUD_LAYERS_LIQ = levels[np.where(lwc_lay > 0.0)[0]]
+            for kk in range(len(lwc_lay)):
+                if lwc_lay[kk] > 0.0 or iwc_lay[kk] > 0.0:
+                    aux.CLOUD_LAYERS.append(levels[kk])
+            aux.CLOUD_LAYERS = np.array(sorted(aux.CLOUD_LAYERS))
+            if len(aux.CLOUD_LAYERS) != 0:
+                inp.CLOUD_BASE = [-999]
+                inp.CLOUD_TOP = [-999]
+            break
+    
+    if inp.CLOUD_BASE[0] == -1:
+        aux.CLOUD_BASE = [dataset.variables['cloud_base'][0]*1000.0]#m
+    else:
+        aux.CLOUD_BASE = inp.CLOUD_BASE
+    if inp.CLOUD_TOP[0] == -1:
+        aux.CLOUD_TOP = [dataset.variables['cloud_top'][0]*1000.0]#m
+    else:
+        aux.CLOUD_TOP = inp.CLOUD_TOP
+    #if inp.TESTCASE:
+    #    aux.CLOUD_BASE = aux.CLOUD_TOP
+
+    altitude = np.array(dataset.variables['z'][:])
+    if inp.HUMIDITY == "g/kg":
+        key_humd = 'sh'
+    elif inp.HUMIDITY == "g/m3":
+        key_humd = 'ah'
+    elif inp.HUMIDITY == 'ppmv':
+        key_humd = 'h2o'
+    elif inp.HUMIDITY == "%":
+        key_humd = "rh"
+    pressure_pre_int = np.array(dataset.variables['P'][:])
+    temperature_pre_int = np.array(dataset.variables['T'][:])
+    humidity_pre_int = np.array(dataset.variables[key_humd][:])
+    if inp.HUMIDITY == "%":
+        humidity_pre_int = np.array(convert_humidity.convert(["-r", humidity_pre_int], \
+                                                             ["-tk", temperature_pre_int], \
+                                                             ["-p", pressure_pre_int])[1]*1000.0)
+        inp.HUMIDITY = "g/kg"
+    if len(altitude) > 70:
+        pressure = np.interp(RED_ALT, altitude, pressure_pre_int)
+        temperature = np.interp(RED_ALT, altitude, temperature_pre_int+inp.DISTURB_TEMPERATURE)
+        humidity = np.interp(RED_ALT, altitude, humidity_pre_int)
+        altitude = RED_ALT
+
+    aux.ATMOSPHERIC_GRID = [pressure, altitude, temperature, humidity+inp.DISTURB_HUMIDITY*humidity]
+    aux.CO2_PROFILE = np.array(dataset.variables['co2'][:])
+    aux.O3_PROFILE = np.array(dataset.variables['o3'][:])
+    dataset.close()
+    return
+    
+'''
+def read_input(fname_radiances, fname_atm, fname_clouds):
+    ###Read the data from the netCDF4-file
+    #
+    #@param fname_radiances The name of the netCDF4 file
+    #
     
     if inp.TESTCASE:
         read_testcase(fname_radiances)
@@ -128,9 +235,9 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
     aux.HOUR = aux.FTIR[12:14]
     aux.MINUTE = aux.FTIR[14:16]
     
-    '''
-    Read the geoposition, sza and spectral radiances
-    '''
+    ###
+    #Read the geoposition, sza and spectral radiances
+    ###
     with nc.Dataset(fname_radiances, "r") as dataset:
         aux.LAT = dataset.variables['lat'][0]
         aux.LON = dataset.variables['lon'][0]
@@ -139,9 +246,9 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
         aux.RADIANCE_FTIR = np.array(dataset.variables['radiance'][:])+inp.OFFSET
         aux.NOISE_FTIR = np.array(dataset.variables['stdDev'][:])
         
-    '''
-    Read the cloud height
-    '''
+    ###
+    #Read the cloud height
+    ###
     with nc.Dataset(fname_clouds, "r") as dataset:
         layers_cloud = np.array(dataset.variables['layers_cloud'][:], dtype=bool)
         levels_cloud = np.array(dataset.variables['levels'][:])
@@ -154,9 +261,9 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
     if inp.CLOUD_TOP[0] != -1:
         aux.CLOUD_TOP = inp.CLOUD_TOP
 
-    '''
-    Read atmospheric profile
-    '''
+    ###
+    #Read atmospheric profile
+    ###
     if inp.HUMIDITY == "g/kg":
         key_humd = 'sh'
     elif inp.HUMIDITY == "g/m3":
@@ -184,19 +291,19 @@ def read_input(fname_radiances, fname_atm, fname_clouds):
     aux.ATMOSPHERIC_GRID[3] = humidity+inp.DISTURB_HUMIDITY*humidity
     idx_unique_pressure = np.array(sorted(np.unique(aux.ATMOSPHERIC_GRID[0], return_index=True)[1]))
 
-    '''
-    Remove layers with identical pressure
-    '''
+    ###
+    #Remove layers with identical pressure
+    ###
     for i in range(4):
         aux.ATMOSPHERIC_GRID[i] = aux.ATMOSPHERIC_GRID[i][idx_unique_pressure]
     
     if len(height) > 70:
-        aux.ATMOSPHERIC_GRID[1] = np.geomspace(height[0], height[-1], 69)
+        aux.ATMOSPHERIC_GRID[1] = np.geomspace(height[0], inp.MAX_ALT, aux.TOTAL_NUM_OF_LAYER)
         aux.ATMOSPHERIC_GRID[0] = np.interp(aux.ATMOSPHERIC_GRID[1], height, aux.ATMOSPHERIC_GRID[0])
         aux.ATMOSPHERIC_GRID[2] = np.interp(aux.ATMOSPHERIC_GRID[1], height, aux.ATMOSPHERIC_GRID[2])
         aux.ATMOSPHERIC_GRID[3] = np.interp(aux.ATMOSPHERIC_GRID[1], height, aux.ATMOSPHERIC_GRID[3])
     return
-    
+'''    
 if __name__ == '__main__':
     inp.TESTCASE = False
     read_input("radiances/nyem.20200506_184033.nc", \

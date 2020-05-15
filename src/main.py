@@ -23,7 +23,7 @@ import guess_apr
 
 def main(cl_param):
 
-    read_input.read_input(cl_param[0], cl_param[1], cl_param[2])
+    read_input.read_input(cl_param[0])#, cl_param[1], cl_param[2])
     if cl_param[1] == "TIR":
         inp.WINDOWS = inp.TIR
     elif cl_param[1] == "FIR":
@@ -65,7 +65,7 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-
+.3#
         inp.FORWARD = True
         apr_list = []
         counter = 0 
@@ -135,6 +135,6 @@ def main(cl_param):
     
 if __name__ == '__main__':
 
-    cl_param = [sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]]
+    cl_param = [sys.argv[1], sys.argv[2]]#, sys.argv[3], sys.argv[4]]
     
     main(cl_param)
