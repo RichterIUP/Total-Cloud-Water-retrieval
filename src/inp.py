@@ -65,7 +65,7 @@ Resolution of the spectrum in cm-1. FTIR spectral radiances will be interpolated
 to the chosen resolution. If RESOLUTION is a negative number, then no interpolation
 is done. OPD is the Optical path difference of the spectrometer
 '''
-RESOLUTION = 0.3#2.0#0.3
+RESOLUTION = 2.0#0.3
 OPD = 3.0
 
 '''
@@ -92,7 +92,7 @@ NUM_OF_CPU = 6
 If the present spectrum is a testcase of Cox et al. (2016), then this should
 be true. This modifies the cloud boundaries and allows to add noise manually
 '''
-TESTCASE = False
+TESTCASE = True
 
 '''
 Convergence criterion due to Rodgers (2000):
@@ -125,7 +125,7 @@ DISTURB_TEMPERATURE = 0.0
 '''
 Disturb the humidity relative to the value from the radiosonde
 '''
-DISTURB_HUMIDITY = 0.0
+DISTURB_HUMIDITY = 0.25
 
 '''
 Add an offset to the spectrum (mW/[sr * m2 * cm-1])
