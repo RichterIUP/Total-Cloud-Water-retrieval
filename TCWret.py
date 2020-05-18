@@ -17,4 +17,8 @@ if __name__ == '__main__':
     #cloud_file = "/home/phi.richter/cloud_files/CLOUDS.20200506.184033.nc"#element.split(" ")[2].rstrip()
     #subprocess.call(["python3", "src/main.py", "{}".format(radiances_files), "{}".format(atmospheric_prof), "{}".format(cloud_file), "TIR"])
     for element in cont:
-        subprocess.call(["python3", "src/main.py", "{}".format(element.rstrip()), "TIR"])
+        #print(element.rstrip())
+        spec = "/{}".format(element.split("//")[-1].rstrip())
+        #print(spec)
+        #exit(-1)
+        subprocess.call(["python3", "src/main.py", "{}".format(spec), "TIR"])

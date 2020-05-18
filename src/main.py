@@ -65,7 +65,6 @@ def main(cl_param):
         '''
         Start the iteration using the chosen microwindows
         '''
-.3#
         inp.FORWARD = True
         apr_list = []
         counter = 0 
