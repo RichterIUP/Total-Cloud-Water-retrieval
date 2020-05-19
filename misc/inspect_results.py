@@ -25,8 +25,9 @@ def read_csv(fname):
         cloud = np.array([np.float_(f.variables['cloud_base'][:]), np.float_(f.variables['cloud_top'][:])])
         x_a = np.array(f.variables['x_a'][:].copy())
         x_a_err = np.array(f.variables['x_a_err'][:].copy())
-        
-        
+        pos = [0.0, 0.0]
+        pos[0] = f.variables['lat'][0].copy()
+        pos[1] = f.variables['lon'][0].copy()
         print("Results:")
         print("Filename: {}".format(fname))
         print("Average Cloud temperature (K): {}\n".format(ctemp[0]))
@@ -44,7 +45,7 @@ def read_csv(fname):
         print("Ice Water Path (g/m2): ({} +- {})".format(np.float_(iwp[0]), np.float_(iwp[1])))
         print("Total Water Path (g/m2): ({} +- {})".format(np.float_(twp[0]), np.float_(twp[1])))
 
-    return [tt, fi, rl, ri, lwp, iwp, twp, rms, ctemp, pwv, conv, cloud, x_a, x_a_err, wn, res]
+    return [tt, fi, rl, ri, lwp, iwp, twp, rms, ctemp, pwv, conv, cloud, pos, x_a, x_a_err, wn, res]
 
 if __name__ == '__main__':
     fname = sys.argv[1]
@@ -53,7 +54,7 @@ if __name__ == '__main__':
     else:
         files = sorted(os.listdir(fname))
         f = open("out.csv", "w")
-        f.write("fname,date,tl,dtl,dtl_res,ti,dti,dti_res,rl,drl,drl_res,ri,dri,dri_res,lwp,dlwp,dlwp_res,iwp,diwp,diwp_res,twp,dtwp,dtwp_res,rms,ctemp,pwv,conv,cbase,ctop\n")
+        f.write("fname,date,lat,lon,tl,dtl,dtl_res,ti,dti,dti_res,rl,drl,drl_res,ri,dri,dri_res,lwp,dlwp,dlwp_res,iwp,diwp,diwp_res,twp,dtwp,dtwp_res,rms,ctemp,pwv,conv,cbase,ctop\n")
         for element in files:
             #try:
             if True:
@@ -89,7 +90,11 @@ if __name__ == '__main__':
                 conv = out[10][0]
                 cbase = out[11][0]
                 ctop = out[11][1]
-                f.write("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n".format(element, date, tt, dtt, dtt_res, fi, dfi, dfi_res, rl, drl, drl_res, ri, dri, dri_res, lwp, dlwp, dlwp_res, iwp, diwp, diwp_res, twp, dtwp, dtwp_res, rms, ctemp, pwv, conv, cbase, ctop))
+                lat = out[12][0]
+                lon = out[12][1]
+                if dtt == dfi and dtt == 0.0:
+                    continue
+                f.write("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n".format(element, date, lat,lon, tt, dtt, dtt_res, fi, dfi, dfi_res, rl, drl, drl_res, ri, dri, dri_res, lwp, dlwp, dlwp_res, iwp, diwp, diwp_res, twp, dtwp, dtwp_res, rms, ctemp, pwv, conv, cbase, ctop))
             #except Exception:
             #    pass
         f.close()
