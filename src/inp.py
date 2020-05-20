@@ -9,8 +9,8 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_19052020'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_19052020'
+PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_20052020_RadianceOffset'
+RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_20052020_RadianceOffset'
 '''
 Path to the binary of LBLRTM
 '''
@@ -65,7 +65,7 @@ Resolution of the spectrum in cm-1. FTIR spectral radiances will be interpolated
 to the chosen resolution. If RESOLUTION is a negative number, then no interpolation
 is done. OPD is the Optical path difference of the spectrometer
 '''
-RESOLUTION = 0.3#2.0#0.3
+RESOLUTION = 0.3
 OPD = 3.0
 
 '''
@@ -130,7 +130,7 @@ DISTURB_HUMIDITY = 0.0
 '''
 Add an offset to the spectrum (mW/[sr * m2 * cm-1])
 '''
-OFFSET = 0.0
+OFFSET = -2.0
 
 '''
 Parameters for the first guess: tau_total, f_ice, reff_liq, reff_ice
