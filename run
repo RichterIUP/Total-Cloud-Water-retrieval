@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=TCWret
+#SBATCH --job-name=TCWret_CRE
 #SBATCH -n 9
 #SBATCH -N 1
 #SBATCH -t 4320
@@ -17,4 +17,5 @@ module load Python
 module load matplotlib
 module load netcdf4-python
 
-python3 TCWret.py
+#python3 TCWret.py
+python3 Calculate_CRE.py

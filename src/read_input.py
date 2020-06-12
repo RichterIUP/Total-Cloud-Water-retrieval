@@ -112,7 +112,7 @@ def read_testcase(fname):
     return
     
 
-def read_input(fname):
+def read_input(fname, calc_cre=False):
     '''Read the data from the netCDF4-file
     
     @param fname The name of the netCDF4 file
@@ -137,8 +137,13 @@ def read_input(fname):
     #f.close()
     #aux.SOLAR_ZENITH_ANGLE = float(90) - float(cont[4].split(":")[-1])
     aux.SOLAR_ZENITH_ANGLE = dataset.variables['sza'][0]
-    aux.WAVENUMBER_FTIR = np.arange(25, 2700, 0.3)#np.array(dataset.variables['wavenumber'][:])
-    aux.RADIANCE_FTIR = np.zeros(len(aux.WAVENUMBER_FTIR))#np.array(dataset.variables['radiance'][:])+inp.OFFSET
+    if calc_cre:
+        aux.WAVENUMBER_FTIR = np.arange(0, 3000, 0.3)#np.array(dataset.variables['wavenumber'][:])
+        aux.RADIANCE_FTIR = np.zeros(len(aux.WAVENUMBER_FTIR))#np.array(dataset.variables['radiance'][:])+inp.OFFSET
+    else:
+        aux.RADIANCE_FTIR = np.array(dataset.variables['radiance'][:])+inp.OFFSET
+        aux.WAVENUMBER_FTIR = np.array(dataset.variables['wavenumber'][:])
+        
     aux.NOISE_FTIR = aux.calc_noise()#np.array(dataset.variables['stdDev'][:])
 
     '''

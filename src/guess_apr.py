@@ -16,7 +16,7 @@ def guess_apr(tt, fi, rl, ri):
 
     tl=tt*(1-fi)
     ti=tt*fi
-    rms = inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(tt+fi+rl+10.*ri))
+    rms = inversion.__only_fwd(tau_liq=tl, tau_ice=ti, reff_liq=rl, reff_ice=ri, filenum=int(tt+fi+rl+10.*ri))[0]
        
     lock = threading.Lock()    
     lock.acquire()

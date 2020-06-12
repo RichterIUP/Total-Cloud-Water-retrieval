@@ -355,7 +355,7 @@ def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=Fals
     for ii in range(len(aux.WAVENUMBER_FTIR)):
         f.write("{}\n".format(aux.RADIANCE_FTIR[ii]))
     f.close()
-    return rms
+    return [rms, wavenumber, radiance]
 
 ################################################################################
 
