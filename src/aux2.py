@@ -320,6 +320,7 @@ def calc_noise():
         '''
         Use the standard deviation retrieved from the spectrum
         '''
+        '''
         wavenumber = []
         spectral_radiance = []
         histogram = []
@@ -345,7 +346,20 @@ def calc_noise():
                     ra_window = []
         for element in spectral_radiance:
             stdDev.append(np.std(histogram))
+        '''
+        background = lambda x, a, b, c: a * x**2 + b * x + c
 
+        wavenumber_window = []
+        histogram = []
+    
+        for window in range(number_of_windows):
+            wavenumber_window = wavenumber[(wavenumber > microwindows[window][0]) &\
+                                            (wavenumber < microwindows[window][1])]
+            intersect, idx_0, idx_1 = np.intersect1d(wavenumber, wavenumber_window, return_indices=True)
+            radiance_window = radiance[idx_0]
+            popt, pcov = opt.curve_fit(background, wavenumber_window, radiance_window)
+            histogram += list(radiance_window - background(wavenumber_window, popt[0], popt[1], popt[2]))
+        stdDev = np.std(histogram)
 
     return stdDev
 

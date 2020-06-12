@@ -79,14 +79,7 @@ def main(cl_param):
         
         wavenumber_cloudy = np.concatenate((wavenumber_cloudy, wavenumber))
         radiance_cloudy = np.concatenate((radiance_cloudy, radiance))
-        
-        #if reset_wn:
-        #    wn_low = wn_high
-        #    wn_high = np.float64(cl_param[6])
-        #    reset_wn = False
-        #else:
-        #    break
-            
+
     cre = pd.DataFrame({'wavenumber_clear' : wavenumber_clear, \
                         'radiance_clear': radiance_clear, \
                         'wavenumber_cloudy': wavenumber_cloudy, \

@@ -166,12 +166,12 @@ if __name__ == '__main__':
             "ssp_db.Plate.gamma.0p100", \
             "ssp_db.SolidCol.gamma.0p100", \
             "ssp_db.Spheroid.gamma.0p100"]
-    [liq, ice] = read_databases("../ssp/ssp_db.mie_wat.gamma_sigma_0p100", "../ssp/{}".format(ice_db[5]))
-    lwp = calc_lwp(5.0, 0.0, 8.0, 0.0)[0]
-    iwp = calc_iwp(6.0, 0.0, 20.0, 0.0, ice)[0]
-    print(lwp, iwp)
-    '''
-    for database in ice_db:
+    #[liq, ice] = read_databases("../ssp/ssp_db.mie_wat.gamma_sigma_0p100", "../ssp/{}".format(ice_db[5]))
+    #lwp = calc_lwp(5.0, 0.0, 8.0, 0.0)[0]
+    #iwp = calc_iwp(6.0, 0.0, 20.0, 0.0, ice)[0]
+    #print(lwp, iwp)
+
+    for database in [ice_db[-2]]:
         [liq, ice] = read_databases("../ssp/ssp_db.mie_wat.gamma_sigma_0p100", "../ssp/{}".format(database))
         
         ext = []
@@ -202,7 +202,8 @@ if __name__ == '__main__':
 
         #plt.tick_params(labelsize=fs)
         plt.grid(True)
-        plt.savefig("/home/philipp/Seafile/PhD/Home_Office/Datenpaper/{}.png".format(database))
+        plt.show()
+        #plt.savefig("/home/philipp/Seafile/PhD/Home_Office/Datenpaper/{}.png".format(database))
         plt.close()
         plt.clf()
-    '''
+

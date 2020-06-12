@@ -257,7 +257,9 @@ def __set_up_retrieval():
     '''
     if not os.path.exists("{}".format(aux.LBLDIR)):
         os.mkdir("{}".format(aux.LBLDIR))
-
+    else:
+        shutil.rmtree("{}".format(aux.LBLDIR))
+        os.mkdir("{}".format(aux.LBLDIR))
     '''
     Prepare the atmospheric data
     '''
