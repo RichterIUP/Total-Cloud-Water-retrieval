@@ -53,7 +53,7 @@ def main(cl_param):
     inp.FORWARD = True
 
 
-    wn_low = [200.0, 1500.0]#np.float64(cl_param[5])
+    wn_low = [150.0, 1500.0]#np.float64(cl_param[5])
     wn_high= [1500.0, 2600.0]#np.float64(cl_param[6])
     
     wavenumber_clear = [None for ii in range(2)]
@@ -65,7 +65,7 @@ def main(cl_param):
     inp.MCP = np.array([np.float64(cl_param[ii]) for ii in range(1, 5)])
 
     
-    for jj in range(2):
+    for jj in [1]:#range(2):
         inp.WINDOWS = [0]
         aux.MICROWINDOWS = [[wn_low[jj], wn_high[jj]]]
         print(aux.MICROWINDOWS)
