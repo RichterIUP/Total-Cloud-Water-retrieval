@@ -54,7 +54,7 @@ def get_month(num):
 #= 4  subarctic summer model
 #= 5  subarctic winter model
 #= 6  U.S. standard 1976
-def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
+def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample, wnum1, wnum2):
     co2_man = 4*200.0
     model = 3#LBLRTM user defined wavenumber range
     aprofile = atm
@@ -66,8 +66,8 @@ def rundecker(z, p, t, w, tape5, co2_ppm, o3_ppm, atm, hmd_unit, sample):
     #sfc_emis=0.98
     sc=3
     od_only=1
-    wnum1=300.0
-    wnum2=2100.0
+    #wnum1=300.0
+    #wnum2=2100.0
     #tape5='tp5'
     view_angle=0.0
     
