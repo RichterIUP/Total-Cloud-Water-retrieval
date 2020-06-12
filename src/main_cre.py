@@ -56,11 +56,14 @@ def main(cl_param):
     wn_low = [200.0, 1500.0]#np.float64(cl_param[5])
     wn_high= [1500.0, 2600.0]#np.float64(cl_param[6])
     
-    wavenumber_clear = np.array([])
-    radiance_clear = np.array([])
+    wavenumber_clear = [None for ii in range(2)]
+    radiance_clear = [None for ii in range(2)]
     
-    wavenumber_cloudy = np.array([])
-    radiance_cloudy = np.array([])
+    wavenumber_cloudy =  [None for ii in range(2)]
+    radiance_cloudy = [None for ii in range(2)]
+    
+    inp.MCP = np.array([np.float64(cl_param[ii]) for ii in range(1, 5)])
+
     
     for jj in range(2):
         inp.WINDOWS = [0]
@@ -70,20 +73,13 @@ def main(cl_param):
         '''
         Get clear sky and cloudy sky radiances
         '''
-        inp.MCP = np.array([np.float64(cl_param[ii]) for ii in range(1, 5)])
-        [wavenumber, radiance] = inversion.__set_up_retrieval()    
-        wavenumber_clear = np.concatenate((wavenumber_clear, wavenumber))
-        radiance_clear = np.concatenate((radiance_clear, radiance))
-        
-        [rms, wavenumber, radiance] = inversion.retrieve()
-        
-        wavenumber_cloudy = np.concatenate((wavenumber_cloudy, wavenumber))
-        radiance_cloudy = np.concatenate((radiance_cloudy, radiance))
+        [wavenumber_clear[jj], radiance_clear[jj]] = inversion.__set_up_retrieval()    
+        [rms, wavenumber_cloudy[jj], radiance_cloudy[jj]] = inversion.retrieve()
 
-    cre = pd.DataFrame({'wavenumber_clear' : wavenumber_clear, \
-                        'radiance_clear': radiance_clear, \
-                        'wavenumber_cloudy': wavenumber_cloudy, \
-                        'radiance_cloudy': radiance_cloudy})
+    cre = pd.DataFrame({'wavenumber_clear' : np.concatenate((wavenumber_clear[0], wavenumber_clear[1])), \
+                        'radiance_clear':    np.concatenate((radiance_clear[0], radiance_clear[1])), \
+                        'wavenumber_cloudy': np.concatenate((wavenumber_cloudy[0], wavenumber_cloudy[1])), \
+                        'radiance_cloudy':   np.concatenate((radiance_cloudy[0], wavenumber_cloudy[1]))})
     cre.to_csv("{}/results_cre.csv".format(inp.PATH), index=False)
     return
     
