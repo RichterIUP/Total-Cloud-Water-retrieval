@@ -47,7 +47,7 @@ def main(cl_param):
     if inp.FORWARD:
         inp.WINDOWS = [0]
         #aux.MICROWINDOWS = [[770., 1200.]]
-        aux.MICROWINDOWS = [[10., 2600.]]
+        aux.MICROWINDOWS = [inp.FWD_WINDOWS]
     '''
     Create all the necessary folders
     '''
