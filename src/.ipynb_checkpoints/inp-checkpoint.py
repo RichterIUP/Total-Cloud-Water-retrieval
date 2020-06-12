@@ -65,7 +65,7 @@ Resolution of the spectrum in cm-1. FTIR spectral radiances will be interpolated
 to the chosen resolution. If RESOLUTION is a negative number, then no interpolation
 is done. OPD is the Optical path difference of the spectrometer
 '''
-RESOLUTION = 0.3
+RESOLUTION = 4.0#0.3
 OPD = 3.0
 
 '''
