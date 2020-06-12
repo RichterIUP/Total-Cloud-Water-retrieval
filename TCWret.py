@@ -21,5 +21,5 @@ if __name__ == '__main__':
     #spec = "/{}".format(element.split("//")[-1].rstrip())
     #print(spec)
     #exit(-1)
-    spec = "/home/phi.richter/Emission_Data//home/phi.richter/Emission_Data/PS.20170611_141300.nc"
+    spec = "/home/phi.richter/Emission_Data/PS.20170611_141300.nc"
     subprocess.call(["python3", "src/main.py", "{}".format(spec), "TIR"])
