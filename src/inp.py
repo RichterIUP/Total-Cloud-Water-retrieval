@@ -213,7 +213,7 @@ If this is true, then a forward simulation (after a possible retrieval)
 will be performed
 '''
 FORWARD = True
-FWD_WINDOWS = [300., 2600.]
+FWD_WINDOWS = [350., 2050.]
 
 '''
 If this is true, then the calculated radiances will be written to lbldis.spec
