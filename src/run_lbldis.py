@@ -117,11 +117,13 @@ class LBLDIS:
         '''
         Write the configuration file for LBLRTM
         '''
+        wavenumber_low = aux.MICROWINDOWS[inp.WINDOWS[0]][0]-50.0
+        wavenumber_high = aux.MICROWINDOWS[inp.WINDOWS[-1]][-1]+50.0
         rd.rundecker(self.__radio['height'], self.__radio['pressure'], \
                      self.__radio['temperature'], self.__radio['humidity'], \
                      "{}".format(aux.LBLTP5), co2_ppm=aux.CO2_PROFILE, \
                      o3_ppm=aux.O3_PROFILE, atm=inp.PREDEF_ATM, hmd_unit=hmd_unit, \
-                     sample = 4.0)
+                     sample = 4.0, wnum1=wavenumber_low, wnum2=wavenumber_high)
 
         '''
         Run LBLRTM
