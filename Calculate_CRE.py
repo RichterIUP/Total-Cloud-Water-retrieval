@@ -5,8 +5,6 @@ Entrance point for TCWret. Prepare the data and call the iteration
 
 import sys
 import os
-import datetime as dt
-import time
 import subprocess
 import shutil
 
@@ -23,7 +21,7 @@ if __name__ == '__main__':
         if not os.path.exists(path_out):
             os.mkdir(path_out)
         os.chdir(path_out)
-        if not os.path.exists(files[idx])):
+        if not os.path.exists(files[idx]):
             os.mkdir(files[idx])
         else:
             shutil.rmtree(files[idx])
