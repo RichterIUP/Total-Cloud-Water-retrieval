@@ -24,21 +24,14 @@ import guess_apr
 
 def main(cl_param):
 
-    read_input.read_input(cl_param[0], calc_cre=True)#, cl_param[1], cl_param[2])
-    if cl_param[1] == "TIR":
-        inp.WINDOWS = inp.TIR
-    elif cl_param[1] == "FIR":
-        inp.WINDOWS = inp.FIR_TIR
-    elif cl_param[1] == "FIRo":
-        inp.WINDOWS = inp.FIR
-    elif cl_param[1] == "FIRs":
-        inp.WINDOWS = inp.FIR_MCP
-    elif cl_param[1] == "NIR":
-        inp.WINDOWS = inp.NIR
-    NOW = dt.datetime.now()
-    directory = "{}_{}_{}_{}_{}_{}".format(NOW.month, NOW.day, \
-      NOW.hour, NOW.minute, NOW.second, NOW.microsecond)
-    aux.TIME_INDEX = directory
+    read_input.read_input_cre(cl_param[0])
+    #print(aux.CLOUD_LAYERS)
+    #print(aux.ATMOSPHERIC_GRID[1])
+    #exit(-1)
+    aux.TIME_INDEX = cl_param[-1]
+    inp.RESOLUTION = 1.0
+    
+    #with open()
 
     '''
     Create all the necessary folders
@@ -53,34 +46,29 @@ def main(cl_param):
     inp.FORWARD = True
 
 
-    wn_low = [150.0, 1500.0]#np.float64(cl_param[5])
-    wn_high= [1500.0, 2600.0]#np.float64(cl_param[6])
+    wn_low = np.float64(cl_param[-3])
+    wn_high= np.float64(cl_param[-2])
     
-    wavenumber_clear = [None for ii in range(2)]
-    radiance_clear = [None for ii in range(2)]
-    
-    wavenumber_cloudy =  [None for ii in range(2)]
-    radiance_cloudy = [None for ii in range(2)]
-    
-    inp.MCP = np.array([np.float64(cl_param[ii]) for ii in range(1, 5)])
+    #inp.MCP = np.array([np.float64(cl_param[ii]) for ii in range(1, 5)])
 
     
-    for jj in [1]:#range(2):
-        inp.WINDOWS = [0]
-        aux.MICROWINDOWS = [[wn_low[jj], wn_high[jj]]]
-        print(aux.MICROWINDOWS)
+    inp.WINDOWS = [0]
+    aux.MICROWINDOWS = [[wn_low, wn_high]]
+    print(aux.MICROWINDOWS)
         
-        '''
-        Get clear sky and cloudy sky radiances
-        '''
-        [wavenumber_clear[jj], radiance_clear[jj]] = inversion.__set_up_retrieval()    
-        [rms, wavenumber_cloudy[jj], radiance_cloudy[jj]] = inversion.retrieve()
+    '''
+    Get clear sky and cloudy sky radiances
+    '''
+    [wavenumber_clear, radiance_clear] = inversion.__set_up_retrieval()    
+    [rms, wavenumber_cloudy, radiance_cloudy] = inversion.retrieve()
 
-    cre = pd.DataFrame({'wavenumber_clear' : np.concatenate((wavenumber_clear[0], wavenumber_clear[1])), \
-                        'radiance_clear':    np.concatenate((radiance_clear[0], radiance_clear[1])), \
-                        'wavenumber_cloudy': np.concatenate((wavenumber_cloudy[0], wavenumber_cloudy[1])), \
-                        'radiance_cloudy':   np.concatenate((radiance_cloudy[0], wavenumber_cloudy[1]))})
-    cre.to_csv("{}/results_cre.csv".format(inp.PATH), index=False)
+    cre = pd.DataFrame({'wavenumber_clear' : wavenumber_clear, \
+                        'radiance_clear':    radiance_clear, \
+                        'wavenumber_cloudy': wavenumber_cloudy, \
+                        'radiance_cloudy':   radiance_cloudy})
+    outfile = "{}/results_cre_{}_{}.csv".format(inp.PATH, wn_low, wn_high)
+    cre.to_csv(outfile, index=False)
+    print(outfile)
     return
     
 if __name__ == '__main__':

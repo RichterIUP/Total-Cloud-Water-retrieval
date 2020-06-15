@@ -65,21 +65,43 @@ def read_testcase(fname):
     
     with nc.Dataset(fname) as dataset:
         aux.FTIR = fname.split("/")[-1]
-
+        #month = aux.FTIR[7:9]
+        #day = aux.FTIR[9:11]
+        #year = aux.FTIR[3:7]
+        #hour = aux.FTIR[12:14]
+        #minute = aux.FTIR[14:16]
         aux.LAT = dataset.variables['lat'][0]
         aux.LON = dataset.variables['lon'][0]
         aux.SOLAR_ZENITH_ANGLE = dataset.variables['sza'][0]
         if aux.SOLAR_ZENITH_ANGLE > 90.0:
             aux.SOLAR_ZENITH_ANGLE = -1.0
-
+            
+        #aux.WAVENUMBER_FTIR = []
+        #aux.RADIANCE_FTIR = []
+        #with open("/home/phi.richter/TCWret/OUTFOLDER/simulation_2012042117_cld1_0003_ch2_singleLayer.nc/4_16_23_6_57_792271/wn.spec") as f:
+        #    cont = f.readlines()
+        #    for ii in cont:
+        #        aux.WAVENUMBER_FTIR.append(float(ii))
+        #aux.WAVENUMBER_FTIR = np.array(aux.WAVENUMBER_FTIR)
+        
+        #with open("/home/phi.richter/TCWret/OUTFOLDER/simulation_2012042117_cld1_0003_ch2_singleLayer.nc/4_16_23_6_57_792271/lbldis.spec") as f:
+        #    cont = f.readlines()
+        #    for ii in cont:
+        #        aux.RADIANCE_FTIR.append(float(ii))
+        #aux.WAVENUMBER_FTIR = np.array(aux.WAVENUMBER_FTIR)
+        #aux.RADIANCE_FTIR = np.array(aux.RADIANCE_FTIR)
         aux.WAVENUMBER_FTIR = np.array(dataset.variables['nu_cld'][:])
         aux.RADIANCE_FTIR = np.array(dataset.variables['rad_cld_down'][:])+inp.OFFSET
-
+        #plt.plot(aux.WAVENUMBER_FTIR, aux.RADIANCE_FTIR)
+        #plt.show()
         aux.NOISE_FTIR = np.array([0.0 for ii in range(len(aux.RADIANCE_FTIR))])
         cbh_liq = dataset.variables['cldbase_liq'][:]
         cbh_ice = dataset.variables['cldbase_ice'][:]
         cth_liq = dataset.variables['cldtop_liq'][:]
         cth_ice = dataset.variables['cldtop_ice'][:]
+        
+      
+
 
         if inp.CLOUD_BASE[0] == -1:
             if np.isnan(cbh_liq) and not np.isnan(cbh_ice): 
@@ -111,8 +133,7 @@ def read_testcase(fname):
         aux.O3_PROFILE = np.interp(altitude, ALT_GRID, O3_PROFILE)
     return
     
-
-def read_input(fname, calc_cre=False):
+def read_input(fname):
     '''Read the data from the netCDF4-file
     
     @param fname The name of the netCDF4 file
@@ -137,13 +158,8 @@ def read_input(fname, calc_cre=False):
     #f.close()
     #aux.SOLAR_ZENITH_ANGLE = float(90) - float(cont[4].split(":")[-1])
     aux.SOLAR_ZENITH_ANGLE = dataset.variables['sza'][0]
-    if calc_cre:
-        aux.WAVENUMBER_FTIR = np.arange(0, 3000, 0.3)#np.array(dataset.variables['wavenumber'][:])
-        aux.RADIANCE_FTIR = np.zeros(len(aux.WAVENUMBER_FTIR))#np.array(dataset.variables['radiance'][:])+inp.OFFSET
-    else:
-        aux.RADIANCE_FTIR = np.array(dataset.variables['radiance'][:])+inp.OFFSET
-        aux.WAVENUMBER_FTIR = np.array(dataset.variables['wavenumber'][:])
-        
+    aux.WAVENUMBER_FTIR = np.array(dataset.variables['wavenumber'][:])
+    aux.RADIANCE_FTIR = np.array(dataset.variables['radiance'][:])+inp.OFFSET
     aux.NOISE_FTIR = aux.calc_noise()#np.array(dataset.variables['stdDev'][:])
 
     '''
@@ -222,129 +238,7 @@ def read_input(fname, calc_cre=False):
     dataset.close()
     return
     
-def read_input_cre(fname):
-    dataset = nc.Dataset(fname)
-    aux.FTIR = fname.split("/")[-1]
-    aux.MONTH = aux.FTIR[15:17]
-    aux.DAY = aux.FTIR[17:19]
-    aux.YEAR = aux.FTIR[11:15]
-    aux.HOUR = aux.FTIR[20:22]
-    aux.MINUTE = aux.FTIR[22:24]
-    aux.LAT = 0.0#dataset.variables['lat'][0]
-    aux.LON = 0.0#dataset.variables['lon'][0]
-    
-    aux.WAVENUMBER_FTIR = np.arange(0, 3000, 0.3)#np.array(dataset.variables['wavenumber'][:])
-    aux.RADIANCE_FTIR = np.zeros(len(aux.WAVENUMBER_FTIR))#np.array(dataset.variables['radiance'][:])+inp.OFFSET
-    aux.NOISE_FTIR = np.zeros(len(aux.WAVENUMBER_FTIR))
-    aux.SOLAR_ZENITH_ANGLE = 0.0#dataset.variables['sza'][0]   
-    pressure = dataset.variables['pressure'][:]
-    altitude = dataset.variables['height_level'][:]
-    temperature = dataset.variables['temperature'][:]
-    humidity = dataset.variables['rH'][:]
-    inp.HUMIDITYY = "%"
-    aux.ATMOSPHERIC_GRID = [pressure, altitude, temperature, humidity]
-    inp.CLOUD_BASE = [-999]
-    inp.CLOUD_TOP = [-999]
-    
-    aux.CLOUD_LAYERS = dataset.variables['cloud_level'][:]
-    inp.FORWARD = True
-    tl = np.float64(dataset.variables['tau_liq'][:])
-    ti = np.float64(dataset.variables['tau_ice'][:])
-    rl = np.float64(dataset.variables['rliq'][:])
-    ri = np.float64(dataset.variables['rice'][:])
-    inp.MCP = np.array([tl, ti, rl, ri])
-
-    dataset.close()
-
-'''
-def read_input(fname_radiances, fname_atm, fname_clouds):
-    ###Read the data from the netCDF4-file
-    #
-    #@param fname_radiances The name of the netCDF4 file
-    #
-    
-    if inp.TESTCASE:
-        read_testcase(fname_radiances)
-        return 
-        
-    aux.FTIR = fname_radiances.split("/")[-1]
-    aux.MONTH = aux.FTIR[7:9]
-    aux.DAY = aux.FTIR[9:11]
-    aux.YEAR = aux.FTIR[3:7]
-    aux.HOUR = aux.FTIR[12:14]
-    aux.MINUTE = aux.FTIR[14:16]
-    
-    ###
-    #Read the geoposition, sza and spectral radiances
-    ###
-    with nc.Dataset(fname_radiances, "r") as dataset:
-        aux.LAT = dataset.variables['lat'][0]
-        aux.LON = dataset.variables['lon'][0]
-        aux.SOLAR_ZENITH_ANGLE = dataset.variables['sza'][0]
-        aux.WAVENUMBER_FTIR = np.array(dataset.variables['wavenumber'][:])
-        aux.RADIANCE_FTIR = np.array(dataset.variables['radiance'][:])+inp.OFFSET
-        aux.NOISE_FTIR = np.array(dataset.variables['stdDev'][:])
-        
-    ###
-    #Read the cloud height
-    ###
-    with nc.Dataset(fname_clouds, "r") as dataset:
-        layers_cloud = np.array(dataset.variables['layers_cloud'][:], dtype=bool)
-        levels_cloud = np.array(dataset.variables['levels'][:])
-
-    aux.CLOUD_BASE = [min(levels_cloud[layers_cloud])]
-    aux.CLOUD_TOP =  [max(levels_cloud[layers_cloud])]
-    
-    if inp.CLOUD_BASE[0] != -1:
-        aux.CLOUD_BASE = inp.CLOUD_BASE
-    if inp.CLOUD_TOP[0] != -1:
-        aux.CLOUD_TOP = inp.CLOUD_TOP
-
-    ###
-    #Read atmospheric profile
-    ###
-    if inp.HUMIDITY == "g/kg":
-        key_humd = 'sh'
-    elif inp.HUMIDITY == "g/m3":
-        key_humd = 'ah'
-    elif inp.HUMIDITY == 'ppmv':
-        key_humd = 'h2o'
-    elif inp.HUMIDITY == "%":
-        key_humd = "rh"
-        
-    with nc.Dataset(fname_atm, "r") as dataset:
-        height = np.array(dataset.variables['z'][:])
-        aux.ATMOSPHERIC_GRID[1] = np.array(dataset.variables['z'][:])
-        aux.ATMOSPHERIC_GRID[0] = np.array(dataset.variables['P'][:])
-        aux.ATMOSPHERIC_GRID[2] = np.array(dataset.variables['T'][:])+inp.DISTURB_TEMPERATURE
-        humidity = np.array(dataset.variables[key_humd][:])
-        aux.CO2_PROFILE = np.array(dataset.variables['co2'][:])
-        #aux.O3_PROFILE = np.array(dataset.variables['o3'][:])
-
-
-    if inp.HUMIDITY == "%":
-        humidity = np.array(convert_humidity.convert(["-r", humidity], \
-                                                    ["-tk", aux.ATMOSPHERIC_GRID[2]], \
-                                                    ["-p", aux.ATMOSPHERIC_GRID[0]])[1]*1000.0)
-        inp.HUMIDITY = "g/kg"
-    aux.ATMOSPHERIC_GRID[3] = humidity+inp.DISTURB_HUMIDITY*humidity
-    idx_unique_pressure = np.array(sorted(np.unique(aux.ATMOSPHERIC_GRID[0], return_index=True)[1]))
-
-    ###
-    #Remove layers with identical pressure
-    ###
-    for i in range(4):
-        aux.ATMOSPHERIC_GRID[i] = aux.ATMOSPHERIC_GRID[i][idx_unique_pressure]
-    
-    if len(height) > 70:
-        aux.ATMOSPHERIC_GRID[1] = np.geomspace(height[0], inp.MAX_ALT, aux.TOTAL_NUM_OF_LAYER)
-        aux.ATMOSPHERIC_GRID[0] = np.interp(aux.ATMOSPHERIC_GRID[1], height, aux.ATMOSPHERIC_GRID[0])
-        aux.ATMOSPHERIC_GRID[2] = np.interp(aux.ATMOSPHERIC_GRID[1], height, aux.ATMOSPHERIC_GRID[2])
-        aux.ATMOSPHERIC_GRID[3] = np.interp(aux.ATMOSPHERIC_GRID[1], height, aux.ATMOSPHERIC_GRID[3])
-    return
-'''    
 if __name__ == '__main__':
-    inp.TESTCASE = False
-    read_input("radiances/nyem.20200506_184033.nc", \
-                "atm_prof/prof20200506_184033.nc", \
-                "cloud_files/CLOUDS.20200506.184033.nc")
+    inp.TESTCASE = True
+    read_input("/home/philippr/TESTCASES_nc/simulation_2012021817_cld1_0006_ch2_singleLayer.nc")
+    #read_input("/home/philippr/Arbeit/RETRIEVAL/PS.20170611_161500.nc")

@@ -300,7 +300,7 @@ def __set_up_retrieval():
     #if not os.path.exists(aux.LBLDIR):
     if inp.MODELFRAMEWORK == "LBLDIS":
         [wavenumber, radiance] = rL.forward_run([0, 0, 10., 30.], [0, 1.0], True, 0)
-    
+
     '''
     If the current spectrum is a testcase, add some noise to the radiances
     '''
