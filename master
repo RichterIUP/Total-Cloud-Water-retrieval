@@ -1,0 +1,54 @@
+#!/bin/bash
+#SBATCH --job-name=TCWret_CRE
+#SBATCH -n 1
+#SBATCH -N 1
+#SBATCH -t 4320
+#SBATCH -p all
+#SBATCH --mem=9000
+#SBATCH --open-mode=append
+#SBATCH --mail-type=END
+#SBATCH --mail-user=phi.richter@iup.physik.uni-bremen.de
+
+export LBL_HOME=/home/phi.richter/radiative_transfer/lblrtm
+module unuse /home/eb/modules/all
+module unuse /home/eb/modules/LAMOS
+module use /home/eb/modules/_legacy/all
+module load Python
+module load matplotlib
+module load netcdf4-python
+
+sbatch calc_cre_0
+sleep 5
+sbatch calc_cre_1
+sleep 5
+sbatch calc_cre_2
+sleep 5
+sbatch calc_cre_3
+sleep 5
+sbatch calc_cre_4
+sleep 5
+sbatch calc_cre_5
+sleep 5
+sbatch calc_cre_6
+sleep 5
+sbatch calc_cre_7
+sleep 5
+sbatch calc_cre_8
+sleep 5
+sbatch calc_cre_9
+sleep 5
+sbatch calc_cre_10
+sleep 5
+sbatch calc_cre_11
+sleep 5
+sbatch calc_cre_12
+sleep 5
+sbatch calc_cre_13
+sleep 5
+sbatch calc_cre_14
+sleep 5
+sbatch calc_cre_15
+sleep 5
+sbatch calc_cre_16
+sleep 5
+sbatch calc_cre_17

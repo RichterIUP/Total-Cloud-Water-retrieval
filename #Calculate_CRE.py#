@@ -12,6 +12,8 @@ if __name__ == '__main__':
 
     start = int(sys.argv[1]) * 322
     stop  = 322 + int(sys.argv[1]) * 322
+    if stop > 5780:
+        stop = 5780
     for idx in range(start, stop, 1):
         working_dir = "/home/phi.richter/TCWret"
         os.chdir(working_dir)
