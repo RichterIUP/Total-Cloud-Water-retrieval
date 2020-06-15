@@ -11,6 +11,8 @@ import shutil
 if __name__ == '__main__':
 
     for idx in range(2,4,1):#int(sys.argv[1]), int(sys.argv[2]), 1):
+        working_dir = "/home/phi.richter/TCWret"
+        os.chdir(working_dir)
         path = "/home/phi.richter/input_for_TCWret"
         files = sorted(os.listdir(path))
         spec = "{}/{}".format(path, files[idx])
