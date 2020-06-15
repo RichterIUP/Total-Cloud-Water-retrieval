@@ -67,8 +67,8 @@ def main(cl_param):
                         'wavenumber_cloudy': wavenumber_cloudy, \
                         'radiance_cloudy':   radiance_cloudy})
     outfile = "{}/results_cre_{}_{}.csv".format(inp.PATH, wn_low, wn_high)
-    cre.to_csv(outfile, index=False)
-    print(outfile)
+    while not os.path.exists(outfile):
+        cre.to_csv(outfile, index=False)
     return
     
 if __name__ == '__main__':
