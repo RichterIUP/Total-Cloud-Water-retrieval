@@ -29,6 +29,6 @@ if __name__ == '__main__':
             shutil.rmtree(files[idx])
             os.mkdir(files[idx])
         shutil.copyfile(src="/mnt/beegfs/user/phi.richter/OUTFOLDER_Calc_CRE/{}/1/results_cre_200.0_1500.0.csv".format(files[idx]), \
-                        dst="/home/phi.richter/LW_Downward_radiation/{}/results_cre_200.0_1500.0.csv".format(files[idx)    
+                        dst="/home/phi.richter/LW_Downward_radiation/{}/results_cre_200.0_1500.0.csv".format(files[idx]))    
         shutil.copyfile(src="/mnt/beegfs/user/phi.richter/OUTFOLDER_Calc_CRE/{}/2/results_cre_1500.0_2800.0.csv".format(files[idx]), \
-                        dst="/home/phi.richter/LW_Downward_radiation/{}/results_cre_1500.0_2800.0.csv".format(files[idx])
+                        dst="/home/phi.richter/LW_Downward_radiation/{}/results_cre_1500.0_2800.0.csv".format(files[idx]))
