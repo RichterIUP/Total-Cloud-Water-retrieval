@@ -65,7 +65,7 @@ Resolution of the spectrum in cm-1. FTIR spectral radiances will be interpolated
 to the chosen resolution. If RESOLUTION is a negative number, then no interpolation
 is done. OPD is the Optical path difference of the spectrometer
 '''
-RESOLUTION = 0.3
+RESOLUTION = 2.0#0.3
 OPD = 3.0
 
 '''
@@ -86,7 +86,7 @@ Number of CPU which shall be used for the calculation of the derivatives.
 This number will be decreased automatically, if less than NUM_OF_CPU
 are needed
 '''
-NUM_OF_CPU = 6
+NUM_OF_CPU = 1
 
 '''
 If the present spectrum is a testcase of Cox et al. (2016), then this should

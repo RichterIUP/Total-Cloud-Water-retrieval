@@ -14,27 +14,20 @@ if __name__ == '__main__':
     stop  = 322 + int(sys.argv[1]) * 322
     if stop > 5781:
         stop = 5781
-    for idx in range(start, stop, 1):
+        
+    path = "/home/phi.richter/input_for_TCWret"
+    files = sorted(os.listdir(path))[start:stop]
+    print(files)
+    for file_ in files:
+        out_dir = "/mnt/beegfs/user/phi.richter/OUTFOLDER_Calc_CRE/"
         working_dir = "/home/phi.richter/TCWret"
         os.chdir(working_dir)
-        path = "/home/phi.richter/input_for_TCWret"
-        files = sorted(os.listdir(path))
-        spec = "{}/{}".format(path, files[idx])
-        if not "TCWret_inp" in files[idx]:
+        spec = "{}/{}".format(path, file_)
+        if not "TCWret_inp" in file_:
             continue
-        subprocess.call(["python3", "src/main_cre.py", "{}".format(spec), "200.", "1500.", "1"])
-        subprocess.call(["python3", "src/main_cre.py", "{}".format(spec), '1500.', '2800.', "2"])
-
-        path_out = "/home/phi.richter/LW_Downward_radiation"
-        if not os.path.exists(path_out):
-            os.mkdir(path_out)
-        os.chdir(path_out)
-        if not os.path.exists(files[idx]):
-            os.mkdir(files[idx])
-        else:
-            shutil.rmtree(files[idx])
-            os.mkdir(files[idx])
-        shutil.copyfile(src="/mnt/beegfs/user/phi.richter/OUTFOLDER_Calc_CRE/{}/1/results_cre_200.0_1500.0.csv".format(files[idx]), \
-                        dst="/home/phi.richter/LW_Downward_radiation/{}/results_cre_200.0_1500.0.csv".format(files[idx]))    
-        shutil.copyfile(src="/mnt/beegfs/user/phi.richter/OUTFOLDER_Calc_CRE/{}/2/results_cre_1500.0_2800.0.csv".format(files[idx]), \
-                        dst="/home/phi.richter/LW_Downward_radiation/{}/results_cre_1500.0_2800.0.csv".format(files[idx]))
+        subprocess.Popen(["python3", "src/main_cre.py", "{}".format(spec), "200.", "1500.", "1"])
+        subprocess.Popen(["python3", "src/main_cre.py", "{}".format(spec), '1500.', '2800.', "2"])
+        while not (os.path.exists("{}/{}/1/results_cre_200.0_1500.0.csv".format(out_dir, file_)) and \
+                   os.path.exists("{}/{}/2/results_cre_1500.0_2800.0.csv".format(out_dir, file_))):
+            continue
+       

@@ -29,7 +29,7 @@ def main(cl_param):
     #print(aux.ATMOSPHERIC_GRID[1])
     #exit(-1)
     aux.TIME_INDEX = cl_param[-1]
-    inp.RESOLUTION = 1.0
+    #inp.RESOLUTION = 1.0
     
     #with open()
 
@@ -67,8 +67,14 @@ def main(cl_param):
                         'wavenumber_cloudy': wavenumber_cloudy, \
                         'radiance_cloudy':   radiance_cloudy})
     outfile = "{}/results_cre_{}_{}.csv".format(inp.PATH, wn_low, wn_high)
-    cre.to_csv(outfile, index=False)
-    print(outfile)
+    while not os.path.exists(outfile):
+        with open(outfile, "w") as f:
+            f.write("wavenumber_clear,radiance_clear,wavenumber_cloudy,radiance_cloudy\n")
+            for ii in range(len(cre)):
+                f.write("{},{},{},{}\n".format(cre['wavenumber_clear'].iloc[ii], \
+                                               cre['radiance_clear'].iloc[ii], \
+                                               cre['wavenumber_cloudy'].iloc[ii], \
+                                               cre['radiance_cloudy'].iloc[ii]))
     return
     
 if __name__ == '__main__':
