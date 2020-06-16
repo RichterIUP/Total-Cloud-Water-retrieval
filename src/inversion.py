@@ -300,6 +300,16 @@ def __set_up_retrieval():
     #if not os.path.exists(aux.LBLDIR):
     if inp.MODELFRAMEWORK == "LBLDIS":
         [wavenumber, radiance] = rL.forward_run([0, 0, 10., 30.], [0, 1.0], True, 0)
+        f = open("{}/wavenumber_clear_{}_{}.csv".format(inp.PATH, wavenumber[0], wavenumber[-1]), "w")
+        f.write("wavenumber_clear\n")
+        for ii in range(len(wavenumber)):
+            f.write("{}\n".format(wavenumber[ii]))
+        f.close()
+        f = open("{}/lbldis_clear_{}_{}.csv".format(inp.PATH, wavenumber[0], wavenumber[-1]), "w")
+        f.write("radiance_clear\n")
+        for ii in range(len(wavenumber)):
+            f.write("{}\n".format(radiance[ii]))
+        f.close()
 
     '''
     If the current spectrum is a testcase, add some noise to the radiances
@@ -316,7 +326,7 @@ def __set_up_retrieval():
     [variance_ra, aux.S_Y_INV_MATRIX] = aux.s_y_inv()
     
     log.log_pre_iter(variance_ra)
-    return wavenumber, radiance
+    return
 
 ################################################################################
 
@@ -345,17 +355,15 @@ def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=Fals
     #slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0] - aux.WAVENUMBER_FTIR[idx])
     #slope = np.abs(slope_lbldis - slope_ftir)
 
-    f = open("{}/wavenumber.csv".format(inp.PATH), "w")
+    f = open("{}/wavenumber_cloudy_{}_{}.csv".format(inp.PATH, wavenumber[0], wavenumber[-1]), "w")
+    f.write("wavenumber_cloudy\n")
     for ii in range(len(wavenumber)):
         f.write("{}\n".format(wavenumber[ii]))
     f.close()
-    f = open("{}/lbldis.csv".format(inp.PATH), "w")
+    f = open("{}/lbldis_cloudy_{}_{}.csv".format(inp.PATH, wavenumber[0], wavenumber[-1]), "w")
+    f.write("radiance_cloudy\n")
     for ii in range(len(wavenumber)):
         f.write("{}\n".format(radiance[ii]))
-    f.close()
-    f = open("{}/ftir.csv".format(inp.PATH), "w")
-    for ii in range(len(aux.WAVENUMBER_FTIR)):
-        f.write("{}\n".format(aux.RADIANCE_FTIR[ii]))
     f.close()
     return [rms, wavenumber, radiance]
 

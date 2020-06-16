@@ -59,22 +59,9 @@ def main(cl_param):
     '''
     Get clear sky and cloudy sky radiances
     '''
-    [wavenumber_clear, radiance_clear] = inversion.__set_up_retrieval()    
-    [rms, wavenumber_cloudy, radiance_cloudy] = inversion.retrieve()
+    inversion.__set_up_retrieval()    
+    inversion.retrieve()
 
-    cre = pd.DataFrame({'wavenumber_clear' : wavenumber_clear, \
-                        'radiance_clear':    radiance_clear, \
-                        'wavenumber_cloudy': wavenumber_cloudy, \
-                        'radiance_cloudy':   radiance_cloudy})
-    outfile = "{}/results_cre_{}_{}.csv".format(inp.PATH, wn_low, wn_high)
-    while not os.path.exists(outfile):
-        with open(outfile, "w") as f:
-            f.write("wavenumber_clear,radiance_clear,wavenumber_cloudy,radiance_cloudy\n")
-            for ii in range(len(cre)):
-                f.write("{},{},{},{}\n".format(cre['wavenumber_clear'].iloc[ii], \
-                                               cre['radiance_clear'].iloc[ii], \
-                                               cre['wavenumber_cloudy'].iloc[ii], \
-                                               cre['radiance_cloudy'].iloc[ii]))
     return
     
 if __name__ == '__main__':

@@ -25,9 +25,5 @@ if __name__ == '__main__':
         spec = "{}/{}".format(path, file_)
         if not "TCWret_inp" in file_:
             continue
-        subprocess.Popen(["python3", "src/main_cre.py", "{}".format(spec), "200.", "1500.", "1"])
-        subprocess.Popen(["python3", "src/main_cre.py", "{}".format(spec), '1500.', '2800.', "2"])
-        while not (os.path.exists("{}/{}/1/results_cre_200.0_1500.0.csv".format(out_dir, file_)) and \
-                   os.path.exists("{}/{}/2/results_cre_1500.0_2800.0.csv".format(out_dir, file_))):
-            continue
-       
+        subprocess.call(["python3", "src/main_cre.py", "{}".format(spec), "200.", "1500.", "1"])
+        subprocess.call(["python3", "src/main_cre.py", "{}".format(spec), '1500.', '2800.', "2"])
