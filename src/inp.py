@@ -9,8 +9,8 @@ MODELFRAMEWORK = 'LBLDIS'#'CLARRA'
 '''
 Path to the output of TCWret
 '''
-PATH = '/mnt/beegfs/user/phi.richter/OUTFOLDER_Calc_CRE'
-RESULTS = '/mnt/beegfs/user/phi.richter/RESULTS_Calc_CRE'
+PATH = '/home/phi.richter/GitHub/TCWret/OUTFOLDER'
+RESULTS = '/home/phi.richter/GitHub/TCWret/RESULTS'
 '''
 Path to the binary of LBLRTM
 '''
@@ -173,8 +173,8 @@ SOPHISTICATED_ADJ = False
 Manual choise of the cloud thresholds. If L-IWP should use the cloud
 thresholds from the file, these have to be set to -1
 '''
-CLOUD_BASE = [-1]
-CLOUD_TOP = [-1]
+CLOUD_BASE = [1100.]
+CLOUD_TOP = [2100.]
 
 '''
 Composition of ice particles. The built in composition is:
