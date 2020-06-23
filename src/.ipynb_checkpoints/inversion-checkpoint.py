@@ -298,8 +298,24 @@ def __set_up_retrieval():
     Calculate the clear sky spectrum
     '''
     #if not os.path.exists(aux.LBLDIR):
-    if inp.MODELFRAMEWORK == "LBLDIS":
-        [wavenumber, radiance] = rL.forward_run([0, 0, 10., 30.], [0, 1.0], True, 0)
+    #if inp.MODELFRAMEWORK == "LBLDIS":
+    [wavenumber, radiance] = rL.forward_run([0, 0, 10., 30.], [0, 1.0], True, 0)
+    print("Write wavenumber_clear...")
+    f = open("{}/wavenumber_clear.csv".format(inp.PATH), "w")
+    f.write("wavenumber_clear\n")
+    for ii in range(len(wavenumber)):
+        f.write("{}\n".format(wavenumber[ii]))
+        print("{}\n".format(wavenumber[ii]))
+    f.close()
+    print("Done!")
+    print("Write lbldis_clear...")
+    f = open("{}/lbldis_clear.csv".format(inp.PATH), "w")
+    f.write("radiance_clear\n")
+    for ii in range(len(wavenumber)):
+        f.write("{}\n".format(radiance[ii]))
+        print("{}\n".format(radiance[ii]))
+    f.close()
+    print("Done!")
 
     '''
     If the current spectrum is a testcase, add some noise to the radiances
@@ -316,7 +332,7 @@ def __set_up_retrieval():
     [variance_ra, aux.S_Y_INV_MATRIX] = aux.s_y_inv()
     
     log.log_pre_iter(variance_ra)
-    return wavenumber, radiance
+    return
 
 ################################################################################
 
@@ -345,18 +361,22 @@ def __only_fwd(tau_liq=0.0, tau_ice=0.0, reff_liq=0.0, reff_ice=0.0, lblrtm=Fals
     #slope_ftir = (aux.RADIANCE_FTIR[0] - aux.RADIANCE_FTIR[idx])/(aux.WAVENUMBER_FTIR[0] - aux.WAVENUMBER_FTIR[idx])
     #slope = np.abs(slope_lbldis - slope_ftir)
 
-    f = open("{}/wavenumber.csv".format(inp.PATH), "w")
+    print("Write wavenumber_cloudy...")
+    f = open("{}/wavenumber_cloudy.csv".format(inp.PATH), "w")
+    f.write("wavenumber_cloudy\n")
     for ii in range(len(wavenumber)):
         f.write("{}\n".format(wavenumber[ii]))
+        print("{}\n".format(wavenumber[ii]))
     f.close()
-    f = open("{}/lbldis.csv".format(inp.PATH), "w")
+    print("Done!")
+    print("Write lbldis_cloudy...")
+    f = open("{}/lbldis_cloudy.csv".format(inp.PATH), "w")
+    f.write("radiance_cloudy\n")
     for ii in range(len(wavenumber)):
         f.write("{}\n".format(radiance[ii]))
+        print("{}\n".format(radiance[ii]))
     f.close()
-    f = open("{}/ftir.csv".format(inp.PATH), "w")
-    for ii in range(len(aux.WAVENUMBER_FTIR)):
-        f.write("{}\n".format(aux.RADIANCE_FTIR[ii]))
-    f.close()
+    print("Done!")
     return [rms, wavenumber, radiance]
 
 ################################################################################
